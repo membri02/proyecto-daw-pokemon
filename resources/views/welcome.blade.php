@@ -8,5 +8,6 @@
 <body>
     <h1>¡Bienvenido a la Web Temática Pokémon!</h1>
     <p>Próximamente: Pokédex, Minijuego y Tienda de Cartas.</p>
+    <p>Prueba de commit</p>
 </body>
 </html>
