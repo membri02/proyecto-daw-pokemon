@@ -10,3 +10,7 @@ Route::get('/', function () {
 Route::get('/sobres', function () {
     return view('tienda.sobres');
 });
+
+Route::get('/pokedex', function () {
+    return view('pokedex.pokedex');
+});
