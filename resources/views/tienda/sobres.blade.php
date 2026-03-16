@@ -85,11 +85,44 @@
         </div>
 
         <div class="tienda-action-bar">
-            <button class="btn-primary-tcg">
-                SOLICITAR APERTURA (100 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="icono-moneda-btn" alt="Moneda">)
+            <button id="btn-abrir" class="btn-primary-tcg" disabled>
+                SELECCIONA UN SOBRE
             </button>
             <br>
             <a class="link-back-tcg" href="/">← Regresar a la pantalla principal</a>
         </div>
     </div>
+
+    
+    <script>
+        let sobreSeleccionado = null;
+        const btnAbrir = document.getElementById('btn-abrir');
+        const sobres = document.querySelectorAll('.booster-pack-wrapper');
+
+        sobres.forEach(sobre => {
+            sobre.addEventListener('click', function() {
+                sobres.forEach(s => s.classList.remove('selected'));
+                
+                this.classList.add('selected');
+                sobreSeleccionado = this.classList[1]; 
+
+                btnAbrir.innerHTML = `ABRIR SOBRE ${sobreSeleccionado.toUpperCase()} (100 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="icono-moneda-btn" alt="Moneda">)`;
+                btnAbrir.disabled = false;
+            });
+        });
+
+        btnAbrir.addEventListener('click', () => {
+            if (sobreSeleccionado) {
+                btnAbrir.disabled = true;
+                btnAbrir.innerHTML = '¡ABRIENDO... ✨!';
+
+                const sobreActivo = document.querySelector('.booster-pack-wrapper.selected');
+                sobreActivo.classList.add('opening-animation');
+
+                setTimeout(() => {
+                    window.location.href = `/sobres/abrir/${sobreSeleccionado}`;
+                }, 1500);
+            }
+        });
+    </script>
 @endsection
