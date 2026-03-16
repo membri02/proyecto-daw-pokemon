@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('cartas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->string('tipo'); // Fuego, Agua, Planta...
+            $table->string('rareza'); // Común, Rara, Legendaria...
+            $table->string('imagen_url')->nullable(); // Foto de la carta (opcional)
+            $table->timestamps(); // Crea automáticamente 'created_at' y 'updated_at'
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('cartas');
+    }
+};
