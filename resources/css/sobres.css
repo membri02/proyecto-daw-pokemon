@@ -1,64 +1,341 @@
-body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; margin:0; padding:0; }
-h1 { margin-top: 2rem; color: #333; }
-p { color: #555; }
-
-.sobres-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
+/* Configuración General y Reset */
+.tienda-wrapper {
+    padding: 3rem 1.5rem;
+    max-width: 1400px; 
+    margin: 0 auto;
+    font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
+    background: #f4f7f6;
 }
 
-.sobre {
-    width: 180px;
-    height: 260px;
-    border-radius: 8px;
+.tienda-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.titulo-pokemon {
+    font-size: 3.5rem;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+}
+
+.subtitulo {
+    color: #57606f;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+/* Iconos de Moneda Estables */
+.icono-moneda-inline {
+    width: 24px;
+    vertical-align: middle;
+    margin-top: -4px;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+}
+
+.icono-moneda-btn {
+    width: 28px;
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-left: 4px;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+}
+
+/* Introducción Section */
+.introduccion-section {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: center;
+}
+
+.intro-card {
+    background: white;
+    border-radius: 4px; 
+    padding: 2.5rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    max-width: 1000px;
+    width: 100%;
+    border-top: 4px solid #333; 
+}
+
+.intro-card h2 {
+    color: #1a1a1a;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.intro-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+}
+
+.intro-marker {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: white;
+    background: #333;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+}
+
+.intro-item strong {
+    color: #1a1a1a;
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.intro-item p {
+    color: #57606f;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* Grid de Sobres */
+.sobres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+/* === EL MAGIA DEL EFECTO FOCUS === */
+/* Cuando el usuario hace hover en el contenedor general, los sobres que NO están siendo tocados se oscurecen y alejan */
+.sobres-grid:hover .booster-pack-wrapper:not(:hover) {
+    opacity: 0.5;
+    filter: grayscale(40%);
+    transform: scale(0.95) translateY(5px);
+}
+
+/* Estructura del Booster Pack Físico */
+.booster-pack-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform, filter;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: flotar-suave 5s ease-in-out infinite;
 }
 
-.sobre:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+/* Hover Individual (Spotlight) */
+.booster-pack-wrapper:hover {
+    transform: scale(1.1) translateY(-15px) !important;
+    z-index: 20;
+    /* Glow general que luego colorearemos por tipo */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-radius: 8px;
 }
 
-/* type modifiers */
-.sobre.fuego { background: linear-gradient(135deg, #ff5722, #ff9800); }
-.sobre.agua  { background: linear-gradient(135deg, #2196f3, #03a9f4); }
-.sobre.planta{ background: linear-gradient(135deg, #4caf50, #8bc34a); }
-.sobre.electrico { background: linear-gradient(135deg, #ffc107, #ffeb3b); }
-.sobre.hielo { background: linear-gradient(135deg, #00bcd4, #81d4fa); }
-.sobre.dark { background: linear-gradient(135deg, #607d8b, #455a64); }
-.sobre.psycho { background: linear-gradient(135deg, #9c27b0, #e040fb); }
+.booster-pack-wrapper:hover .pack-shine {
+    transform: translateX(120%);
+}
 
-button.primary {
+.booster-pack-wrapper:hover .pack-art-image {
+    transform: scale(1.08) translateY(-5px); 
+}
+
+/* === EL SELLADO (CRIMPING) FÍSICO === */
+.pack-crimp {
+    width: 96%; /* Ligeramente más estrecho que el centro para dar volumen */
+    height: 16px;
+    /* Dibujamos las estrías del sellado térmico */
+    background-image: repeating-linear-gradient(
+        90deg, 
+        rgba(0,0,0,0.1) 0px, 
+        rgba(0,0,0,0.1) 2px, 
+        rgba(255,255,255,0.2) 2px, 
+        rgba(255,255,255,0.2) 4px
+    );
+    z-index: 1;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+.pack-crimp.top {
+    border-radius: 4px 4px 0 0;
+    border-bottom: 2px solid rgba(0,0,0,0.3);
+}
+
+.pack-crimp.bottom {
+    border-radius: 0 0 4px 4px;
+    border-top: 2px solid rgba(0,0,0,0.3);
+}
+
+/* Cuerpo del Sobre */
+.pack-inner {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    border-radius: 2px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    background: #fff; 
+    z-index: 2;
+}
+
+/* Textura de Aluminio y Brillo Sweep */
+.pack-foil-texture {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 25%, rgba(0,0,0,0.05) 50%, rgba(255,255,255,0.3) 75%, rgba(255,255,255,0.1) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.pack-shine {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease-in-out;
+    z-index: 4;
+    pointer-events: none;
+}
+
+/* Arte del Pokémon */
+.pack-art-image {
+    width: 85%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
     margin-top: 1.5rem;
-    padding: 0.6rem 1.2rem;
+    margin-bottom: auto;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
+    z-index: 3;
+    opacity: 0.95;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Franja Inferior de Información (TCG Style) */
+.pack-footer-info {
+    text-align: center;
+    color: white;
+    z-index: 3;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 30%);
+    padding: 25px 10px 15px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pack-set-name {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.pack-expansion-name {
+    opacity: 0.9;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.pack-card-count {
+    background: #FFCB05; 
+    color: #2A75BB; 
+    font-size: 0.75rem;
+    font-weight: 900;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Colores Base y de Sellado Dinámicos */
+.fuego .pack-inner, .fuego .pack-crimp { background-color: #e74c3c; } .fuego .pack-inner { background: linear-gradient(180deg, #e74c3c, #b03a2e); } .fuego:hover { box-shadow: 0 20px 40px rgba(231, 76, 60, 0.4); }
+.agua .pack-inner, .agua .pack-crimp { background-color: #3498db; } .agua .pack-inner { background: linear-gradient(180deg, #3498db, #21618c); } .agua:hover { box-shadow: 0 20px 40px rgba(52, 152, 219, 0.4); }
+.planta .pack-inner, .planta .pack-crimp { background-color: #2ecc71; } .planta .pack-inner { background: linear-gradient(180deg, #2ecc71, #1e8449); } .planta:hover { box-shadow: 0 20px 40px rgba(46, 204, 113, 0.4); }
+.electrico .pack-inner, .electrico .pack-crimp { background-color: #f1c40f; } .electrico .pack-inner { background: linear-gradient(180deg, #f1c40f, #b7950b); } .electrico:hover { box-shadow: 0 20px 40px rgba(241, 196, 15, 0.4); }
+.hielo .pack-inner, .hielo .pack-crimp { background-color: #81ecec; } .hielo .pack-inner { background: linear-gradient(180deg, #81ecec, #00cec9); } .hielo:hover { box-shadow: 0 20px 40px rgba(129, 236, 236, 0.4); }
+.lucha .pack-inner, .lucha .pack-crimp { background-color: #d35400; } .lucha .pack-inner { background: linear-gradient(180deg, #d35400, #873600); } .lucha:hover { box-shadow: 0 20px 40px rgba(211, 84, 0, 0.4); }
+.veneno .pack-inner, .veneno .pack-crimp { background-color: #8e44ad; } .veneno .pack-inner { background: linear-gradient(180deg, #8e44ad, #5b2c6f); } .veneno:hover { box-shadow: 0 20px 40px rgba(142, 68, 173, 0.4); }
+.tierra .pack-inner, .tierra .pack-crimp { background-color: #e67e22; } .tierra .pack-inner { background: linear-gradient(180deg, #e67e22, #a04000); } .tierra:hover { box-shadow: 0 20px 40px rgba(230, 126, 34, 0.4); }
+.volador .pack-inner, .volador .pack-crimp { background-color: #74b9ff; } .volador .pack-inner { background: linear-gradient(180deg, #81ecec, #74b9ff); } .volador:hover { box-shadow: 0 20px 40px rgba(116, 185, 255, 0.4); }
+.psiquico .pack-inner, .psiquico .pack-crimp { background-color: #fd79a8; } .psiquico .pack-inner { background: linear-gradient(180deg, #fd79a8, #e84393); } .psiquico:hover { box-shadow: 0 20px 40px rgba(253, 121, 168, 0.4); }
+.bicho .pack-inner, .bicho .pack-crimp { background-color: #badc58; } .bicho .pack-inner { background: linear-gradient(180deg, #badc58, #6ab04c); } .bicho:hover { box-shadow: 0 20px 40px rgba(186, 220, 88, 0.4); }
+.roca .pack-inner, .roca .pack-crimp { background-color: #fab1a0; } .roca .pack-inner { background: linear-gradient(180deg, #fab1a0, #ff7675); } .roca:hover { box-shadow: 0 20px 40px rgba(250, 177, 160, 0.4); }
+.fantasma .pack-inner, .fantasma .pack-crimp { background-color: #a29bfe; } .fantasma .pack-inner { background: linear-gradient(180deg, #a29bfe, #6c5ce7); } .fantasma:hover { box-shadow: 0 20px 40px rgba(162, 155, 254, 0.4); }
+.dragon .pack-inner, .dragon .pack-crimp { background-color: #ff9f43; } .dragon .pack-inner { background: linear-gradient(180deg, #ff9f43, #ee5253); } .dragon:hover { box-shadow: 0 20px 40px rgba(255, 159, 67, 0.4); }
+.siniestro .pack-inner, .siniestro .pack-crimp { background-color: #636e72; } .siniestro .pack-inner { background: linear-gradient(180deg, #636e72, #2d3436); } .siniestro:hover { box-shadow: 0 20px 40px rgba(99, 110, 114, 0.4); }
+.acero .pack-inner, .acero .pack-crimp { background-color: #dfe6e9; } .acero .pack-inner { background: linear-gradient(180deg, #dfe6e9, #b2bec3); } .acero:hover { box-shadow: 0 20px 40px rgba(223, 230, 233, 0.4); }
+.hada .pack-inner, .hada .pack-crimp { background-color: #ff9ff3; } .hada .pack-inner { background: linear-gradient(180deg, #ff9ff3, #f368e0); } .hada:hover { box-shadow: 0 20px 40px rgba(255, 159, 243, 0.4); }
+.normal .pack-inner, .normal .pack-crimp { background-color: #f1f2f6; } .normal .pack-inner { background: linear-gradient(180deg, #f1f2f6, #ced6e0); } .normal:hover { box-shadow: 0 20px 40px rgba(241, 242, 246, 0.4); }
+
+/* Barra de Acción Inferior */
+.tienda-action-bar {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ecf0f1;
+}
+
+.btn-primary-tcg {
+    background: #e74c3c;
+    color: white;
     border: none;
-    border-radius: 4px;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
+    padding: 1.25rem 3.5rem;
+    border-radius: 4px; 
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    transition: background 0.2s, transform 0.2s;
 }
 
-button.primary:hover {
-    background-color: #555;
+.btn-primary-tcg:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
 }
 
-a.back-link {
+/* Animaciones Suaves */
+@keyframes flotar-suave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.booster-pack-wrapper:nth-child(even) { animation-delay: 1s; }
+.booster-pack-wrapper:nth-child(3n) { animation-delay: 2s; }
+.booster-pack-wrapper:nth-child(4n) { animation-delay: 0.5s; }
+
+.link-back-tcg {
     display: inline-block;
-    margin-top: 1rem;
-    color: #333;
+    margin-top: 1.5rem;
+    color: #57606f;
     text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
-a.back-link:hover { text-decoration: underline; }
+.link-back-tcg:hover { color: #1a1a1a; text-decoration: underline; }
