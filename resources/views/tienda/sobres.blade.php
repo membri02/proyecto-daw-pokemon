@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Sobres - Pokémon DAW</title>
+@extends('layouts.app')
+
+@section('content')
     <link rel="stylesheet" href="{{ asset('css/sobres.css') }}">
-</head>
-<body>
-    <h1>Tienda de Cartas Pokémon</h1>
-    <p>¡Compra tu sobre y descubre qué Pokémon te toca!</p>
+
+    <div class="tienda-header" style="text-align: center; margin-bottom: 2rem;">
+        <h1>Tienda de Cartas Pokémon</h1>
+        <p>¡Compra tu sobre y descubre qué Pokémon te toca!</p>
+    </div>
     
     <div class="sobres-container">
         <div class="sobre fuego">
@@ -41,8 +39,9 @@
         </div>
     </div>
 
-    <button class="primary">Abrir sobre (Próximamente)</button>
-    
-    <a class="back-link" href="/">Volver al inicio</a>
-</body>
-</html>
+    <div style="text-align: center; margin-top: 2rem;">
+        <button class="primary">Abrir sobre (Próximamente)</button>
+        <br><br>
+        <a class="back-link" href="/">Volver al inicio</a>
+    </div>
+@endsection
