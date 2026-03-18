@@ -1,0 +1,177 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="auth-container">
+    <div class="trainer-card">
+        <div class="card-header">
+            <h2>Acceso a la Tienda</h2>
+            <p>Identifícate con tu ID de Entrenador</p>
+        </div>
+
+        <form method="POST" action="/login" class="auth-form">
+            @csrf
+
+            @if ($errors->any())
+                <div class="auth-errors">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <div class="input-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="ash@pueblopaleta.com" required autofocus>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Contraseña Secreta</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-submit">ENTRAR A LA TIENDA</button>
+
+            <div class="auth-links">
+                <a href="{{ route('register') }}">¿No tienes licencia? Regístrate aquí</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Estilos compartidos para Login y Registro */
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 70px); /* Restamos la altura del nav */
+        background: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') no-repeat center center;
+        background-size: 500px;
+        background-blend-mode: overlay;
+        background-color: #f4f7f6;
+    }
+
+    .trainer-card {
+        background: white;
+        width: 100%;
+        max-width: 450px;
+        border-radius: 12px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        overflow: hidden;
+        border: 4px solid #333;
+        position: relative;
+    }
+
+    .card-header {
+        background: #e53935; /* Rojo Pokédex */
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 6px solid #333;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 0 #c62828;
+    }
+
+    .card-header p {
+        margin: 5px 0 0;
+        font-size: 0.95rem;
+        opacity: 0.9;
+    }
+
+    .auth-form {
+        padding: 30px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        font-weight: 800;
+        color: #555;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+        border-color: #2a75bb; /* Azul Pokémon */
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(42, 117, 187, 0.2);
+    }
+
+    .btn-submit {
+        width: 100%;
+        background: #ffcb05; /* Amarillo Pokémon */
+        color: #2a75bb;
+        border: 3px solid #3c5aa6;
+        padding: 15px;
+        font-size: 1.2rem;
+        font-weight: 900;
+        border-radius: 8px;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: all 0.2s;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        background: #f1c40f;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
+    }
+
+    .auth-links {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .auth-links a {
+        color: #e53935;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .auth-links a:hover {
+        text-decoration: underline;
+    }
+
+    .auth-errors {
+        background: rgba(229, 46, 77, 0.1);
+        border: 1px solid rgba(229, 46, 77, 0.3);
+        padding: 12px 14px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        color: #c62828;
+    }
+
+    .auth-errors ul {
+        margin: 0;
+        padding-left: 18px;
+    }
+
+    .auth-errors li {
+        margin-bottom: 4px;
+    }
+</style>
+@endsection

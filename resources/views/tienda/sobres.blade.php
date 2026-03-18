@@ -9,6 +9,19 @@
             <p class="subtitulo">Adquiere potenciadores y expande tu colección de cartas digitales</p>
         </header>
 
+        <div style="text-align: center; margin-bottom: 2rem;">
+            @auth
+                <div style="display: inline-block; background: #fff; padding: 10px 25px; border-radius: 50px; border: 3px solid #FFCB05; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    Saldo actual: {{ Auth::user()->monedas }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;">
+                </div>
+            @endauth
+        </div>
+
+        @if(session('error'))
+            <div style="background: #e74c3c; color: white; padding: 15px; text-align: center; font-weight: bold; border-radius: 8px; max-width: 600px; margin: 0 auto 2rem; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
+                ⚠️ {{ session('error') }}
+            </div>
+        @endif
         <section class="introduccion-section">
             <div class="intro-card">
                 <h2>Guía de Adquisición de Potenciadores</h2>
@@ -38,47 +51,56 @@
             </div>
         </section>
         
+        <h2 class="titulo-seccion-tienda">Ediciones Básicas</h2>
         <div class="sobres-grid">
             @php
-                $tipos = [
-                    ['fuego', 'Set Fuego', 'Llamas Eternas', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png'], 
-                    ['agua', 'Set Agua', 'Mareas Profundas', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png'], 
-                    ['planta', 'Set Planta', 'Selva Ancestral', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png'], 
-                    ['electrico', 'Set Eléctrico', 'Tormenta Voltio', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'], 
-                    ['hielo', 'Set Hielo', 'Cero Absoluto', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png'], 
-                    ['lucha', 'Set Lucha', 'Puño K.O.', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/68.png'], 
-                    ['veneno', 'Set Veneno', 'Espora Tóxica', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png'], 
-                    ['tierra', 'Set Tierra', 'Falla Sísmica', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/112.png'], 
-                    ['volador', 'Set Volador', 'Cielo raudo', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/18.png'], 
-                    ['psiquico', 'Set Psíquico', 'Mente Maestra', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png'], 
-                    ['bicho', 'Set Bicho', 'Enjambre Voraz', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/123.png'], 
-                    ['roca', 'Set Roca', 'Muro Épico', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/76.png'], 
-                    ['fantasma', 'Set Fantasma', 'Alma Espectral', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/93.png'], 
-                    ['dragon', 'Set Dragón', 'Ira Dracónica', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png'], 
-                    ['siniestro', 'Set Siniestro', 'Luna Negra', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/197.png'], 
-                    ['acero', 'Set Acero', 'Metal Blindado', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/208.png'], 
-                    ['hada', 'Set Hada', 'Luz Mágica', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/36.png'], 
-                    ['normal', 'Set Normal', 'Impacto Base', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png'] 
+                $basicos = [
+                    ['fuego', 'Set Fuego', 'Llamas Eternas', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png', 100], 
+                    ['agua', 'Set Agua', 'Mareas Profundas', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png', 100], 
+                    ['planta', 'Set Planta', 'Selva Ancestral', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png', 100], 
                 ];
             @endphp
 
-            @foreach($tipos as $tipo)
-                <div class="booster-pack-wrapper {{ $tipo[0] }}">
+            @foreach($basicos as $tipo)
+                <div class="booster-pack-wrapper {{ $tipo[0] }}" data-tipo="{{ $tipo[0] }}" data-precio="{{ $tipo[4] }}">
                     <div class="pack-crimp top"></div>
-                    
                     <div class="pack-inner">
                         <div class="pack-foil-texture"></div>
                         <div class="pack-shine"></div>
-                        
                         <img src="{{ $tipo[3] }}" alt="Representación de {{ $tipo[1] }}" class="pack-art-image">
-                        
                         <div class="pack-footer-info">
                             <span class="pack-set-name">{{ $tipo[1] }}</span>
                             <small class="pack-expansion-name">{{ $tipo[2] }}</small>
                             <span class="pack-card-count">5 CARTAS</span>
                         </div>
                     </div>
-                    
+                    <div class="pack-crimp bottom"></div>
+                </div>
+            @endforeach
+        </div>
+
+        <h2 class="titulo-seccion-tienda premium-title">Colecciones Premium</h2>
+        <div class="sobres-grid">
+            @php
+                $premium = [
+                    ['holo', 'Set Holo', 'Destellos Raros', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/151.png', 500, 'Asegura 1 Carta Rara'], 
+                    ['legendario', 'Set Mito', 'Poder Legendario', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png', 1000, 'Asegura 1 Legendaria'], 
+                ];
+            @endphp
+
+            @foreach($premium as $tipo)
+                <div class="booster-pack-wrapper premium-pack {{ $tipo[0] }}" data-tipo="{{ $tipo[0] }}" data-precio="{{ $tipo[4] }}">
+                    <div class="aura-epica"></div> <div class="pack-crimp top"></div>
+                    <div class="pack-inner">
+                        <div class="pack-foil-texture"></div>
+                        <div class="pack-shine"></div>
+                        <img src="{{ $tipo[3] }}" alt="Representación de {{ $tipo[1] }}" class="pack-art-image">
+                        <div class="pack-footer-info">
+                            <span class="pack-set-name">{{ $tipo[1] }}</span>
+                            <small class="pack-expansion-name" style="color:#FFCB05; font-weight:bold;">{{ $tipo[5] }}</small>
+                            <span class="pack-card-count">5 CARTAS</span>
+                        </div>
+                    </div>
                     <div class="pack-crimp bottom"></div>
                 </div>
             @endforeach
@@ -93,20 +115,21 @@
         </div>
     </div>
 
-    
     <script>
         let sobreSeleccionado = null;
+        let precioSeleccionado = 0;
         const btnAbrir = document.getElementById('btn-abrir');
         const sobres = document.querySelectorAll('.booster-pack-wrapper');
 
         sobres.forEach(sobre => {
             sobre.addEventListener('click', function() {
                 sobres.forEach(s => s.classList.remove('selected'));
-                
-                this.classList.add('selected');
-                sobreSeleccionado = this.classList[1]; 
 
-                btnAbrir.innerHTML = `ABRIR SOBRE ${sobreSeleccionado.toUpperCase()} (100 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="icono-moneda-btn" alt="Moneda">)`;
+                this.classList.add('selected');
+                sobreSeleccionado = this.dataset.tipo;
+                precioSeleccionado = this.dataset.precio; 
+
+                btnAbrir.innerHTML = `ABRIR SOBRE ${sobreSeleccionado.toUpperCase()} (${precioSeleccionado} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="icono-moneda-btn" alt="Moneda">)`;
                 btnAbrir.disabled = false;
             });
         });
