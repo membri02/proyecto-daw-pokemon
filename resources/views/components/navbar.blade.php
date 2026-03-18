@@ -5,7 +5,10 @@
         <a href="/sobres">Tienda TCG</a>
         <a href="/minijuego">Minijuego</a>
         <a href="/admin">Panel Admin</a>
-        <a href="/album" class="nav-album">Mi Álbum</a>
+        
+        @auth
+            <a href="/album" class="nav-album">🎴 Mi Álbum</a>        
+        @endauth
     </div>
 
     <div class="nav-auth">
@@ -13,7 +16,7 @@
             <span class="user-badge">Entrenador: {{ Auth::user()->name }}</span>
             <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                 @csrf
-                <button type="submit" class="btn-logout">Salir</button>
+                <button type="submit" class="btn-logout" style="background: transparent; border: 1px solid white; color: white; padding: 5px 15px; border-radius: 20px; cursor: pointer; margin-left: 10px;">Salir</button>
             </form>
         @else
             <a href="{{ route('login') }}" class="btn-auth btn-login">Iniciar Sesión</a>
@@ -24,13 +27,14 @@
 
 <div class="coins-bar">
     @auth
-        💰 MONEDAS: {{ Auth::user()->monedas }} | 🏷️ COSTE SOBRE: 100
+        💰 MONEDAS: {{ Auth::user()->monedas }} | 🏷️ COSTE SOBRE BÁSICO: 100
     @else
         💡 Inicia sesión para ver tu monedero y abrir sobres.
     @endauth
 </div>
 
 <style>
+    /* ... (MANTÉN TODO TU CSS EXACTAMENTE IGUAL AQUÍ, ESTÁ PERFECTO) ... */
     .nav-pokemon {
         background-color: #e53935; /* Rojo Pokédex */
         padding: 15px 30px;
@@ -61,11 +65,12 @@
     }
 
     .nav-album {
-        background: var(--pokemon-yellow);
-        color: #2d3436;
-        padding: 4px 10px;
+        background: #ffcb05;
+        color: #2d3436 !important;
+        padding: 4px 12px;
         border-radius: 999px;
-        font-weight: 700;
+        font-weight: 800 !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .nav-auth {
@@ -120,7 +125,6 @@
         font-weight: bold;
         color: #2d3436;
         box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-        margin-top: 8px;
-        border-radius: 8px;
+        margin-top: 0;
     }
 </style>

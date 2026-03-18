@@ -69,4 +69,16 @@ class TiendaController extends Controller
 
         return view('tienda.apertura', compact('cartas', 'tipo'));
     }
+
+
+    public function miAlbum()
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        
+        // Traemos todas las cartas del usuario ordenadas por el ID de la carta
+        $cartas = $user->cartas()->orderBy('carta_id')->get();
+
+        return view('tienda.album', compact('cartas'));
+    }
 }

@@ -8,15 +8,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/sobres', [TiendaController::class, 'index']);
-
-Route::get('/sobres/abrir/{tipo}', [TiendaController::class, 'abrirSobre']);
-
 Route::get('/pokedex', function () {
     return view('pokedex.pokedex');
 });
 
-//rutas de autenticación
+// RUTAS PROTEGIDAS POR SESIÓN (Tienda y Álbum)
+Route::get('/sobres', [TiendaController::class, 'index'])->middleware('auth');
+Route::get('/sobres/abrir/{tipo}', [TiendaController::class, 'abrirSobre'])->middleware('auth');
+Route::get('/album', [TiendaController::class, 'miAlbum'])->middleware('auth')->name('album');
+
+// RUTAS DE AUTENTICACIÓN
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::get('/registro', [AuthController::class, 'showRegister'])->name('register');
 
