@@ -4,7 +4,7 @@
     max-width: 1400px; 
     margin: 0 auto;
     font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
-    background: #f4f7f6;
+    background: hsl(180, 11%, 98%);
 }
 
 .tienda-header {
@@ -120,7 +120,7 @@
 
 /* === EL MAGIA DEL EFECTO FOCUS === */
 /* Cuando el usuario hace hover en el contenedor general, los sobres que NO están siendo tocados se oscurecen y alejan */
-.sobres-grid:hover .booster-pack-wrapper:not(:hover) {
+.sobres-grid:hover .booster-pack-wrapper:not(:hover):not(.selected) {
     opacity: 0.5;
     filter: grayscale(40%);
     transform: scale(0.95) translateY(5px);
@@ -141,7 +141,7 @@
 /* Hover Individual (Spotlight) */
 .booster-pack-wrapper:hover {
     transform: scale(1.1) translateY(-15px) !important;
-    z-index: 20;
+    z-index: 40;
     /* Glow general que luego colorearemos por tipo */
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     border-radius: 8px;
@@ -341,12 +341,47 @@
 .link-back-tcg:hover { color: #1a1a1a; text-decoration: underline; }
 
 .booster-pack-wrapper.selected {
-    transform: scale(1.1) translateY(-15px) !important;
-    z-index: 20;
-    box-shadow: 0 20px 40px rgba(255, 203, 5, 0.4);
+    transform: scale(1.05) translateY(-10px) !important; /* ¡Gana a la animación! */
+    animation-play-state: paused !important; /* Detiene el cambio de transform en la animación */
+    z-index: 30;
+    box-shadow: 0 24px 50px rgba(0,0,0,0.25);
     border-radius: 8px;
-    outline: 3px solid #FFCB05; 
 }
+
+.booster-pack-wrapper.selected:hover {
+    transform: scale(1.18) translateY(-18px) !important; /* ¡Gana al hover normal! */
+    z-index: 45;
+    box-shadow: 0 26px 60px rgba(0,0,0,0.4);
+}
+
+.booster-pack-wrapper.selected::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+    transition: background 0.2s ease;
+    z-index: 10;
+}
+
+.booster-pack-wrapper.selected::after {
+    content: '✓  SELECCIONADO';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255,255,255,0.92);
+    color: #0f172a;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    z-index: 50; /* Aseguramos que la etiqueta quede por encima de todo */
+}
+
 .booster-pack-wrapper.selected .pack-shine {
     transform: translateX(120%);
 }
@@ -376,3 +411,67 @@ button:disabled {
     animation: abrir-sobre-anim 1.5s ease-in-out forwards !important;
     pointer-events: none; 
 }
+
+/* Títulos de las Secciones */
+.titulo-seccion-tienda {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid #FFCB05;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.premium-title {
+    color: #8e44ad;
+    border-bottom-color: #8e44ad;
+}
+
+/* === ESTILOS ÉPICOS PREMIUM === */
+.premium-pack {
+    animation: flotar-epico 4s ease-in-out infinite;
+}
+
+@keyframes flotar-epico {
+    0%, 100% { transform: translateY(0) scale(1.02); }
+    50% { transform: translateY(-12px) scale(1.02); }
+}
+
+/* Aura base para las partículas de luz */
+.aura-epica {
+    position: absolute;
+    top: -10%; left: -10%; right: -10%; bottom: -10%;
+    z-index: 0;
+    border-radius: 12px;
+    filter: blur(20px);
+    opacity: 0.6;
+    animation: pulso-aura 3s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes pulso-aura {
+    0% { opacity: 0.4; transform: scale(0.95); }
+    100% { opacity: 0.8; transform: scale(1.05); }
+}
+
+/* Sobre Holográfico (Plateado + Arcoíris) */
+.holo .pack-inner, .holo .pack-crimp { background-color: #bdc3c7; }
+.holo .pack-inner { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+.holo .aura-epica { background: linear-gradient(45deg, #ff9ff3, #feca57, #48dbfb, #ff9ff3); background-size: 200% 200%; animation: gradient-arcoiris 3s linear infinite, pulso-aura 3s infinite alternate; }
+.holo:hover { box-shadow: 0 20px 50px rgba(72, 219, 251, 0.5); }
+
+@keyframes gradient-arcoiris {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Sobre Legendario (Dorado Oscuro) */
+.legendario .pack-inner, .legendario .pack-crimp { background-color: #1a1a1a; }
+.legendario .pack-inner { background: linear-gradient(180deg, #2c3e50, #000000); border: 2px solid #f1c40f; }
+.legendario .aura-epica { background: radial-gradient(circle, rgba(241,196,15,1) 0%, rgba(211,84,0,0) 70%); filter: blur(25px); opacity: 0.8; }
+.legendario:hover { box-shadow: 0 20px 50px rgba(241, 196, 15, 0.6); }
+.legendario .pack-set-name { color: #f1c40f; }
