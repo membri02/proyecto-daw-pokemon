@@ -41,8 +41,32 @@
         function renderPk(arr) {
             const list = document.getElementById('pk-list');
             list.innerHTML = "";
+
+            const typeNames = {
+                fire: 'Fuego',
+                water: 'Agua',
+                grass: 'Planta',
+                electric: 'Eléctrico',
+                ice: 'Hielo',
+                fighting: 'Lucha',
+                poison: 'Veneno',
+                ground: 'Tierra',
+                flying: 'Volador',
+                psychic: 'Psíquico',
+                bug: 'Bicho',
+                rock: 'Roca',
+                ghost: 'Fantasma',
+                dark: 'Siniestro',
+                dragon: 'Dragón',
+                steel: 'Acero',
+                fairy: 'Hada',
+                normal: 'Normal',
+            };
+
             arr.forEach(pk => {
-                const types = pk.types.map(t => `<span class="type-pill ${t.type.name}">${t.type.name}</span>`).join('');
+                const types = pk.types
+                    .map(t => `<span class="type-pill ${t.type.name}">${typeNames[t.type.name] || t.type.name}</span>`)
+                    .join('');
                 list.innerHTML += `
                     <div class="pk-card">
                         <small>#${pk.id}</small>

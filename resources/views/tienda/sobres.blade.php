@@ -9,6 +9,19 @@
             <p class="subtitulo">Adquiere potenciadores y expande tu colección de cartas digitales</p>
         </header>
 
+        <div style="text-align: center; margin-bottom: 2rem;">
+            @auth
+                <div style="display: inline-block; background: #fff; padding: 10px 25px; border-radius: 50px; border: 3px solid #FFCB05; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    Saldo actual: {{ Auth::user()->monedas }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;">
+                </div>
+            @endauth
+        </div>
+
+        @if(session('error'))
+            <div style="background: #e74c3c; color: white; padding: 15px; text-align: center; font-weight: bold; border-radius: 8px; max-width: 600px; margin: 0 auto 2rem; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
+                ⚠️ {{ session('error') }}
+            </div>
+        @endif
         <section class="introduccion-section">
             <div class="intro-card">
                 <h2>Guía de Adquisición de Potenciadores</h2>
@@ -114,9 +127,8 @@
 
                 this.classList.add('selected');
                 sobreSeleccionado = this.dataset.tipo;
-                precioSeleccionado = this.dataset.precio; // Capturamos el precio
+                precioSeleccionado = this.dataset.precio; 
 
-                // El botón ahora detecta si cuesta 100, 500 o 1000
                 btnAbrir.innerHTML = `ABRIR SOBRE ${sobreSeleccionado.toUpperCase()} (${precioSeleccionado} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="icono-moneda-btn" alt="Moneda">)`;
                 btnAbrir.disabled = false;
             });

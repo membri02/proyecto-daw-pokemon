@@ -232,6 +232,26 @@
         display: inline-block;
     }
 
+    /* Colores de tipos (PokeAPI usa nombres en inglés) */
+    .type-pill.fire { background: #F08030; }
+    .type-pill.water { background: #6890F0; }
+    .type-pill.grass { background: #78C850; }
+    .type-pill.electric { background: #F8D030; color: #2d3436; }
+    .type-pill.ice { background: #98D8D8; color: #2d3436; }
+    .type-pill.fighting { background: #C03028; }
+    .type-pill.poison { background: #A040A0; }
+    .type-pill.ground { background: #E0C068; color: #2d3436; }
+    .type-pill.flying { background: #A890F0; }
+    .type-pill.psychic { background: #F85888; }
+    .type-pill.bug { background: #A8B820; }
+    .type-pill.rock { background: #B8A038; color: #2d3436; }
+    .type-pill.ghost { background: #705898; }
+    .type-pill.dark { background: #705848; }
+    .type-pill.dragon { background: #7038F8; }
+    .type-pill.steel { background: #B8B8D0; color: #2d3436; }
+    .type-pill.fairy { background: #EE99AC; color: #2d3436; }
+    .type-pill.normal { background: #A8A878; color: #2d3436; }
+
     /* =========================================
         4. MÓDULO TIENDA ÉPICA (ANDRÉS)
         ========================================= */

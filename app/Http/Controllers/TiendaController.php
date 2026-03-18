@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Carta; // 
+use App\Models\Carta;
+use Illuminate\Support\Facades\Auth;
 
 class TiendaController extends Controller
 {
@@ -14,38 +15,57 @@ class TiendaController extends Controller
 
     public function abrirSobre($tipo)
     {
-        $cartas = collect(); // Creamos una caja vacía para ir metiendo las cartas
+        // 1. Identificamos quién es el comprador
+        $user = Auth::user();
 
-        // LÓGICA SOBRES BÁSICOS (2 de su tipo + 3 al azar)
+        // 2. Definimos los precios oficiales en el servidor (Inhackeable)
+        $precios = [
+            'fuego' => 100,
+            'agua' => 100,
+            'planta' => 100,
+            'holo' => 500,
+            'legendario' => 1000
+        ];
+
+        // Por si alguien intenta poner una URL rara como /sobres/abrir/inventado
+        if (!array_key_exists($tipo, $precios)) {
+            return redirect('/sobres')->with('error', 'Ese sobre no existe en la tienda.');
+        }
+
+        $precioDelSobre = $precios[$tipo];
+
+        // 3. El Cajero comprueba la cartera
+        if ($user->monedas < $precioDelSobre) {
+            return redirect('/sobres')->with('error', '¡No tienes suficientes Pokémonedas! Necesitas ' . $precioDelSobre . ' 🪙.');
+        }
+
+        // 4. ¡Cobramos! (Restamos el dinero y guardamos)
+        $user->monedas -= $precioDelSobre;
+        // 1. Identificamos quién es el comprador
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $user->save();
+
+        // 5. Generamos las cartas 
+        $cartas = collect();
         if (in_array($tipo, ['fuego', 'agua', 'planta'])) {
-            // Cogemos 2 cartas garantizadas del tipo seleccionado
             $garantizadas = Carta::where('tipo', $tipo)->inRandomOrder()->limit(2)->get();
-            
-            // Cogemos 3 cartas de CUALQUIER tipo que no sean las que ya han tocado
             $random = Carta::whereNotIn('id', $garantizadas->pluck('id'))->inRandomOrder()->limit(3)->get();
-            
             $cartas = $garantizadas->concat($random);
-        } 
-        // LÓGICA SOBRE HOLO (1 Rara garantizada + 4 al azar)
-        elseif ($tipo === 'holo') {
+        } elseif ($tipo === 'holo') {
             $garantizada = Carta::where('rareza', 'Rara Holo')->inRandomOrder()->limit(1)->get();
             $random = Carta::whereNotIn('id', $garantizada->pluck('id'))->inRandomOrder()->limit(4)->get();
             $cartas = $garantizada->concat($random);
-        }
-        // LÓGICA SOBRE LEGENDARIO (1 Legendaria garantizada + 4 al azar)
-        elseif ($tipo === 'legendario') {
+        } elseif ($tipo === 'legendario') {
             $garantizada = Carta::where('rareza', 'Legendaria ✨')->inRandomOrder()->limit(1)->get();
             $random = Carta::whereNotIn('id', $garantizada->pluck('id'))->inRandomOrder()->limit(4)->get();
             $cartas = $garantizada->concat($random);
         }
 
-        // Si la base de datos está vacía y devuelve 0 cartas, evitamos que explote
-        if ($cartas->count() < 5) {
-            return redirect('/sobres')->with('error', 'No hay suficientes cartas en la base de datos para abrir este sobre.');
-        }
-
-        // Barajamos las 5 cartas para que la garantizada no sea siempre la primera
         $cartas = $cartas->shuffle();
+
+        // 6. ¡MAGIA! Guardamos estas 5 cartas en el álbum del jugador
+        $user->cartas()->attach($cartas->pluck('id'));
 
         return view('tienda.apertura', compact('cartas', 'tipo'));
     }
