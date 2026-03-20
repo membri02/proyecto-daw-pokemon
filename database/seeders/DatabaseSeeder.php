@@ -2,20 +2,23 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Aquí le decimos a Laravel: "¡Oye, ejecuta mis cartas también!"
+        // 1. Creamos la cuenta Maestra con 999.999 monedas
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@pokemon.com',
+            'password' => Hash::make('12345678'), // Contraseña fácil para pruebas
+            'monedas' => 999999,
+        ]);
+
+        // 2. Llamamos al Seeder de las cartas
         $this->call([
             CartasSeeder::class,
         ]);

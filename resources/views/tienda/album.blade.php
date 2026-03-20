@@ -108,30 +108,90 @@
         border: 1px solid #333;
     }
 
+    /* 1. BASE DE LA CARTA: Borde amarillo clásico TCG */
     .card-slot {
         background: #2a2a35;
-        border-radius: 8px;
-        padding: 15px;
+        border-radius: 12px;
+        padding: 10px;
         position: relative;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        transition: transform 0.2s, box-shadow 0.2s;
-        border: 2px solid transparent;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 8px solid #fbdc15; /* EL AMARILLO MÍTICO */
         display: flex;
         flex-direction: column;
         align-items: center;
+        overflow: hidden; /* Fundamental para que el brillo no se salga por los bordes */
     }
 
     .card-slot:hover {
-        transform: translateY(-5px) scale(1.05);
+        transform: translateY(-10px) scale(1.05);
         z-index: 10;
     }
 
+    /* 2. EFECTO RARA HOLO (Brillo diagonal continuo) */
+    .rara-holo {
+        box-shadow: 0 0 15px rgba(72, 219, 251, 0.6);
+    }
+    
+    .rara-holo::before {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        width: 50%;
+        height: 300%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+        transform: rotate(45deg);
+        animation: brillo-holo 2.5s infinite linear;
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    @keyframes brillo-holo {
+        0% { top: -100%; left: -100%; }
+        100% { top: 100%; left: 100%; }
+    }
+
+    /* 3. EFECTO LEGENDARIA (Flotación mística y aura dorada animada) */
+    .legendaria {
+        border-color: #ffd700;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 0, 128, 0.4);
+        animation: flotar-legendaria 3s ease-in-out infinite;
+    }
+
+    .legendaria::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255,215,0,0.5) 0%, rgba(255,255,255,0) 50%, rgba(255,215,0,0.5) 100%);
+        z-index: 1;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+        animation: pulso-dorado 2s infinite alternate;
+    }
+
+    @keyframes flotar-legendaria {
+        0%, 100% { transform: translateY(0); }
+        50% { 
+            transform: translateY(-12px); 
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 1), 0 15px 35px rgba(255, 0, 128, 0.6); 
+        }
+    }
+
+    @keyframes pulso-dorado {
+        0% { opacity: 0.4; }
+        100% { opacity: 1; }
+    }
+
+    /* Imagen e Info de la carta */
     .pokemon-art {
         width: 120px;
         height: 120px;
         object-fit: contain;
         margin: 15px 0;
         filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+        position: relative;
+        z-index: 2;
     }
 
     .card-info {
@@ -139,6 +199,8 @@
         width: 100%;
         border-top: 1px solid rgba(255,255,255,0.1);
         padding-top: 10px;
+        position: relative;
+        z-index: 2;
     }
 
     .pokemon-name {
@@ -165,19 +227,7 @@
         color: white;
         text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
         text-transform: uppercase;
-    }
-
-    /* Colores Mágicos por rareza */
-    .rara-holo {
-        border-color: #48dbfb;
-        background: linear-gradient(135deg, #2a2a35 0%, #1e3740 100%);
-        box-shadow: 0 0 15px rgba(72, 219, 251, 0.2);
-    }
-    
-    .legendaria- {
-        border-color: #f1c40f;
-        background: linear-gradient(135deg, #2a2a35 0%, #4a3b00 100%);
-        box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+        z-index: 2;
     }
 
     /* Mini etiquetas de tipo */
