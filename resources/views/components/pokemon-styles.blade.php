@@ -565,4 +565,129 @@
     .hidden {
         display: none;
     }
+
+    /* =========================================
+        MINIJUEGO
+        ========================================= */
+
+        .pokemon-sprite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  width: 220px;
+  margin: 40px auto;
+  padding: 20px;
+
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen */
+#pokemon {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+/* Silueta */
+.silhouette {
+  filter: brightness(0);
+}
+
+/* Input */
+#answer {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+#answer:focus {
+  border-color: #666;
+}
+
+/* Botón */
+#guess {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 30px;
+  background: #ffcb05;
+  color: #2a2a2a;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#guess:hover {
+  background: #f5b800;
+}
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 220px;
+  margin: 20px auto;
+  padding: 16px;
+
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Botones */
+.tips button {
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #eee;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tips button:hover {
+  background: #ddd;
+}
+
+/* Texto pistas */
+.tips p {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Badge del tipo */
+.tips span {
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.type-fire { background: #F08030; }
+.type-water { background: #6890F0; }
+.type-grass { background: #78C850; }
+.type-electric { background: #F8D030; color: #333; }
+.type-ice { background: #98D8D8; color: #333; }
+.type-fighting { background: #C03028; }
+.type-poison { background: #A040A0; }
+.type-ground { background: #E0C068; color: #333; }
+.type-flying { background: #A890F0; }
+.type-psychic { background: #F85888; }
+.type-bug { background: #A8B820; }
+.type-rock { background: #B8A038; }
+.type-ghost { background: #705898; }
+.type-dragon { background: #7038F8; }
+.type-dark { background: #705848; }
+.type-steel { background: #B8B8D0; color: #333; }
+.type-fairy { background: #EE99AC; }
+.type-normal { background: #A8A878; }
+.type-none { background: #ccc; color: #333; }
 </style>

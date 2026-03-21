@@ -12,6 +12,10 @@ Route::get('/pokedex', function () {
     return view('pokedex.pokedex');
 });
 
+Route::get('/minijuego', function(){
+    return view('minijuego.minijuego');
+});
+
 // RUTAS PROTEGIDAS POR SESIÓN (Tienda y Álbum)
 Route::get('/sobres', [TiendaController::class, 'index'])->middleware('auth');
 Route::get('/sobres/abrir/{tipo}', [TiendaController::class, 'abrirSobre'])->middleware('auth');

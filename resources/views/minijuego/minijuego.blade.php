@@ -1,0 +1,80 @@
+@extends('layouts.app')
+
+@section('content')
+    <style>
+        .silhouette {
+            filter: brightness(0);
+        }
+    </style>
+    <section id="inicio" class="section active">
+        <div id="sprite" class="pokemon-sprite">
+            <img id="pokemon" src="" alt="pokemon-sprite">
+            <input type="text" id="answer" placeholder="¿Cuál es este pokemon?">
+            <button id="guess">Adivina</button>
+        </div>
+        <div id="tips" class="tips">
+            <button id="tip-type1">Tipo principal</button>
+            <p id="tip1" hidden><span id="type1"></span></p>
+            <button id="tip-type2">Tipo secundario</button>
+            <p id="tip2" hidden><span id="type2"></span></p>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener("load", showPokemon());
+
+        let pokemon;
+        const tip1 = document.getElementById("tip-type1");
+        const tip2 = document.getElementById("tip-type2");
+
+        tip1.addEventListener("click", () => {
+            document.getElementById("tip1").removeAttribute("hidden");
+        });
+        tip2.addEventListener("click", () => {
+            document.getElementById("tip2").removeAttribute("hidden");
+        });
+
+        function getRandomPokemonId(){
+            return Math.floor(Math.random() * 151) + 1;
+        }
+
+        function applyTypeStyles(type, elementId){
+            const el = document.getElementById(elementId);
+
+            el.className = "";
+            el.classList.add(`type-${type}`);
+        }
+
+        async function fetchPokemon(){
+            const pokemonID =  getRandomPokemonId();
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`);
+            const data = await res.json();
+
+            const typesSorted = data.types.sort((a, b) => a.slot - b.slot);
+
+            const type1 = typesSorted[0]?.type.name || "none";
+            const type2 = typesSorted[1]?.type.name || "none";
+
+            return {
+                name: data.name,
+                sprite: data.sprites.front_default,
+                type1,
+                type2
+            };
+        }
+
+        async function showPokemon(){
+            pokemon = await fetchPokemon();
+
+            const img = document.getElementById("pokemon");
+            img.src = pokemon.sprite;
+            img.classList.add("silhouette");
+
+            document.getElementById("type1").textContent = pokemon.type1;
+            document.getElementById("type2").textContent = pokemon.type2;
+
+            applyTypeStyles(pokemon.type1, "type1");
+            applyTypeStyles(pokemon.type2, "type2");
+        }
+    </script>
+@endsection
