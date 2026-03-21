@@ -12,6 +12,7 @@ class TiendaController extends Controller
     {
         return view('tienda.sobres');
     }
+    
 
     public function abrirSobre($tipo)
     {

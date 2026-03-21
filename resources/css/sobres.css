@@ -110,12 +110,102 @@
     font-size: 0.95rem;
 }
 
-/* Grid de Sobres */
+/* --- CONTENEDOR PRINCIPAL (Grid de sobres) --- */
 .sobres-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-    gap: 3rem;
-    padding: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los sobres si la fila no está llena */
+    gap: 3rem; /* Más espacio entre sobres para que respiren */
+    margin: 4rem 0;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+/* --- LA CARTA/SOBRE INDIVIDUAL (El Arreglo está aquí) --- */
+.sobre-card {
+    background: #2a2a35;
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    overflow: hidden;
+
+    /* FIJAMOS EL TAMAÑO PARA DAR ARMONÍA */
+    /* flex: grow shrink basis */
+    flex: 0 0 320px; /* No crecen, no encogen, base fija de 320px */
+    width: 320px;    /* Aseguramos el ancho en todos los navegadores */
+    height: 450px;   /* Altura fija para que todos sean iguales */
+
+    /* Centrado interno */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribuye el contenido arriba y abajo */
+}
+
+/* Efecto hover elegante sin romper el layout */
+.sobre-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    z-index: 10;
+}
+
+/* --- AJUSTES INTERNOS PARA QUE QUEDE PERFECTO --- */
+
+/* El arte del sobre (Mew, Charizard, etc.) */
+.sobre-art {
+    width: 180px; /* Tamaño unificado para todos los artes */
+    height: 180px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+    margin-bottom: 1rem;
+}
+
+/* Info del sobre (Título y precio) */
+.sobre-info {
+    text-align: center;
+    width: 100%;
+    margin-top: auto; /* Empuja esto hacia abajo */
+}
+
+.sobre-info h3 {
+    font-size: 1.6rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Botón de compra unificado */
+.btn-compra {
+    width: 100%; /* Botón a ancho completo dentro de la tarjeta */
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- RESPONSIVE BÁSICO --- */
+/* Para móviles muy pequeños, reducimos un poco el ancho fijo */
+@media (max-width: 360px) {
+    .sobre-card {
+        flex: 0 0 280px;
+        width: 280px;
+        height: 400px;
+    }
+    .sobre-art {
+        width: 140px;
+        height: 140px;
+    }
 }
 
 /* === EL MAGIA DEL EFECTO FOCUS === */
