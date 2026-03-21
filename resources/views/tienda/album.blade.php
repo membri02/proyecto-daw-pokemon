@@ -193,7 +193,7 @@
         position: relative;
         z-index: 2;
     }
-
+    
     .card-info {
         text-align: center;
         width: 100%;
