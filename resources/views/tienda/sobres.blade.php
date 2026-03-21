@@ -19,7 +19,7 @@
 
         @if(session('error'))
             <div style="background: #e74c3c; color: white; padding: 15px; text-align: center; font-weight: bold; border-radius: 8px; max-width: 600px; margin: 0 auto 2rem; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
-                ⚠️ {{ session('error') }}
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" style="width: 20px; vertical-align: middle; margin-top: -2px;" alt="Error"> {{ session('error') }}
             </div>
         @endif
         <section class="introduccion-section">
@@ -51,7 +51,7 @@
             </div>
         </section>
         
-        <h2 class="titulo-seccion-tienda">Ediciones Básicas</h2>
+        <h2 class="titulo-seccion-tienda"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="intro-icon" alt="Pokeball"> Ediciones Básicas <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="intro-icon" style="margin-right:0; margin-left:8px;" alt="Pokeball"></h2>
         <div class="sobres-grid">
             @php
                 $basicos = [
@@ -62,7 +62,7 @@
             @endphp
 
             @foreach($basicos as $tipo)
-                <div class="booster-pack-wrapper {{ $tipo[0] }}" data-tipo="{{ $tipo[0] }}" data-precio="{{ $tipo[4] }}">
+                <div class="sobre-card {{ $tipo[0] }}" data-tipo="{{ $tipo[0] }}" data-precio="{{ $tipo[4] }}">
                     <div class="pack-crimp top"></div>
                     <div class="pack-inner">
                         <div class="pack-foil-texture"></div>
@@ -79,7 +79,7 @@
             @endforeach
         </div>
 
-        <h2 class="titulo-seccion-tienda premium-title">Colecciones Premium</h2>
+        <h2 class="titulo-seccion-tienda premium-title"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" class="intro-icon" alt="Masterball"> Colecciones Premium <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" class="intro-icon" style="margin-right:0; margin-left:8px;" alt="Masterball"></h2>
         <div class="sobres-grid">
             @php
                 $premium = [
@@ -89,7 +89,7 @@
             @endphp
 
             @foreach($premium as $tipo)
-                <div class="booster-pack-wrapper premium-pack {{ $tipo[0] }}" data-tipo="{{ $tipo[0] }}" data-precio="{{ $tipo[4] }}">
+                <div class="sobre-card premium-pack {{ $tipo[0] }}" data-tipo="{{ $tipo[0] }}" data-precio="{{ $tipo[4] }}">
                     <div class="aura-epica"></div> <div class="pack-crimp top"></div>
                     <div class="pack-inner">
                         <div class="pack-foil-texture"></div>
@@ -115,11 +115,40 @@
         </div>
     </div>
 
+    <!-- Modal Confirmación -->
+    <div class="modal-tienda-backdrop" id="modalConfirmacion">
+        <div class="modal-tienda-content">
+            <h3>Confirmar Adquisición de Sobre</h3>
+            <p class="modal-text-detail" id="modalTextoConfirmacion">
+                <!-- Se inyecta por JS -->
+            </p>
+            <div class="modal-actions">
+                <button class="btn-modal btn-cancelar" id="btnCancelarModal">Cancelar</button>
+                <button class="btn-modal btn-confirmar" id="btnConfirmarModal">Confirmar Transacción</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spinner Transición -->
+    <div class="spinner-overlay" id="spinnerOverlay">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" alt="Cargando" class="pokeball-spinner">
+        <div class="spinner-text">ABRIENDO SOBRE...</div>
+    </div>
+
     <script>
         let sobreSeleccionado = null;
         let precioSeleccionado = 0;
+        let nombreSobreSeleccionado = '';
+        const saldoActual = @auth {{ Auth::user()->monedas }} @else 0 @endauth;
+        
         const btnAbrir = document.getElementById('btn-abrir');
-        const sobres = document.querySelectorAll('.booster-pack-wrapper');
+        const sobres = document.querySelectorAll('.sobre-card');
+        
+        const modal = document.getElementById('modalConfirmacion');
+        const modalText = document.getElementById('modalTextoConfirmacion');
+        const btnCancelar = document.getElementById('btnCancelarModal');
+        const btnConfirmar = document.getElementById('btnConfirmarModal');
+        const spinner = document.getElementById('spinnerOverlay');
 
         sobres.forEach(sobre => {
             sobre.addEventListener('click', function() {
@@ -128,6 +157,7 @@
                 this.classList.add('selected');
                 sobreSeleccionado = this.dataset.tipo;
                 precioSeleccionado = this.dataset.precio; 
+                nombreSobreSeleccionado = this.querySelector('.pack-set-name').innerText;
 
                 btnAbrir.innerHTML = `ABRIR SOBRE ${sobreSeleccionado.toUpperCase()} (${precioSeleccionado} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="icono-moneda-btn" alt="Moneda">)`;
                 btnAbrir.disabled = false;
@@ -136,16 +166,38 @@
 
         btnAbrir.addEventListener('click', () => {
             if (sobreSeleccionado) {
-                btnAbrir.disabled = true;
-                btnAbrir.innerHTML = '¡ABRIENDO... ✨!';
-
-                const sobreActivo = document.querySelector('.booster-pack-wrapper.selected');
-                sobreActivo.classList.add('opening-animation');
-
-                setTimeout(() => {
-                    window.location.href = `/sobres/abrir/${sobreSeleccionado}`;
-                }, 1500);
+                // Configuramos los textos del modal
+                modalText.innerHTML = `Estás a punto de adquirir un sobre de <strong class="resaltado">${nombreSobreSeleccionado}</strong>.<br><br>Se deducirán <strong class="resaltado">${precioSeleccionado}</strong> Pokémonedas de tu saldo actual de <strong class="resaltado">${saldoActual}</strong>.<br><br>¿Deseas confirmar la transacción?`;
+                // Mostrar el modal elegante
+                modal.classList.add('active');
             }
+        });
+
+        // Lógica de Cancelar
+        btnCancelar.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Lógica de Confirmar
+        btnConfirmar.addEventListener('click', () => {
+            // Ocultar modal
+            modal.classList.remove('active');
+            // Mostrar spinner de carga inmersivo
+            spinner.classList.add('active');
+
+            // Desactivar el botón original y aplicar la animación al sobre visualmente
+            btnAbrir.disabled = true;
+            btnAbrir.innerHTML = '¡ABRIENDO... <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/premier-ball.png" class="icono-moneda-btn" alt="Opening">!';
+            
+            const sobreActivo = document.querySelector('.sobre-card.selected');
+            if (sobreActivo) {
+                sobreActivo.classList.add('opening-animation');
+            }
+
+            // Redirigir suavemente después de iniciar la animación (1.5s para que gire la pokeball)
+            setTimeout(() => {
+                window.location.href = `/sobres/abrir/${sobreSeleccionado}`;
+            }, 1200);
         });
     </script>
 @endsection

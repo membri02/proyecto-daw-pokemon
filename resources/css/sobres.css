@@ -6,12 +6,10 @@
     font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
     background: hsl(180, 11%, 98%);
 }
-
 .tienda-header {
     text-align: center;
     margin-bottom: 3rem;
 }
-
 .titulo-pokemon {
     font-size: 3.5rem;
     color: #1a1a1a;
@@ -20,13 +18,11 @@
     margin-bottom: 0.5rem;
     font-weight: 900;
 }
-
 .subtitulo {
     color: #57606f;
     font-size: 1.25rem;
     font-weight: 400;
 }
-
 /* Iconos de Moneda Estables */
 .icono-moneda-inline {
     width: 24px;
@@ -34,7 +30,6 @@
     margin-top: -4px;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
 }
-
 .icono-moneda-btn {
     width: 28px;
     vertical-align: middle;
@@ -42,14 +37,18 @@
     margin-left: 4px;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
 }
-
+.intro-icon {
+    width: 28px;
+    vertical-align: middle;
+    margin-right: 8px;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+}
 /* Introducción Section */
 .introduccion-section {
     margin-bottom: 4rem;
     display: flex;
     justify-content: center;
 }
-
 .intro-card {
     background: white;
     border-radius: 4px; 
@@ -59,7 +58,6 @@
     width: 100%;
     border-top: 4px solid #333; 
 }
-
 .intro-card h2 {
     color: #1a1a1a;
     margin-top: 0;
@@ -68,19 +66,16 @@
     font-weight: 700;
     text-align: center;
 }
-
 .intro-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
 }
-
 .intro-item {
     display: flex;
     align-items: flex-start;
     gap: 1.2rem;
 }
-
 .intro-marker {
     font-size: 1.2rem;
     font-weight: 900;
@@ -94,7 +89,6 @@
     justify-content: center;
     flex-shrink: 0;
 }
-
 .intro-item strong {
     color: #1a1a1a;
     display: block;
@@ -102,32 +96,32 @@
     font-size: 1.15rem;
     font-weight: 700;
 }
-
 .intro-item p {
     color: #57606f;
     margin: 0;
     line-height: 1.5;
     font-size: 0.95rem;
 }
-
-/* Grid de Sobres */
+/* Grid de Sobres (Flexbox Armonizado) */
 .sobres-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-    gap: 3rem;
-    padding: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los sobres si la fila no está llena */
+    gap: 3rem; /* Más espacio entre sobres para que respiren */
+    margin: 4rem 0;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
 }
-
-/* === EL MAGIA DEL EFECTO FOCUS === */
-/* Cuando el usuario hace hover en el contenedor general, los sobres que NO están siendo tocados se oscurecen y alejan */
-.sobres-grid:hover .booster-pack-wrapper:not(:hover):not(.selected) {
+/* EFECTO FOCUS: Oscurecer los que no tienen hover */
+.sobres-grid:hover .sobre-card:not(:hover):not(.selected) {
     opacity: 0.5;
     filter: grayscale(40%);
     transform: scale(0.95) translateY(5px);
 }
-
-/* Estructura del Booster Pack Físico */
-.booster-pack-wrapper {
+/* --- LA CARTA/SOBRE INDIVIDUAL (El Arreglo está aquí) --- */
+.sobre-card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -136,30 +130,32 @@
     will-change: transform, filter;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     animation: flotar-suave 5s ease-in-out infinite;
+    /* Proporciones de sobre físico */
+    flex: 0 0 340px; 
+    width: 340px;
+    height: 480px; 
 }
-
-/* Hover Individual (Spotlight) */
-.booster-pack-wrapper:hover {
+/* Animaciones de desfase */
+.sobre-card:nth-child(even) { animation-delay: 1s; }
+.sobre-card:nth-child(3n) { animation-delay: 2s; }
+.sobre-card:nth-child(4n) { animation-delay: 0.5s; }
+/* Efecto hover elegante */
+.sobre-card:hover {
     transform: scale(1.1) translateY(-15px) !important;
     z-index: 40;
-    /* Glow general que luego colorearemos por tipo */
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     border-radius: 8px;
 }
-
-.booster-pack-wrapper:hover .pack-shine {
+.sobre-card:hover .pack-shine {
     transform: translateX(120%);
 }
-
-.booster-pack-wrapper:hover .pack-art-image {
+.sobre-card:hover .pack-art-image {
     transform: scale(1.08) translateY(-5px); 
 }
-
-/* === EL SELLADO (CRIMPING) FÍSICO === */
+/* --- SELLADO (CRIMPING) FÍSICO --- */
 .pack-crimp {
-    width: 96%; /* Ligeramente más estrecho que el centro para dar volumen */
+    width: 96%;
     height: 16px;
-    /* Dibujamos las estrías del sellado térmico */
     background-image: repeating-linear-gradient(
         90deg, 
         rgba(0,0,0,0.1) 0px, 
@@ -170,22 +166,20 @@
     z-index: 1;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
-
 .pack-crimp.top {
     border-radius: 4px 4px 0 0;
     border-bottom: 2px solid rgba(0,0,0,0.3);
 }
-
 .pack-crimp.bottom {
     border-radius: 0 0 4px 4px;
     border-top: 2px solid rgba(0,0,0,0.3);
 }
-
-/* Cuerpo del Sobre */
+/* --- CUERPO DEL SOBRE --- */
 .pack-inner {
     position: relative;
     width: 100%;
-    height: 340px;
+    /* Altura restante descontando los sellados superior e inferior (16px cada uno) */
+    height: calc(100% - 32px);
     border-radius: 2px; 
     display: flex;
     flex-direction: column;
@@ -195,8 +189,7 @@
     background: #fff; 
     z-index: 2;
 }
-
-/* Textura de Aluminio y Brillo Sweep */
+/* Textura Foil Automática */
 .pack-foil-texture {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -204,7 +197,6 @@
     z-index: 2;
     pointer-events: none;
 }
-
 .pack-shine {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -214,8 +206,7 @@
     z-index: 4;
     pointer-events: none;
 }
-
-/* Arte del Pokémon */
+/* Arte del Pkmn */
 .pack-art-image {
     width: 85%;
     height: auto;
@@ -228,8 +219,7 @@
     opacity: 0.95;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
-/* Franja Inferior de Información (TCG Style) */
+/* Footer de información del sobre */
 .pack-footer-info {
     text-align: center;
     color: white;
@@ -242,7 +232,6 @@
     flex-direction: column;
     align-items: center;
 }
-
 .pack-set-name {
     display: block;
     font-size: 1.35rem;
@@ -252,7 +241,6 @@
     margin-bottom: 2px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
-
 .pack-expansion-name {
     opacity: 0.9;
     font-size: 0.85rem;
@@ -260,7 +248,6 @@
     font-style: italic;
     margin-bottom: 10px;
 }
-
 .pack-card-count {
     background: #FFCB05; 
     color: #2A75BB; 
@@ -271,7 +258,6 @@
     letter-spacing: 1px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-
 /* Colores Base y de Sellado Dinámicos */
 .fuego .pack-inner, .fuego .pack-crimp { background-color: #e74c3c; } .fuego .pack-inner { background: linear-gradient(180deg, #e74c3c, #b03a2e); } .fuego:hover { box-shadow: 0 20px 40px rgba(231, 76, 60, 0.4); }
 .agua .pack-inner, .agua .pack-crimp { background-color: #3498db; } .agua .pack-inner { background: linear-gradient(180deg, #3498db, #21618c); } .agua:hover { box-shadow: 0 20px 40px rgba(52, 152, 219, 0.4); }
@@ -291,15 +277,51 @@
 .acero .pack-inner, .acero .pack-crimp { background-color: #dfe6e9; } .acero .pack-inner { background: linear-gradient(180deg, #dfe6e9, #b2bec3); } .acero:hover { box-shadow: 0 20px 40px rgba(223, 230, 233, 0.4); }
 .hada .pack-inner, .hada .pack-crimp { background-color: #ff9ff3; } .hada .pack-inner { background: linear-gradient(180deg, #ff9ff3, #f368e0); } .hada:hover { box-shadow: 0 20px 40px rgba(255, 159, 243, 0.4); }
 .normal .pack-inner, .normal .pack-crimp { background-color: #f1f2f6; } .normal .pack-inner { background: linear-gradient(180deg, #f1f2f6, #ced6e0); } .normal:hover { box-shadow: 0 20px 40px rgba(241, 242, 246, 0.4); }
-
-/* Barra de Acción Inferior */
+/* --- AURA Y ESTILOS MÍTICOS/PREMIUM --- */
+.premium-pack {
+    animation: flotar-epico 4s ease-in-out infinite;
+}
+@keyframes flotar-epico {
+    0%, 100% { transform: translateY(0) scale(1.02); }
+    50% { transform: translateY(-12px) scale(1.02); }
+}
+.aura-epica {
+    position: absolute;
+    top: -10%; left: -10%; right: -10%; bottom: -10%;
+    z-index: 0;
+    border-radius: 12px;
+    filter: blur(20px);
+    opacity: 0.6;
+    animation: pulso-aura 3s infinite alternate;
+    pointer-events: none;
+}
+@keyframes pulso-aura {
+    0% { opacity: 0.4; transform: scale(0.95); }
+    100% { opacity: 0.8; transform: scale(1.05); }
+}
+/* Sobre Holográfico */
+.holo .pack-inner, .holo .pack-crimp { background-color: #bdc3c7; }
+.holo .pack-inner { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+.holo .aura-epica { background: linear-gradient(45deg, #ff9ff3, #feca57, #48dbfb, #ff9ff3); background-size: 200% 200%; animation: gradient-arcoiris 3s linear infinite, pulso-aura 3s infinite alternate; }
+.holo:hover { box-shadow: 0 20px 50px rgba(72, 219, 251, 0.5); }
+@keyframes gradient-arcoiris {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+/* Sobre Legendario */
+.legendario .pack-inner, .legendario .pack-crimp { background-color: #1a1a1a; }
+.legendario .pack-inner { background: linear-gradient(180deg, #2c3e50, #000000); border: 2px solid #f1c40f; }
+.legendario .aura-epica { background: radial-gradient(circle, rgba(241,196,15,1) 0%, rgba(211,84,0,0) 70%); filter: blur(25px); opacity: 0.8; }
+.legendario:hover { box-shadow: 0 20px 50px rgba(241, 196, 15, 0.6); }
+.legendario .pack-set-name { color: #f1c40f; }
+/* ACTION BAR Y SELECCIÓN */
 .tienda-action-bar {
     text-align: center;
     margin-top: 4rem;
     padding-top: 2rem;
     border-top: 1px solid #ecf0f1;
 }
-
 .btn-primary-tcg {
     background: #e74c3c;
     color: white;
@@ -314,22 +336,14 @@
     box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
     transition: background 0.2s, transform 0.2s;
 }
-
 .btn-primary-tcg:hover {
     background: #c0392b;
     transform: translateY(-2px);
 }
-
-/* Animaciones Suaves */
 @keyframes flotar-suave {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
 }
-
-.booster-pack-wrapper:nth-child(even) { animation-delay: 1s; }
-.booster-pack-wrapper:nth-child(3n) { animation-delay: 2s; }
-.booster-pack-wrapper:nth-child(4n) { animation-delay: 0.5s; }
-
 .link-back-tcg {
     display: inline-block;
     margin-top: 1.5rem;
@@ -339,22 +353,19 @@
     font-size: 0.95rem;
 }
 .link-back-tcg:hover { color: #1a1a1a; text-decoration: underline; }
-
-.booster-pack-wrapper.selected {
-    transform: scale(1.05) translateY(-10px) !important; /* ¡Gana a la animación! */
-    animation-play-state: paused !important; /* Detiene el cambio de transform en la animación */
+.sobre-card.selected {
+    transform: scale(1.05) translateY(-10px) !important; 
+    animation-play-state: paused !important; 
     z-index: 30;
     box-shadow: 0 24px 50px rgba(0,0,0,0.25);
     border-radius: 8px;
 }
-
-.booster-pack-wrapper.selected:hover {
-    transform: scale(1.18) translateY(-18px) !important; /* ¡Gana al hover normal! */
+.sobre-card.selected:hover {
+    transform: scale(1.18) translateY(-18px) !important; 
     z-index: 45;
     box-shadow: 0 26px 60px rgba(0,0,0,0.4);
 }
-
-.booster-pack-wrapper.selected::before {
+.sobre-card.selected::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -364,9 +375,8 @@
     transition: background 0.2s ease;
     z-index: 10;
 }
-
-.booster-pack-wrapper.selected::after {
-    content: '✓  SELECCIONADO';
+.sobre-card.selected::after {
+    content: '✓ SELECCIONADO';
     position: absolute;
     top: 12px;
     right: 12px;
@@ -379,20 +389,17 @@
     letter-spacing: 0.08rem;
     box-shadow: 0 4px 14px rgba(0,0,0,0.2);
     text-transform: uppercase;
-    z-index: 50; /* Aseguramos que la etiqueta quede por encima de todo */
+    z-index: 50; 
 }
-
-.booster-pack-wrapper.selected .pack-shine {
+.sobre-card.selected .pack-shine {
     transform: translateX(120%);
 }
-
 button:disabled {
     background: #bdc3c7 !important;
     cursor: not-allowed !important;
     box-shadow: none !important;
     transform: none !important;
 }
-
 @keyframes abrir-sobre-anim {
     0% { transform: scale(1.1) translateY(-15px) rotate(0deg); }
     10% { transform: scale(1.15) translateY(-20px) rotate(-3deg); }
@@ -406,12 +413,10 @@ button:disabled {
     90% { transform: scale(1.3) translateY(-30px) filter(brightness(2)); opacity: 1; }
     100% { transform: scale(0) translateY(-50px) filter(brightness(3)); opacity: 0; }
 }
-
 .opening-animation {
     animation: abrir-sobre-anim 1.5s ease-in-out forwards !important;
     pointer-events: none; 
 }
-
 /* Títulos de las Secciones */
 .titulo-seccion-tienda {
     text-align: center;
@@ -419,59 +424,151 @@ button:disabled {
     color: #333;
     margin: 3rem 0 1rem;
     border-bottom: 3px solid #FFCB05;
-    display: inline-block;
-    padding-bottom: 0.5rem;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 .premium-title {
     color: #8e44ad;
     border-bottom-color: #8e44ad;
 }
-
-/* === ESTILOS ÉPICOS PREMIUM === */
-.premium-pack {
-    animation: flotar-epico 4s ease-in-out infinite;
+/* Responsive */
+@media (max-width: 360px) {
+    .sobre-card {
+        flex: 0 0 280px;
+        width: 280px;
+        height: 400px;
+    }
 }
 
-@keyframes flotar-epico {
-    0%, 100% { transform: translateY(0) scale(1.02); }
-    50% { transform: translateY(-12px) scale(1.02); }
+/* --- MODAL DE CONFIRMACIÓN DE COMPRA --- */
+.modal-tienda-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-/* Aura base para las partículas de luz */
-.aura-epica {
-    position: absolute;
-    top: -10%; left: -10%; right: -10%; bottom: -10%;
-    z-index: 0;
+.modal-tienda-backdrop.active {
+    opacity: 1; pointer-events: auto;
+}
+
+.modal-tienda-content {
+    background: #1a1a2e;
     border-radius: 12px;
-    filter: blur(20px);
-    opacity: 0.6;
-    animation: pulso-aura 3s infinite alternate;
-    pointer-events: none;
+    padding: 2.5rem;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    border: 1px solid #2a2a4a;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
 }
 
-@keyframes pulso-aura {
-    0% { opacity: 0.4; transform: scale(0.95); }
-    100% { opacity: 0.8; transform: scale(1.05); }
+.modal-tienda-backdrop.active .modal-tienda-content {
+    transform: scale(1);
 }
 
-/* Sobre Holográfico (Plateado + Arcoíris) */
-.holo .pack-inner, .holo .pack-crimp { background-color: #bdc3c7; }
-.holo .pack-inner { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
-.holo .aura-epica { background: linear-gradient(45deg, #ff9ff3, #feca57, #48dbfb, #ff9ff3); background-size: 200% 200%; animation: gradient-arcoiris 3s linear infinite, pulso-aura 3s infinite alternate; }
-.holo:hover { box-shadow: 0 20px 50px rgba(72, 219, 251, 0.5); }
-
-@keyframes gradient-arcoiris {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+.modal-tienda-content h3 {
+    color: #fff;
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    border-bottom: 2px solid #3a3a5a;
+    padding-bottom: 1rem;
 }
 
-/* Sobre Legendario (Dorado Oscuro) */
-.legendario .pack-inner, .legendario .pack-crimp { background-color: #1a1a1a; }
-.legendario .pack-inner { background: linear-gradient(180deg, #2c3e50, #000000); border: 2px solid #f1c40f; }
-.legendario .aura-epica { background: radial-gradient(circle, rgba(241,196,15,1) 0%, rgba(211,84,0,0) 70%); filter: blur(25px); opacity: 0.8; }
-.legendario:hover { box-shadow: 0 20px 50px rgba(241, 196, 15, 0.6); }
-.legendario .pack-set-name { color: #f1c40f; }
+.modal-text-detail {
+    color: #a0a0c0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.modal-text-detail strong.resaltado {
+    color: #FFCB05;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: stretch;
+    gap: 1rem;
+}
+
+.btn-modal {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-cancelar {
+    background: #2a2a4a;
+    color: #fff;
+}
+.btn-cancelar:hover {
+    background: #3a3a5a;
+}
+
+.btn-confirmar {
+    background: #27ae60;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+.btn-confirmar:hover {
+    background: #2ecc71;
+    transform: translateY(-2px);
+}
+
+/* Spinner Overlay */
+.spinner-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.9);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.spinner-overlay.active {
+    opacity: 1; pointer-events: auto;
+}
+
+.pokeball-spinner {
+    width: 60px;
+    animation: spin-anim 1s infinite linear;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+    margin-bottom: 1.5rem;
+}
+
+.spinner-text {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+@keyframes spin-anim {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
