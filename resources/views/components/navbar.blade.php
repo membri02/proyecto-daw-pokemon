@@ -12,6 +12,12 @@
     </div>
 
     <div class="nav-auth">
+        <!-- Selector Físico Dark/Light Mode -->
+        <button id="themeToggle" class="btn-theme-toggle" onclick="togglePokemonTheme()" title="Cambiar Apariencia" style="background:transparent; border:1px solid rgba(255,255,255,0.3); border-radius:50%; width:38px; height:38px; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; transition: all 0.3s; margin-right:10px;">
+            <span class="icon-moon">🌙</span>
+            <span class="icon-sun" style="display:none;">☀️</span>
+        </button>
+
         @auth
             <span class="user-badge">Entrenador: {{ Auth::user()->name }}</span>
             <form method="POST" action="{{ route('logout') }}" style="display:inline;">
@@ -127,4 +133,31 @@
         box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         margin-top: 0;
     }
+
+    .btn-theme-toggle:hover {
+        background: rgba(255,255,255,0.1) !important;
+        transform: scale(1.1);
+    }
 </style>
+
+<script>
+    // Sincronizar UI del botón al cargar el navbar
+    document.addEventListener('DOMContentLoaded', () => {
+        const isLight = document.documentElement.classList.contains('light-theme');
+        document.querySelector('.icon-moon').style.display = isLight ? 'none' : 'inline';
+        document.querySelector('.icon-sun').style.display = isLight ? 'inline' : 'none';
+    });
+
+    function togglePokemonTheme() {
+        // Intercambiar clase
+        document.documentElement.classList.toggle('light-theme');
+        const isLight = document.documentElement.classList.contains('light-theme');
+        
+        // Memoria persistente
+        localStorage.setItem('pokemon-theme', isLight ? 'light' : 'dark');
+        
+        // Feedback visual del botón (Girar íconos)
+        document.querySelector('.icon-moon').style.display = isLight ? 'none' : 'inline';
+        document.querySelector('.icon-sun').style.display = isLight ? 'inline' : 'none';
+    }
+</script>

@@ -1,27 +1,29 @@
 /* Configuración General y Reset */
 .tienda-wrapper {
     padding: 3rem 1.5rem;
-    max-width: 1400px; 
+    max-width: 1200px; /* Mandatario: Ancho confinado central */
     margin: 0 auto;
     font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
-    background: hsl(180, 11%, 98%);
+    background: transparent;
+    color: var(--text-main);
 }
 .tienda-header {
     text-align: center;
     margin-bottom: 3rem;
 }
 .titulo-pokemon {
-    font-size: 3.5rem;
-    color: #1a1a1a;
+    font-size: 4rem;
+    color: var(--text-main);
+    text-shadow: 2px 2px 0px var(--shadow-color);
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 0.5rem;
     font-weight: 900;
 }
 .subtitulo {
-    color: #57606f;
+    color: var(--text-muted); /* Color gris/slate adaptativo */
     font-size: 1.25rem;
-    font-weight: 400;
+    font-weight: 500;
 }
 /* Iconos de Moneda Estables */
 .icono-moneda-inline {
@@ -50,20 +52,19 @@
     justify-content: center;
 }
 .intro-card {
-    background: white;
-    border-radius: 4px; 
+    background: var(--bg-card); /* Fondo dinámico navy o blanco */
+    border-radius: 8px; 
     padding: 2.5rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color); /* Borde dinámico firme */
     max-width: 1000px;
     width: 100%;
-    border-top: 4px solid #333; 
 }
 .intro-card h2 {
-    color: #1a1a1a;
+    color: var(--text-main);
     margin-top: 0;
     margin-bottom: 2rem;
     font-size: 1.8rem;
-    font-weight: 700;
+    font-weight: 800;
     text-align: center;
 }
 .intro-grid {
@@ -79,8 +80,8 @@
 .intro-marker {
     font-size: 1.2rem;
     font-weight: 900;
-    color: white;
-    background: #333;
+    color: #FFFFFF;
+    background: #2563EB; /* Azul vibrante */
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -88,18 +89,19 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    border: 1px solid #1D4ED8;
 }
 .intro-item strong {
-    color: #1a1a1a;
+    color: var(--text-main);
     display: block;
     margin-bottom: 0.4rem;
     font-size: 1.15rem;
     font-weight: 700;
 }
 .intro-item p {
-    color: #57606f;
+    color: var(--text-muted);
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.6;
     font-size: 0.95rem;
 }
 
@@ -116,98 +118,7 @@
     padding: 0 20px;
 }
 
-/* --- LA CARTA/SOBRE INDIVIDUAL (El Arreglo está aquí) --- */
-.sobre-card {
-    background: #2a2a35;
-    border-radius: 16px;
-    padding: 2rem;
-    position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid transparent;
-    overflow: hidden;
 
-    /* FIJAMOS EL TAMAÑO PARA DAR ARMONÍA */
-    /* flex: grow shrink basis */
-    flex: 0 0 320px; /* No crecen, no encogen, base fija de 320px */
-    width: 320px;    /* Aseguramos el ancho en todos los navegadores */
-    height: 450px;   /* Altura fija para que todos sean iguales */
-
-    /* Centrado interno */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between; /* Distribuye el contenido arriba y abajo */
-}
-
-/* Efecto hover elegante sin romper el layout */
-.sobre-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-    z-index: 10;
-}
-
-/* --- AJUSTES INTERNOS PARA QUE QUEDE PERFECTO --- */
-
-/* El arte del sobre (Mew, Charizard, etc.) */
-.sobre-art {
-    width: 180px; /* Tamaño unificado para todos los artes */
-    height: 180px;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-    margin-bottom: 1rem;
-}
-
-/* Info del sobre (Título y precio) */
-.sobre-info {
-    text-align: center;
-    width: 100%;
-    margin-top: auto; /* Empuja esto hacia abajo */
-}
-
-.sobre-info h3 {
-    font-size: 1.6rem;
-    color: white;
-    margin-bottom: 0.5rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Botón de compra unificado */
-.btn-compra {
-    width: 100%; /* Botón a ancho completo dentro de la tarjeta */
-    padding: 12px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 8px;
-    text-transform: uppercase;
-    transition: background 0.2s;
-    border: none;
-    cursor: pointer;
-}
-
-/* --- RESPONSIVE BÁSICO --- */
-/* Para móviles muy pequeños, reducimos un poco el ancho fijo */
-@media (max-width: 360px) {
-    .sobre-card {
-        flex: 0 0 280px;
-        width: 280px;
-        height: 400px;
-    }
-    .sobre-art {
-        width: 140px;
-        height: 140px;
-    }
-}
-
-/* === EL MAGIA DEL EFECTO FOCUS === */
-/* Cuando el usuario hace hover en el contenedor general, los sobres que NO están siendo tocados se oscurecen y alejan */
-.sobres-grid:hover .booster-pack-wrapper:not(:hover):not(.selected) {
-    opacity: 0.5;
-    filter: grayscale(40%);
-    transform: scale(0.95) translateY(5px);
-}
 /* --- LA CARTA/SOBRE INDIVIDUAL (El Arreglo está aquí) --- */
 .sobre-card {
     position: relative;
@@ -231,8 +142,7 @@
 .sobre-card:hover {
     transform: scale(1.1) translateY(-15px) !important;
     z-index: 40;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    border-radius: 8px;
+    filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
 }
 .sobre-card:hover .pack-shine {
     transform: translateX(120%);
@@ -307,13 +217,13 @@
     opacity: 0.95;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-/* Footer de información del sobre */
 .pack-footer-info {
     text-align: center;
     color: white;
     z-index: 3;
     width: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 30%);
+    /* Gradient darkened to ensure 4.5:1 contrast */
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 25%, rgba(0,0,0,1) 100%);
     padding: 25px 10px 15px;
     margin-top: auto;
     display: flex;
@@ -347,24 +257,24 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 /* Colores Base y de Sellado Dinámicos */
-.fuego .pack-inner, .fuego .pack-crimp { background-color: #e74c3c; } .fuego .pack-inner { background: linear-gradient(180deg, #e74c3c, #b03a2e); } .fuego:hover { box-shadow: 0 20px 40px rgba(231, 76, 60, 0.4); }
-.agua .pack-inner, .agua .pack-crimp { background-color: #3498db; } .agua .pack-inner { background: linear-gradient(180deg, #3498db, #21618c); } .agua:hover { box-shadow: 0 20px 40px rgba(52, 152, 219, 0.4); }
-.planta .pack-inner, .planta .pack-crimp { background-color: #2ecc71; } .planta .pack-inner { background: linear-gradient(180deg, #2ecc71, #1e8449); } .planta:hover { box-shadow: 0 20px 40px rgba(46, 204, 113, 0.4); }
-.electrico .pack-inner, .electrico .pack-crimp { background-color: #f1c40f; } .electrico .pack-inner { background: linear-gradient(180deg, #f1c40f, #b7950b); } .electrico:hover { box-shadow: 0 20px 40px rgba(241, 196, 15, 0.4); }
-.hielo .pack-inner, .hielo .pack-crimp { background-color: #81ecec; } .hielo .pack-inner { background: linear-gradient(180deg, #81ecec, #00cec9); } .hielo:hover { box-shadow: 0 20px 40px rgba(129, 236, 236, 0.4); }
-.lucha .pack-inner, .lucha .pack-crimp { background-color: #d35400; } .lucha .pack-inner { background: linear-gradient(180deg, #d35400, #873600); } .lucha:hover { box-shadow: 0 20px 40px rgba(211, 84, 0, 0.4); }
-.veneno .pack-inner, .veneno .pack-crimp { background-color: #8e44ad; } .veneno .pack-inner { background: linear-gradient(180deg, #8e44ad, #5b2c6f); } .veneno:hover { box-shadow: 0 20px 40px rgba(142, 68, 173, 0.4); }
-.tierra .pack-inner, .tierra .pack-crimp { background-color: #e67e22; } .tierra .pack-inner { background: linear-gradient(180deg, #e67e22, #a04000); } .tierra:hover { box-shadow: 0 20px 40px rgba(230, 126, 34, 0.4); }
-.volador .pack-inner, .volador .pack-crimp { background-color: #74b9ff; } .volador .pack-inner { background: linear-gradient(180deg, #81ecec, #74b9ff); } .volador:hover { box-shadow: 0 20px 40px rgba(116, 185, 255, 0.4); }
-.psiquico .pack-inner, .psiquico .pack-crimp { background-color: #fd79a8; } .psiquico .pack-inner { background: linear-gradient(180deg, #fd79a8, #e84393); } .psiquico:hover { box-shadow: 0 20px 40px rgba(253, 121, 168, 0.4); }
-.bicho .pack-inner, .bicho .pack-crimp { background-color: #badc58; } .bicho .pack-inner { background: linear-gradient(180deg, #badc58, #6ab04c); } .bicho:hover { box-shadow: 0 20px 40px rgba(186, 220, 88, 0.4); }
-.roca .pack-inner, .roca .pack-crimp { background-color: #fab1a0; } .roca .pack-inner { background: linear-gradient(180deg, #fab1a0, #ff7675); } .roca:hover { box-shadow: 0 20px 40px rgba(250, 177, 160, 0.4); }
-.fantasma .pack-inner, .fantasma .pack-crimp { background-color: #a29bfe; } .fantasma .pack-inner { background: linear-gradient(180deg, #a29bfe, #6c5ce7); } .fantasma:hover { box-shadow: 0 20px 40px rgba(162, 155, 254, 0.4); }
-.dragon .pack-inner, .dragon .pack-crimp { background-color: #ff9f43; } .dragon .pack-inner { background: linear-gradient(180deg, #ff9f43, #ee5253); } .dragon:hover { box-shadow: 0 20px 40px rgba(255, 159, 67, 0.4); }
-.siniestro .pack-inner, .siniestro .pack-crimp { background-color: #636e72; } .siniestro .pack-inner { background: linear-gradient(180deg, #636e72, #2d3436); } .siniestro:hover { box-shadow: 0 20px 40px rgba(99, 110, 114, 0.4); }
-.acero .pack-inner, .acero .pack-crimp { background-color: #dfe6e9; } .acero .pack-inner { background: linear-gradient(180deg, #dfe6e9, #b2bec3); } .acero:hover { box-shadow: 0 20px 40px rgba(223, 230, 233, 0.4); }
-.hada .pack-inner, .hada .pack-crimp { background-color: #ff9ff3; } .hada .pack-inner { background: linear-gradient(180deg, #ff9ff3, #f368e0); } .hada:hover { box-shadow: 0 20px 40px rgba(255, 159, 243, 0.4); }
-.normal .pack-inner, .normal .pack-crimp { background-color: #f1f2f6; } .normal .pack-inner { background: linear-gradient(180deg, #f1f2f6, #ced6e0); } .normal:hover { box-shadow: 0 20px 40px rgba(241, 242, 246, 0.4); }
+.fuego .pack-inner, .fuego .pack-crimp { background-color: #e74c3c; } .fuego .pack-inner { background: linear-gradient(180deg, #e74c3c, #b03a2e); } .fuego:hover { filter: drop-shadow(0 20px 20px rgba(231, 76, 60, 0.4)); }
+.agua .pack-inner, .agua .pack-crimp { background-color: #3498db; } .agua .pack-inner { background: linear-gradient(180deg, #3498db, #21618c); } .agua:hover { filter: drop-shadow(0 20px 20px rgba(52, 152, 219, 0.4)); }
+.planta .pack-inner, .planta .pack-crimp { background-color: #2ecc71; } .planta .pack-inner { background: linear-gradient(180deg, #2ecc71, #1e8449); } .planta:hover { filter: drop-shadow(0 20px 20px rgba(46, 204, 113, 0.4)); }
+.electrico .pack-inner, .electrico .pack-crimp { background-color: #f1c40f; } .electrico .pack-inner { background: linear-gradient(180deg, #f1c40f, #b7950b); } .electrico:hover { filter: drop-shadow(0 20px 20px rgba(241, 196, 15, 0.4)); }
+.hielo .pack-inner, .hielo .pack-crimp { background-color: #81ecec; } .hielo .pack-inner { background: linear-gradient(180deg, #81ecec, #00cec9); } .hielo:hover { filter: drop-shadow(0 20px 20px rgba(129, 236, 236, 0.4)); }
+.lucha .pack-inner, .lucha .pack-crimp { background-color: #d35400; } .lucha .pack-inner { background: linear-gradient(180deg, #d35400, #873600); } .lucha:hover { filter: drop-shadow(0 20px 20px rgba(211, 84, 0, 0.4)); }
+.veneno .pack-inner, .veneno .pack-crimp { background-color: #8e44ad; } .veneno .pack-inner { background: linear-gradient(180deg, #8e44ad, #5b2c6f); } .veneno:hover { filter: drop-shadow(0 20px 20px rgba(142, 68, 173, 0.4)); }
+.tierra .pack-inner, .tierra .pack-crimp { background-color: #e67e22; } .tierra .pack-inner { background: linear-gradient(180deg, #e67e22, #a04000); } .tierra:hover { filter: drop-shadow(0 20px 20px rgba(230, 126, 34, 0.4)); }
+.volador .pack-inner, .volador .pack-crimp { background-color: #74b9ff; } .volador .pack-inner { background: linear-gradient(180deg, #81ecec, #74b9ff); } .volador:hover { filter: drop-shadow(0 20px 20px rgba(116, 185, 255, 0.4)); }
+.psiquico .pack-inner, .psiquico .pack-crimp { background-color: #fd79a8; } .psiquico .pack-inner { background: linear-gradient(180deg, #fd79a8, #e84393); } .psiquico:hover { filter: drop-shadow(0 20px 20px rgba(253, 121, 168, 0.4)); }
+.bicho .pack-inner, .bicho .pack-crimp { background-color: #badc58; } .bicho .pack-inner { background: linear-gradient(180deg, #badc58, #6ab04c); } .bicho:hover { filter: drop-shadow(0 20px 20px rgba(186, 220, 88, 0.4)); }
+.roca .pack-inner, .roca .pack-crimp { background-color: #fab1a0; } .roca .pack-inner { background: linear-gradient(180deg, #fab1a0, #ff7675); } .roca:hover { filter: drop-shadow(0 20px 20px rgba(250, 177, 160, 0.4)); }
+.fantasma .pack-inner, .fantasma .pack-crimp { background-color: #a29bfe; } .fantasma .pack-inner { background: linear-gradient(180deg, #a29bfe, #6c5ce7); } .fantasma:hover { filter: drop-shadow(0 20px 20px rgba(162, 155, 254, 0.4)); }
+.dragon .pack-inner, .dragon .pack-crimp { background-color: #ff9f43; } .dragon .pack-inner { background: linear-gradient(180deg, #ff9f43, #ee5253); } .dragon:hover { filter: drop-shadow(0 20px 20px rgba(255, 159, 67, 0.4)); }
+.siniestro .pack-inner, .siniestro .pack-crimp { background-color: #636e72; } .siniestro .pack-inner { background: linear-gradient(180deg, #636e72, #2d3436); } .siniestro:hover { filter: drop-shadow(0 20px 20px rgba(99, 110, 114, 0.4)); }
+.acero .pack-inner, .acero .pack-crimp { background-color: #dfe6e9; } .acero .pack-inner { background: linear-gradient(180deg, #dfe6e9, #b2bec3); } .acero:hover { filter: drop-shadow(0 20px 20px rgba(223, 230, 233, 0.4)); }
+.hada .pack-inner, .hada .pack-crimp { background-color: #ff9ff3; } .hada .pack-inner { background: linear-gradient(180deg, #ff9ff3, #f368e0); } .hada:hover { filter: drop-shadow(0 20px 20px rgba(255, 159, 243, 0.4)); }
+.normal .pack-inner, .normal .pack-crimp { background-color: #f1f2f6; } .normal .pack-inner { background: linear-gradient(180deg, #f1f2f6, #ced6e0); } .normal:hover { filter: drop-shadow(0 20px 20px rgba(241, 242, 246, 0.4)); }
 /* --- AURA Y ESTILOS MÍTICOS/PREMIUM --- */
 .premium-pack {
     animation: flotar-epico 4s ease-in-out infinite;
@@ -391,17 +301,19 @@
 .holo .pack-inner, .holo .pack-crimp { background-color: #bdc3c7; }
 .holo .pack-inner { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
 .holo .aura-epica { background: linear-gradient(45deg, #ff9ff3, #feca57, #48dbfb, #ff9ff3); background-size: 200% 200%; animation: gradient-arcoiris 3s linear infinite, pulso-aura 3s infinite alternate; }
-.holo:hover { box-shadow: 0 20px 50px rgba(72, 219, 251, 0.5); }
+.holo:hover { filter: drop-shadow(0 24px 20px rgba(72, 219, 251, 0.5)); }
+
 @keyframes gradient-arcoiris {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
 /* Sobre Legendario */
 .legendario .pack-inner, .legendario .pack-crimp { background-color: #1a1a1a; }
 .legendario .pack-inner { background: linear-gradient(180deg, #2c3e50, #000000); border: 2px solid #f1c40f; }
 .legendario .aura-epica { background: radial-gradient(circle, rgba(241,196,15,1) 0%, rgba(211,84,0,0) 70%); filter: blur(25px); opacity: 0.8; }
-.legendario:hover { box-shadow: 0 20px 50px rgba(241, 196, 15, 0.6); }
+.legendario:hover { filter: drop-shadow(0 24px 20px rgba(241, 196, 15, 0.6)); }
 .legendario .pack-set-name { color: #f1c40f; }
 /* ACTION BAR Y SELECCIÓN */
 .tienda-action-bar {
@@ -412,21 +324,20 @@
 }
 .btn-primary-tcg {
     background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 1.25rem 3.5rem;
+    color: #ffffff;
+    border: 1px solid #b91c1c; /* Borde duro */
+    padding: 1.5rem 4rem;
     border-radius: 4px; 
-    font-weight: 800;
-    font-size: 1.2rem;
+    font-weight: 900;
+    font-size: 1.3rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
     transition: background 0.2s, transform 0.2s;
 }
 .btn-primary-tcg:hover {
     background: #c0392b;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 @keyframes flotar-suave {
     0%, 100% { transform: translateY(0); }
@@ -435,34 +346,28 @@
 .link-back-tcg {
     display: inline-block;
     margin-top: 1.5rem;
-    color: #57606f;
+    color: var(--text-muted);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    transition: color 0.2s;
 }
-.link-back-tcg:hover { color: #1a1a1a; text-decoration: underline; }
+.link-back-tcg:hover { color: var(--text-main); text-decoration: underline; }
 .sobre-card.selected {
     transform: scale(1.05) translateY(-10px) !important; 
     animation-play-state: paused !important; 
     z-index: 30;
-    box-shadow: 0 24px 50px rgba(0,0,0,0.25);
-    border-radius: 8px;
+    filter: drop-shadow(0 24px 20px rgba(0,0,0,0.25));
 }
+
 .sobre-card.selected:hover {
     transform: scale(1.18) translateY(-18px) !important; 
     z-index: 45;
-    box-shadow: 0 26px 60px rgba(0,0,0,0.4);
+    filter: drop-shadow(0 26px 20px rgba(0,0,0,0.4));
 }
-.sobre-card.selected::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.18);
-    pointer-events: none;
-    transition: background 0.2s ease;
-    z-index: 10;
-}
+
+/* Pseudo-elemento Before eliminado para arreglar el overlay rectangular gris/negro */
+
 .sobre-card.selected::after {
     content: '✓ SELECCIONADO';
     position: absolute;
@@ -508,14 +413,15 @@ button:disabled {
 /* Títulos de las Secciones */
 .titulo-seccion-tienda {
     text-align: center;
-    font-size: 2rem;
-    color: #333;
-    margin: 3rem 0 1rem;
-    border-bottom: 3px solid #FFCB05;
+    font-size: 2.2rem;
+    color: var(--text-main);
+    margin: 4rem 0 2rem;
+    border-bottom: 3px solid var(--accent-color);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    padding-bottom: 0.5rem;
 }
 .premium-title {
     color: #8e44ad;
@@ -549,14 +455,13 @@ button:disabled {
 }
 
 .modal-tienda-content {
-    background: #1a1a2e;
-    border-radius: 12px;
+    background: var(--bg-card);
+    border-radius: 8px;
     padding: 2.5rem;
     max-width: 480px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    border: 1px solid #2a2a4a;
+    border: 1px solid var(--border-color);
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
@@ -568,17 +473,17 @@ button:disabled {
 }
 
 .modal-tienda-content h3 {
-    color: #fff;
+    color: var(--text-main);
     font-size: 1.6rem;
     margin-top: 0;
     margin-bottom: 1rem;
     font-weight: 800;
-    border-bottom: 2px solid #3a3a5a;
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 1rem;
 }
 
 .modal-text-detail {
-    color: #a0a0c0;
+    color: var(--text-muted);
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 2rem;
@@ -628,7 +533,7 @@ button:disabled {
 .spinner-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(15, 23, 42, 0.9);
+    background: var(--bg-color); /* Opaco u oscuro según el tema */
     z-index: 2000;
     display: flex;
     flex-direction: column;

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="apertura-wrapper">
+<div class="apertura-wrapper" style="background-color: var(--bg-color); max-width: 1400px; margin: 0 auto; text-align: center; min-height: 100vh; display: block; overflow: hidden; padding: 3rem 5rem;">
     <div id="flash-overlay"></div>
 
     <header class="apertura-header">
@@ -39,7 +39,7 @@
 
     @if(isset($monedasReembolso) && $monedasReembolso > 0)
         <div class="mensaje-reembolso" id="mensajeReembolso" style="display: none; opacity: 0; transition: opacity 1s;">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;" alt="Reembolso"> Has recuperado <strong>{{ $monedasReembolso }}</strong> Pokémonedas por cartas repetidas en este sobre.
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;" alt="Reembolso"> Has recuperado <strong>{{ $monedasReembolso }}</strong> Pokémonedas por repetidas.
         </div>
     @endif
 
@@ -111,8 +111,8 @@
 
     /* Estilos base de la mesa de apertura */
     .apertura-wrapper {
-        padding: 3rem 1.5rem;
-        max-width: 1200px;
+        padding: 3rem 5rem; /* Margen limpio horizontal para que respiren */
+        max-width: 1400px;
         margin: 0 auto;
         text-align: center;
         min-height: 80vh;
@@ -126,8 +126,8 @@
     }
 
     .titulo-pokemon {
-        color: #ffcb05;
-        text-shadow: 2px 2px 0 #3c5aa6;
+        color: #ffffff;
+        text-shadow: 2px 2px 0px rgba(0,0,0,0.5); /* Sombra definida sólida */
         font-size: 2.5rem;
         text-transform: uppercase;
         font-weight: 900;
@@ -151,12 +151,12 @@
     /* --- EL MAZO Y LA MESA CENTRAL --- */
     .mesa-apertura {
         position: relative;
-        height: 400px;
+        height: 660px;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 2rem auto 4rem;
-        max-width: 1200px;
+        max-width: 1400px;
     }
 
     .deck-trigger {
@@ -166,7 +166,7 @@
         z-index: 100;
         cursor: pointer;
         border-radius: 12px;
-        top: 50%;
+        top: calc(50% - 140px);
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -176,7 +176,7 @@
     }
 
     .deck-trigger:active ~ .carta-container.en-mazo {
-        transform: translate(calc(var(--i) * -1.5px + 3px), calc(var(--i) * -2px + 6px)) scale(0.98);
+        transform: translate(calc(var(--i) * -1.5px + 3px), calc(var(--i) * -2px - 136px)) scale(0.98);
     }
 
     /* Contenedor y efecto dinámico de la carta */
@@ -191,14 +191,14 @@
 
     .carta-container.en-mazo {
         /* Desalineamos el mazo ligeramente para hacerlo físico */
-        transform: translate(calc(var(--i) * -1.5px + 3px), calc(var(--i) * -2px + 4px)) rotate(calc(var(--i) * 1.5deg - 3deg));
+        transform: translate(calc(var(--i) * -1.5px + 3px), calc(var(--i) * -2px - 140px)) rotate(calc(var(--i) * 1.5deg - 3deg));
         box-shadow: -2px 2px 5px rgba(0,0,0,0.3);
     }
 
     .carta-container.posicion-final {
-        /* Abanico en fila. --i va de 0 a 4. (0-2) = -2, -1, 0, 1, 2 multiplicados por un offset X */
-        transform: translate(calc((var(--i) - 2) * 240px), 0) rotate(0deg);
-        z-index: var(--i) !important; /* Las ajustamos cuando estén desplegadas para que no se pisen extraño */
+        /* Abanico en fila recortado a 210px para evitar que choquen con el borde */
+        transform: translate(calc((var(--i) - 2) * 210px), 180px) rotate(0deg);
+        z-index: var(--i) !important;
     }
 
     .carta-inner {
@@ -216,6 +216,41 @@
     .carta-container.revelada .carta-inner {
         transform: rotateY(180deg) scale(1.08);
         box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    }
+
+    /* --- NUEVO: MENSAJE DE REEMBOLSO TOTALMENTE REFORMADO (AAA CONTRAST) --- */
+    .mensaje-reembolso {
+        background: var(--bg-color); /* Fondo emparejado con exterior del tapete */
+        border: 2px solid #10b981; /* Borde firme esmeralda */
+        color: var(--text-main); /* Texto Principal Dinamico */
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: none; /* Prohibido usar sombras difuminadas */
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+    }
+    .mensaje-reembolso strong {
+        color: #10b981; /* Verde Esmeralda intenso sobre fondo oscuro = AAA */
+        font-weight: 900;
+        font-size: 1.3rem;
+    }
+
+    /* --- RESPONSIVE ESCALADO DEL MAZO --- */
+    /* Garantiza que no se corten las cartas en laptops o móviles */
+    @media (max-width: 1200px) {
+        .apertura-wrapper { padding: 3rem 2rem; }
+        .mesa-apertura { transform: scale(0.85); transform-origin: top center; height: 500px; }
+    }
+    @media (max-width: 900px) {
+        .apertura-wrapper { padding: 3rem 1rem; }
+        .mesa-apertura { transform: scale(0.65); transform-origin: top center; height: 400px; }
+    }
+    @media (max-width: 600px) {
+        .apertura-wrapper { padding: 2rem 0.5rem; }
+        .mesa-apertura { transform: scale(0.45); transform-origin: top center; height: 300px; margin-bottom: 2rem; }
     }
 
     /* Caras de la carta */
@@ -304,18 +339,7 @@
         text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
     }
 
-    /* --- NUEVO: MENSAJE DE REEMBOLSO TOTAL --- */
-    .mensaje-reembolso {
-        background: rgba(231, 76, 60, 0.15);
-        border: 2px solid #e74c3c;
-        color: #ffcb05;
-        display: inline-block;
-        padding: 15px 30px;
-        border-radius: 12px;
-        margin-bottom: 2rem;
-        font-size: 1.2rem;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
+    /* SUPRIMIDO: CLASE DUPLICADA MENSAJE DE REEMBOLSO CON TEXTO AMARILLO */
 
     /* --- EFECTOS MÁGICOS (Holo y Legendaria) --- */
 
@@ -384,14 +408,15 @@
 
     .btn-primary-tcg {
         background: #e74c3c;
-        color: white;
+        color: #ffffff;
         padding: 15px 30px;
         text-decoration: none;
-        border-radius: 8px;
+        border-radius: 4px;
         font-weight: 900;
         font-size: 1.2rem;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        transition: transform 0.2s;
+        border: 1px solid #b91c1c; /* Removida sombra blanda, añadido contorno recio */
+        box-shadow: none; /* Regla de Oro implementada */
+        transition: transform 0.2s, background 0.2s;
         display: inline-block;
     }
 

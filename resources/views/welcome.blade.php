@@ -420,5 +420,58 @@
         .hero-cta { flex-direction: column; }
         .hero-title { font-size: 2.5rem; }
     }
+
+    /* --- OVERRIDES DE EMERGENCIA: MODO CLARO (AAA CONTRAST) --- */
+    .light-theme .hero-title {
+        color: #1e293b !important;
+    }
+    .light-theme .hero-subtitle {
+        color: #475569 !important;
+    }
+    .light-theme .badge-tech {
+        background: #f1f5f9 !important;
+        color: #f59e0b !important;
+        border-color: #f59e0b !important;
+    }
+    .light-theme .btn-secondary-modern {
+        color: #1e293b !important;
+        border-color: #cbd5e1 !important;
+    }
+    .light-theme .btn-secondary-modern:hover {
+        background: rgba(0,0,0,0.05) !important;
+        border-color: #94a3b8 !important;
+    }
+
+    /* --- OVERRIDES: HEADINGS Y CARTAS --- */
+    .light-theme .section-header h2,
+    .light-theme .context-content h2,
+    .light-theme .feature-card h3,
+    .light-theme .team-card h3 {
+        color: #1e293b !important;
+    }
+
+    .light-theme .section-header p,
+    .light-theme .context-content p,
+    .light-theme .feature-card p,
+    .light-theme .team-card p {
+        color: #475569 !important;
+    }
+
+    .light-theme .feature-card,
+    .light-theme .team-card {
+        background: #ffffff !important;
+        border-color: #e2e8f0 !important;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1) !important;
+    }
+
+    .light-theme .team-avatar {
+        background: #f1f5f9 !important;
+        color: #1e293b !important;
+        border-color: #cbd5e1 !important;
+    }
+
+    .light-theme .features-section {
+        background: #f8fafc !important; /* Gris perla */
+    }
 </style>
 @endsection

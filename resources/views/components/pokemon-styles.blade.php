@@ -6,9 +6,17 @@
         --primary-red: #ef5350;
         --secondary-blue: #3b4cca;
         --pokemon-yellow: #ffcb05;
-        --bg-light: #f8f9fa;
-        --text-dark: #2d3436;
-        --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        
+        /* TCG Tema Oscuro Profesional (Base Default) */
+        --bg-color: #0f172a;
+        --bg-card: #1e293b;
+        --text-main: #ffffff;
+        --text-muted: #94a3b8;
+        --border-color: #334155;
+        --accent-color: #3b82f6;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+
+        --card-shadow: 0 10px 20px var(--shadow-color);
         --transition-epic: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
         /* Colores de Sobres */
@@ -17,9 +25,15 @@
         --pack-grass: linear-gradient(135deg, #11998e, #38ef7d);
     }
 
-    [data-theme="dark"] {
-        --bg-light: #121212;
-        --text-dark: #ecf0f1;
+    .light-theme {
+        --bg-color: #f8fafc; /* Gris perla */
+        --bg-card: #ffffff; /* Blanco de tarjeta */
+        --text-main: #1e293b; /* Texto oscuro */
+        --text-muted: #64748b; /* Texto secundaior gris */
+        --border-color: #e2e8f0; /* Borde gris muy claro */
+        --accent-color: #2563eb;
+        --shadow-color: rgba(0, 0, 0, 0.15); /* Sombras suaves de mediodia */
+        --card-shadow: 0 10px 20px var(--shadow-color);
     }
 
     * {
@@ -29,10 +43,10 @@
     }
 
     body {
-        background-color: var(--bg-light);
-        color: var(--text-dark);
+        background-color: var(--bg-color);
+        color: var(--text-main);
         font-family: 'Segoe UI', Roboto, sans-serif;
-        transition: background 0.4s;
+        transition: background-color 0.3s ease, color 0.3s ease;
         min-height: 100vh;
     }
 

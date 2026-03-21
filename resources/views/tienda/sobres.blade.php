@@ -3,7 +3,8 @@
 @section('content')
     @vite(['resources/css/sobres.css'])
     
-    <div class="tienda-wrapper">
+    <!-- Prevención de FOUC: Estilos base críticos inline para que renderice instantáneamente centrado y oscuro -->
+    <div class="tienda-wrapper" style="background-color: var(--bg-color); max-width: 1200px; margin: 0 auto; display: block; min-height: 100vh;">
         <header class="tienda-header">
             <h1 class="titulo-pokemon">Poké-Tienda Oficial</h1>
             <p class="subtitulo">Adquiere potenciadores y expande tu colección de cartas digitales</p>
@@ -11,7 +12,7 @@
 
         <div style="text-align: center; margin-bottom: 2rem;">
             @auth
-                <div style="display: inline-block; background: #fff; padding: 10px 25px; border-radius: 50px; border: 3px solid #FFCB05; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="display: inline-block; background: #FFCB05; color: #000000; padding: 10px 25px; border-radius: 50px; border: 1px solid #111827; font-weight: 800; font-size: 1.2rem;">
                     Saldo actual: {{ Auth::user()->monedas }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;">
                 </div>
             @endauth
