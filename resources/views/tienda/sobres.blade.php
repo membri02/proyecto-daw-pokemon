@@ -15,6 +15,10 @@
                 <div style="display: inline-block; background: #FFCB05; color: #000000; padding: 10px 25px; border-radius: 50px; border: 1px solid #111827; font-weight: 800; font-size: 1.2rem;">
                     Saldo actual: {{ Auth::user()->monedas }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;">
                 </div>
+            @else
+                <a href="{{ route('register') }}" style="display: inline-block; background: linear-gradient(135deg, #FFCB05, #f39c12); color: #000; padding: 10px 28px; border-radius: 50px; border: 2px solid #111827; font-weight: 800; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 15px rgba(255,203,5,0.4); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+                    ⚡ ¡Regístrate para obtener 1.000 🪙 gratis!
+                </a>
             @endauth
         </div>
 
@@ -141,6 +145,7 @@
         let precioSeleccionado = 0;
         let nombreSobreSeleccionado = '';
         const saldoActual = @auth {{ Auth::user()->monedas }} @else 0 @endauth;
+        const esInvitado = {{ Auth::guest() ? 'true' : 'false' }};
         
         const btnAbrir = document.getElementById('btn-abrir');
         const sobres = document.querySelectorAll('.sobre-card');
@@ -166,12 +171,21 @@
         });
 
         btnAbrir.addEventListener('click', () => {
-            if (sobreSeleccionado) {
-                // Configuramos los textos del modal
-                modalText.innerHTML = `Estás a punto de adquirir un sobre de <strong class="resaltado">${nombreSobreSeleccionado}</strong>.<br><br>Se deducirán <strong class="resaltado">${precioSeleccionado}</strong> Pokémonedas de tu saldo actual de <strong class="resaltado">${saldoActual}</strong>.<br><br>¿Deseas confirmar la transacción?`;
-                // Mostrar el modal elegante
-                modal.classList.add('active');
+            if (!sobreSeleccionado) return;
+
+            // Guest check — handled entirely by Pikachu, no redirect
+            if (esInvitado) {
+                if (window.pikaGuide) {
+                    window.pikaGuide.guestCheck();
+                } else {
+                    window.location.href = '{{ route("register") }}';
+                }
+                return;
             }
+
+            // Authenticated: show confirmation modal
+            modalText.innerHTML = `Estás a punto de adquirir un sobre de <strong class="resaltado">${nombreSobreSeleccionado}</strong>.<br><br>Se deducirán <strong class="resaltado">${precioSeleccionado}</strong> Pokémonedas de tu saldo actual de <strong class="resaltado">${saldoActual}</strong>.<br><br>¿Deseas confirmar la transacción?`;
+            modal.classList.add('active');
         });
 
         // Lógica de Cancelar
@@ -195,9 +209,20 @@
                 sobreActivo.classList.add('opening-animation');
             }
 
-            // Redirigir suavemente después de iniciar la animación (1.5s para que gire la pokeball)
+            // Enviar formulario POST a la ruta protegida (laravel 11: no GET para acciones)
             setTimeout(() => {
-                window.location.href = `/sobres/abrir/${sobreSeleccionado}`;
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/tienda/abrir/${sobreSeleccionado}`;
+
+                const csrf = document.createElement('input');
+                csrf.type = 'hidden';
+                csrf.name = '_token';
+                csrf.value = '{{ csrf_token() }}';
+                form.appendChild(csrf);
+
+                document.body.appendChild(form);
+                form.submit();
             }, 1200);
         });
     </script>

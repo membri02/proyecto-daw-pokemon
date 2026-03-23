@@ -126,8 +126,8 @@
     }
 
     .titulo-pokemon {
-        color: #ffffff;
-        text-shadow: 2px 2px 0px rgba(0,0,0,0.5); /* Sombra definida sólida */
+        color: var(--text-main);
+        text-shadow: 2px 2px 0px var(--shadow-color);
         font-size: 2.5rem;
         text-transform: uppercase;
         font-weight: 900;
@@ -144,7 +144,7 @@
     }
 
     .subtitulo {
-        color: white;
+        color: var(--text-muted);
         font-size: 1.2rem;
     }
 

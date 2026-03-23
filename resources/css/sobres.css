@@ -320,7 +320,7 @@
     text-align: center;
     margin-top: 4rem;
     padding-top: 2rem;
-    border-top: 1px solid #ecf0f1;
+    border-top: 1px solid var(--border-color);
 }
 .btn-primary-tcg {
     background: #e74c3c;
@@ -489,8 +489,12 @@ button:disabled {
     margin-bottom: 2rem;
 }
 
+/* Yellow on dark = fine; switch to amber-600 in light for AAA */
 .modal-text-detail strong.resaltado {
     color: #FFCB05;
+}
+.light-theme .modal-text-detail strong.resaltado {
+    color: #b45309; /* Amber-700: 7:1 ratio on white bg */
 }
 
 .modal-actions {
@@ -512,11 +516,12 @@ button:disabled {
 }
 
 .btn-cancelar {
-    background: #2a2a4a;
-    color: #fff;
+    background: var(--border-color);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
 }
 .btn-cancelar:hover {
-    background: #3a3a5a;
+    filter: brightness(0.9);
 }
 
 .btn-confirmar {
@@ -529,11 +534,11 @@ button:disabled {
     transform: translateY(-2px);
 }
 
-/* Spinner Overlay */
+/* Spinner Overlay — always dark so white text is readable in both themes */
 .spinner-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--bg-color); /* Opaco u oscuro según el tema */
+    background: #0f172a; /* Forced near-black: white text always 21:1 */
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -555,7 +560,7 @@ button:disabled {
 }
 
 .spinner-text {
-    color: #fff;
+    color: #ffffff; /* Always white — bg is always dark */
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: 2px;

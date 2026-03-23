@@ -98,21 +98,15 @@
 </script>
 
 <style>
-    /* Variables y Reset Básico */
+    /* Welcome page uses the global theme variables.
+       Local palette for colors NOT covered by globals: */
     :root {
-        --dark-bg: #111827;
-        --card-bg: #1f2937;
-        --primary: #3c5aa6; /* Azul Pokémon */
-        --accent: #ffcb05; /* Amarillo Pokémon */
-        --text-main: #f3f4f6;
-        --text-muted: #9ca3af;
+        --wp-primary: #3c5aa6;  /* Azul Pokémon */
+        --wp-accent:  #ffcb05;  /* Amarillo Pokémon */
     }
-
-    body {
-        background-color: var(--dark-bg);
-        color: var(--text-main);
-        font-family: 'Montserrat', sans-serif;
-        overflow-x: hidden;
+    .light-theme {
+        --wp-primary: #3c5aa6;
+        --wp-accent:  #ffcb05;
     }
 
     /* Clases de Animación Scroll (Intersection Observer) */

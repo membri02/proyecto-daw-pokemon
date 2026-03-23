@@ -53,6 +53,13 @@
         margin-bottom: 3rem;
         border-bottom: 2px solid #3c5aa6;
         padding-bottom: 2rem;
+        color: var(--text-main);
+    }
+
+    .subtitulo {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
     }
 
     .titulo-pokemon {
@@ -200,7 +207,7 @@
     .card-info {
         text-align: center;
         width: 100%;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        border-top: 1px solid var(--border-color);
         padding-top: 10px;
         position: relative;
         z-index: 2;

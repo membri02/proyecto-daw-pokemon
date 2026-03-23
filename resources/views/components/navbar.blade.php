@@ -22,7 +22,7 @@
             <span class="user-badge">Entrenador: {{ Auth::user()->name }}</span>
             <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                 @csrf
-                <button type="submit" class="btn-logout" style="background: transparent; border: 1px solid white; color: white; padding: 5px 15px; border-radius: 20px; cursor: pointer; margin-left: 10px;">Salir</button>
+                <button type="submit" class="btn-logout">Salir</button>
             </form>
         @else
             <a href="{{ route('login') }}" class="btn-auth btn-login">Iniciar Sesión</a>
@@ -137,6 +137,23 @@
     .btn-theme-toggle:hover {
         background: rgba(255,255,255,0.1) !important;
         transform: scale(1.1);
+    }
+
+    /* Logout button — always on red nav bg, so always white */
+    .btn-logout {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.7);
+        color: #ffffff;
+        padding: 5px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        margin-left: 10px;
+        font-family: inherit;
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+    .btn-logout:hover {
+        background: rgba(255,255,255,0.15);
     }
 </style>
 

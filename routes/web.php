@@ -12,9 +12,14 @@ Route::get('/pokedex', function () {
     return view('pokedex.pokedex');
 });
 
-// RUTAS PROTEGIDAS POR SESIÓN (Tienda y Álbum)
-Route::get('/sobres', [TiendaController::class, 'index'])->middleware('auth');
-Route::get('/sobres/abrir/{tipo}', [TiendaController::class, 'abrirSobre'])->middleware('auth');
+// Tienda: índice público (Pikachu actúa como guardián del frontend)
+Route::get('/sobres', [TiendaController::class, 'index'])->name('tienda.index');
+
+// Apertura de sobre: POST + auth (doble protección: middleware + Auth::check() en el controlador)
+Route::post('/tienda/abrir/{tipo}', [TiendaController::class, 'abrirSobre'])
+    ->middleware('auth')
+    ->name('tienda.abrir');
+
 Route::get('/album', [TiendaController::class, 'miAlbum'])->middleware('auth')->name('album');
 
 // RUTAS DE AUTENTICACIÓN

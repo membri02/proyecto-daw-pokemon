@@ -12,6 +12,7 @@
         --bg-card: #1e293b;
         --text-main: #ffffff;
         --text-muted: #94a3b8;
+        --text-inverse: #1e293b;   /* Dark text — for use on yellow/white surfaces */
         --border-color: #334155;
         --accent-color: #3b82f6;
         --shadow-color: rgba(0, 0, 0, 0.5);
@@ -26,13 +27,14 @@
     }
 
     .light-theme {
-        --bg-color: #f8fafc; /* Gris perla */
-        --bg-card: #ffffff; /* Blanco de tarjeta */
-        --text-main: #1e293b; /* Texto oscuro */
-        --text-muted: #64748b; /* Texto secundaior gris */
-        --border-color: #e2e8f0; /* Borde gris muy claro */
+        --bg-color: #f8fafc;
+        --bg-card: #ffffff;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --text-inverse: #f8fafc;   /* Light text — for use on dark surfaces */
+        --border-color: #e2e8f0;
         --accent-color: #2563eb;
-        --shadow-color: rgba(0, 0, 0, 0.15); /* Sombras suaves de mediodia */
+        --shadow-color: rgba(0, 0, 0, 0.15);
         --card-shadow: 0 10px 20px var(--shadow-color);
     }
 
@@ -186,23 +188,22 @@
         display: flex;
         gap: 15px;
         margin-bottom: 30px;
-        background: white;
+        background: var(--bg-card);
         padding: 20px;
         border-radius: 15px;
         box-shadow: var(--card-shadow);
-    }
-
-    [data-theme="dark"] .search-box {
-        background: #2d2d2d;
+        border: 1px solid var(--border-color);
     }
 
     input,
     select {
         padding: 12px;
-        border: 2px solid #ddd;
+        border: 2px solid var(--border-color);
         border-radius: 8px;
         font-size: 1rem;
         flex: 1;
+        background: var(--bg-card);
+        color: var(--text-main);
     }
 
     .pokedex-grid {
@@ -212,18 +213,14 @@
     }
 
     .pk-card {
-        background: white;
+        background: var(--bg-card);
         padding: 20px;
         border-radius: 20px;
         text-align: center;
         box-shadow: var(--card-shadow);
         transition: var(--transition-epic);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    [data-theme="dark"] .pk-card {
-        background: #2d2d2d;
-        border-color: #444;
+        border: 1px solid var(--border-color);
+        color: var(--text-main);
     }
 
     .pk-card:hover {
@@ -495,10 +492,12 @@
         5. ADMIN PANEL (MIGUEL)
         ========================================= */
     .admin-card {
-        background: white;
+        background: var(--bg-card);
+        color: var(--text-main);
         padding: 30px;
         border-radius: 15px;
         box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
     }
 
     .stat-grid {
