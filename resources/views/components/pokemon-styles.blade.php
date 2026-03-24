@@ -690,4 +690,19 @@
 .type-fairy { background: #EE99AC; }
 .type-normal { background: #A8A878; }
 .type-none { background: #ccc; color: #333; }
+
+#response {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
 </style>

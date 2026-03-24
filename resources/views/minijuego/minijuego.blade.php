@@ -10,6 +10,7 @@
         <div id="sprite" class="pokemon-sprite">
             <img id="pokemon" src="" alt="pokemon-sprite">
             <input type="text" id="answer" placeholder="¿Cuál es este pokemon?">
+            <span id="response"></span>
             <button id="guess">Adivina</button>
         </div>
         <div id="tips" class="tips">
@@ -26,6 +27,27 @@
         let pokemon;
         const tip1 = document.getElementById("tip-type1");
         const tip2 = document.getElementById("tip-type2");
+        const guess = document.getElementById("guess");
+
+        guess.addEventListener("click", () => {
+            const answer = document.getElementById("answer").value.toLowerCase();
+            const response = document.getElementById("response");
+
+            // limpiar clases anteriores
+            response.classList.remove("correct", "wrong");
+
+            if (answer === pokemon.name) {
+                response.textContent = "¡Has acertado!";
+                response.classList.add("correct");
+
+                // opcional: revelar el pokemon
+                document.getElementById("pokemon").classList.remove("silhouette");
+
+            } else {
+                response.textContent = "Has fallado";
+                response.classList.add("wrong");
+            }
+        });
 
         tip1.addEventListener("click", () => {
             document.getElementById("tip1").removeAttribute("hidden");
