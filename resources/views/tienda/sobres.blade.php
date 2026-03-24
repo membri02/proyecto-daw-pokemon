@@ -4,7 +4,7 @@
     @vite(['resources/css/sobres.css'])
     
     <!-- Prevención de FOUC: Estilos base críticos inline para que renderice instantáneamente centrado y oscuro -->
-    <div class="tienda-wrapper" style="background-color: var(--bg-color); max-width: 1200px; margin: 0 auto; display: block; min-height: 100vh;">
+    <div class="tienda-wrapper" style="background-color: #f8fafc; max-width: 1200px; margin: 0 auto; display: block; min-height: 100vh;">
         <header class="tienda-header">
             <h1 class="titulo-pokemon">Poké-Tienda Oficial</h1>
             <p class="subtitulo">Adquiere potenciadores y expande tu colección de cartas digitales</p>

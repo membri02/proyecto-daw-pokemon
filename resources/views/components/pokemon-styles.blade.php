@@ -6,16 +6,16 @@
         --primary-red: #ef5350;
         --secondary-blue: #3b4cca;
         --pokemon-yellow: #ffcb05;
-        
-        /* TCG Tema Oscuro Profesional (Base Default) */
-        --bg-color: #0f172a;
-        --bg-card: #1e293b;
-        --text-main: #ffffff;
-        --text-muted: #94a3b8;
-        --text-inverse: #1e293b;   /* Dark text — for use on yellow/white surfaces */
-        --border-color: #334155;
-        --accent-color: #3b82f6;
-        --shadow-color: rgba(0, 0, 0, 0.5);
+
+        /* TCG — Modo Claro Permanente */
+        --bg-color: #f8fafc;
+        --bg-card: #ffffff;
+        --text-main: #1e293b;
+        --text-muted: #475569;
+        --text-inverse: #f8fafc;
+        --border-color: #e2e8f0;
+        --accent-color: #2563eb;
+        --shadow-color: rgba(0, 0, 0, 0.10);
 
         --card-shadow: 0 10px 20px var(--shadow-color);
         --transition-epic: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -24,18 +24,6 @@
         --pack-fire: linear-gradient(135deg, #ff416c, #ff4b2b);
         --pack-water: linear-gradient(135deg, #1e3c72, #2a5298);
         --pack-grass: linear-gradient(135deg, #11998e, #38ef7d);
-    }
-
-    .light-theme {
-        --bg-color: #f8fafc;
-        --bg-card: #ffffff;
-        --text-main: #1e293b;
-        --text-muted: #64748b;
-        --text-inverse: #f8fafc;   /* Light text — for use on dark surfaces */
-        --border-color: #e2e8f0;
-        --accent-color: #2563eb;
-        --shadow-color: rgba(0, 0, 0, 0.15);
-        --card-shadow: 0 10px 20px var(--shadow-color);
     }
 
     * {
@@ -48,7 +36,6 @@
         background-color: var(--bg-color);
         color: var(--text-main);
         font-family: 'Segoe UI', Roboto, sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
         min-height: 100vh;
     }
 
@@ -577,5 +564,13 @@
 
     .hidden {
         display: none;
+    }
+
+    /* Clases Globales para Sprites Pixel-Perfect */
+    .pika-sprite-icon {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -ms-interpolation-mode: nearest-neighbor;
     }
 </style>

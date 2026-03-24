@@ -128,16 +128,26 @@
     cursor: pointer;
     will-change: transform, filter;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    animation: flotar-suave 5s ease-in-out infinite;
+    /* Animación flotante combinada con revelación */
     /* Proporciones de sobre físico */
     flex: 0 0 340px; 
     width: 340px;
     height: 480px; 
 }
-/* Animaciones de desfase */
-.sobre-card:nth-child(even) { animation-delay: 1s; }
-.sobre-card:nth-child(3n) { animation-delay: 2s; }
-.sobre-card:nth-child(4n) { animation-delay: 0.5s; }
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Animaciones concatenadas y escalonadas para dar sensación orgánica */
+.sobre-card:nth-child(1) { animation: fadeSlideUp 0.6s ease-out 0.1s backwards, flotar-suave 5s ease-in-out infinite 0.7s; }
+.sobre-card:nth-child(2) { animation: fadeSlideUp 0.6s ease-out 0.2s backwards, flotar-suave 5s ease-in-out infinite 1.8s; }
+.sobre-card:nth-child(3) { animation: fadeSlideUp 0.6s ease-out 0.3s backwards, flotar-suave 5s ease-in-out infinite 2.9s; }
+.sobre-card:nth-child(4) { animation: fadeSlideUp 0.6s ease-out 0.4s backwards, flotar-suave 5s ease-in-out infinite 1.0s; }
+.sobre-card:nth-child(5) { animation: fadeSlideUp 0.6s ease-out 0.5s backwards, flotar-suave 5s ease-in-out infinite 2.1s; }
+.sobre-card:nth-child(6) { animation: fadeSlideUp 0.6s ease-out 0.6s backwards, flotar-suave 5s ease-in-out infinite 3.2s; }
+.sobre-card:nth-child(7) { animation: fadeSlideUp 0.6s ease-out 0.7s backwards, flotar-suave 5s ease-in-out infinite 1.3s; }
+.sobre-card:nth-child(8) { animation: fadeSlideUp 0.6s ease-out 0.8s backwards, flotar-suave 5s ease-in-out infinite 2.4s; }
+
 /* Efecto hover elegante */
 .sobre-card:hover {
     transform: scale(1.1) translateY(-15px) !important;
@@ -489,12 +499,9 @@ button:disabled {
     margin-bottom: 2rem;
 }
 
-/* Yellow on dark = fine; switch to amber-600 in light for AAA */
+/* Amber-700: readable on white bg (7:1 contrast ratio) */
 .modal-text-detail strong.resaltado {
-    color: #FFCB05;
-}
-.light-theme .modal-text-detail strong.resaltado {
-    color: #b45309; /* Amber-700: 7:1 ratio on white bg */
+    color: #b45309;
 }
 
 .modal-actions {

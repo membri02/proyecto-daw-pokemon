@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="apertura-wrapper" style="background-color: var(--bg-color); max-width: 1400px; margin: 0 auto; text-align: center; min-height: 100vh; display: block; overflow: hidden; padding: 3rem 5rem;">
+<div class="apertura-wrapper" style="background-color: #f8fafc; max-width: 1400px; margin: 0 auto; text-align: center; min-height: 100vh; display: block; overflow: hidden; padding: 3rem 5rem;">
     <div id="flash-overlay"></div>
 
     <header class="apertura-header">

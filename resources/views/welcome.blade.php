@@ -45,7 +45,7 @@
     
     <div class="context-visual">
         <img src="{{ asset('images/instituto.jpg') }}" alt="Alumnos del IES Virgen de la Paz" class="context-img" style="object-position: center;">
-        <div class="location-badge">📍 Alcobendas, Madrid</div>
+        <div class="location-badge"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/town-map.png" class="pika-sprite-icon" alt="Mapa" style="width:30px;"> Alcobendas, Madrid</div>
     </div>
     <div class="context-content">
         <h2>Del aula al servidor</h2>
@@ -103,10 +103,6 @@
     :root {
         --wp-primary: #3c5aa6;  /* Azul Pokémon */
         --wp-accent:  #ffcb05;  /* Amarillo Pokémon */
-    }
-    .light-theme {
-        --wp-primary: #3c5aa6;
-        --wp-accent:  #ffcb05;
     }
 
     /* Clases de Animación Scroll (Intersection Observer) */
@@ -179,9 +175,10 @@
 
     .hero-subtitle {
         font-size: 1.2rem;
-        color: var(--text-muted);
+        color: #334155;
         line-height: 1.6;
         margin-bottom: 2.5rem;
+        font-weight: 500;
     }
 
     .hero-cta {
@@ -199,24 +196,26 @@
     }
 
     .btn-primary-modern {
-        background: var(--primary);
-        color: white;
-        box-shadow: 0 4px 15px rgba(60, 90, 166, 0.4);
+        background: #ffcb05; 
+        color: #1e293b;
+        border: 2px solid #ffcb05;
+        box-shadow: 0 4px 15px rgba(255, 203, 5, 0.4);
     }
     .btn-primary-modern:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(60, 90, 166, 0.6);
-        background: #2a4385;
+        box-shadow: 0 8px 25px rgba(255, 203, 5, 0.6);
+        background: #f5b000;
+        border-color: #f5b000;
     }
 
     .btn-secondary-modern {
         background: transparent;
-        color: var(--text-main);
-        border: 2px solid var(--card-bg);
+        color: #1e293b;
+        border: 2px solid #cbd5e1;
     }
     .btn-secondary-modern:hover {
-        border-color: var(--text-muted);
-        background: rgba(255,255,255,0.05);
+        border-color: #94a3b8;
+        background: rgba(0,0,0,0.05);
     }
 
     .hero-visual {
@@ -253,7 +252,7 @@
     /* --- FEATURES SECTION --- */
     .features-section {
         padding: 6rem 5%;
-        background: rgba(255,255,255,0.02);
+        background: #f1f5f9;
     }
 
     .features-grid {
@@ -265,10 +264,11 @@
     }
 
     .feature-card {
-        background: var(--card-bg);
+        background: #ffffff;
         padding: 2.5rem;
         border-radius: 16px;
-        border: 1px solid rgba(255,255,255,0.05);
+        border: 1px solid #cbd5e1;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         transition: transform 0.3s, border-color 0.3s;
     }
     .feature-card:hover {
@@ -307,20 +307,24 @@
     .context-img {
         width: 100%;
         border-radius: 16px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        border: 1px solid var(--border-color);
     }
 
     .location-badge {
         position: absolute;
         bottom: -15px;
         right: -15px;
-        background: var(--primary);
-        color: white;
+        background: #ffffff;
+        color: #0f172a;
+        border: 1px solid #cbd5e1;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: bold;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .context-content {
@@ -368,8 +372,8 @@
     .team-avatar {
         width: 80px;
         height: 80px;
-        background: #374151;
-        color: white;
+        background: #f1f5f9;
+        color: #1e293b;
         font-size: 2rem;
         font-weight: bold;
         display: flex;
@@ -377,7 +381,7 @@
         justify-content: center;
         border-radius: 50%;
         margin: 0 auto 1.5rem;
-        border: 3px solid rgba(255,255,255,0.1);
+        border: 3px solid #cbd5e1;
     }
 
     .team-card h3 {
@@ -415,57 +419,40 @@
         .hero-title { font-size: 2.5rem; }
     }
 
-    /* --- OVERRIDES DE EMERGENCIA: MODO CLARO (AAA CONTRAST) --- */
-    .light-theme .hero-title {
-        color: #1e293b !important;
-    }
-    .light-theme .hero-subtitle {
-        color: #475569 !important;
-    }
-    .light-theme .badge-tech {
-        background: #f1f5f9 !important;
-        color: #f59e0b !important;
-        border-color: #f59e0b !important;
-    }
-    .light-theme .btn-secondary-modern {
-        color: #1e293b !important;
-        border-color: #cbd5e1 !important;
-    }
-    .light-theme .btn-secondary-modern:hover {
-        background: rgba(0,0,0,0.05) !important;
-        border-color: #94a3b8 !important;
-    }
 
-    /* --- OVERRIDES: HEADINGS Y CARTAS --- */
-    .light-theme .section-header h2,
-    .light-theme .context-content h2,
-    .light-theme .feature-card h3,
-    .light-theme .team-card h3 {
-        color: #1e293b !important;
+    /* --- CONTRASTE HERO Y SECCIONES (modo claro permanente) --- */
+    .hero-title {
+        color: #1e293b;
     }
-
-    .light-theme .section-header p,
-    .light-theme .context-content p,
-    .light-theme .feature-card p,
-    .light-theme .team-card p {
-        color: #475569 !important;
+    .hero-subtitle {
+        color: #475569;
     }
-
-    .light-theme .feature-card,
-    .light-theme .team-card {
-        background: #ffffff !important;
-        border-color: #e2e8f0 !important;
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1) !important;
+    .badge-tech {
+        background: #f1f5f9;
+        color: #f59e0b;
+        border-color: #f59e0b;
     }
-
-    .light-theme .team-avatar {
-        background: #f1f5f9 !important;
-        color: #1e293b !important;
-        border-color: #cbd5e1 !important;
+    .section-header h2,
+    .context-content h2,
+    .feature-card h3,
+    .team-card h3 {
+        color: #1e293b;
     }
-
-    .light-theme .features-section {
-        background: #f8fafc !important; /* Gris perla */
+    .section-header p,
+    .context-content p,
+    .feature-card p,
+    .team-card p {
+        color: #475569;
+    }
+    .team-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        border: 1px solid #cbd5e1;
     }
 </style>
 @endsection

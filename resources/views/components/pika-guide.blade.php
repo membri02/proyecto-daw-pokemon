@@ -57,14 +57,6 @@
         display: none;
     }
 
-    /* Dark mode: dark background + bright-but-defined border */
-    :root:not(.light-theme) .pika-speech-bubble {
-        background: #1a1a2e;
-        color: #f2f2f2;
-        border-color: #7c7c9c;
-        box-shadow: 4px 4px 0px #000000;
-    }
-
     /* ── Tail: inner triangle matches bubble background exactly ── */
     .pika-speech-bubble::after {
         content: '';
@@ -74,9 +66,6 @@
         border-width: 17px 17px 0 0;
         border-style: solid;
         border-color: #ffffff transparent transparent transparent;
-    }
-    :root:not(.light-theme) .pika-speech-bubble::after {
-        border-color: #1a1a2e transparent transparent transparent;
     }
 
     /* ── Tail: outer triangle is the border color ── */
@@ -89,9 +78,6 @@
         border-style: solid;
         border-color: #000000 transparent transparent transparent;
         z-index: -1;
-    }
-    :root:not(.light-theme) .pika-speech-bubble::before {
-        border-color: #7c7c9c transparent transparent transparent;
     }
 
     .pika-guide-container.minimized .pika-speech-bubble {
@@ -133,9 +119,6 @@
         background: #e6b704;
         transform: scale(1.05);
     }
-    :root:not(.light-theme) .pika-btn {
-        border-color: #7c7c9c;
-    }
     .pika-btn.danger {
         background: #e74c3c;
         color: #ffffff;
@@ -155,17 +138,15 @@
         font-family: 'Press Start 2P', monospace;
         font-size: 8px;            /* round value, was 7px */
         padding: 10px 8px;         /* top/bottom 10px — text won't clip */
-        border: 2px solid #000000;
+        border: 2px solid #000000 !important;
         border-radius: 4px;
-        outline: none;
+        outline: none !important;
         width: 165px;
-        background: transparent;
-        color: inherit;
+        background: #ffffff !important;
+        color: #000000 !important;
+        box-shadow: none !important;
         -webkit-font-smoothing: none;
         box-sizing: border-box;
-    }
-    :root:not(.light-theme) .pika-input {
-        border-color: #7c7c9c;
     }
 
     /* ========== CLOSE BUTTON ========== */
@@ -189,7 +170,6 @@
         font-family: monospace;
         line-height: 1;
     }
-    :root:not(.light-theme) .pika-close { border-color: #7c7c9c; }
     .pika-close:hover { transform: scale(1.15); }
 
     /* ========== PIKACHU SPRITE (pixel-crisp) ========== */
@@ -458,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var helpBtn = document.createElement('button');
         helpBtn.id = 'pikaHelpBtn';
         helpBtn.title = 'Ayuda Pikachu';
-        helpBtn.innerHTML = '⚡';
+        helpBtn.innerHTML = '<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="pika-sprite-icon" alt="Ayuda" style="width:30px; margin-top:2px;">';
         helpBtn.addEventListener('click', startTutorial);
         navAuth.prepend(helpBtn);
     }
