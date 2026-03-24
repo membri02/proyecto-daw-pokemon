@@ -4,7 +4,7 @@
 <div class="album-wrapper">
     <header class="album-header">
         <h1 class="titulo-pokemon">Mi Colección</h1>
-        <p class="subtitulo">Cartas obtenidas: <span class="badge-count">{{ $cartas->count() }}</span> / 151</p>
+        <p class="subtitulo">Cartas obtenidas: <span class="badge-count">{{ $cartas->count() }}</span> <strong style="color: #1e293b; font-weight: 900;">/ 151</strong></p>
     </header>
 
     @if($cartas->isEmpty())
@@ -42,9 +42,9 @@
         max-width: 1400px; 
         margin: 0 auto;
         font-family: 'Montserrat', sans-serif;
-        background: var(--bg-color); /* Fondo interactivo */
+        background: #f8fafc;
         min-height: calc(100vh - 70px);
-        color: var(--text-main);
+        color: #1e293b;
         border-radius: 12px;
     }
 
@@ -57,8 +57,9 @@
     }
 
     .subtitulo {
-        color: var(--text-muted);
-        font-size: 1.1rem;
+        color: #1e293b;
+        font-size: 1.2rem;
+        font-weight: 700;
         margin-top: 0.5rem;
     }
 

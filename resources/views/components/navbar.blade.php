@@ -7,22 +7,25 @@
         <a href="/admin">Panel Admin</a>
         
         @auth
-            <a href="/album" class="nav-album">🎴 Mi Álbum</a>        
+            <a href="/album" class="nav-album">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tm-case.png" class="pika-sprite-icon" alt="Álbum" style="width:30px;"> Mi Álbum
+            </a>        
         @endauth
     </div>
 
     <div class="nav-auth">
-        <!-- Selector Físico Dark/Light Mode -->
-        <button id="themeToggle" class="btn-theme-toggle" onclick="togglePokemonTheme()" title="Cambiar Apariencia" style="background:transparent; border:1px solid rgba(255,255,255,0.3); border-radius:50%; width:38px; height:38px; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; transition: all 0.3s; margin-right:10px;">
-            <span class="icon-moon">🌙</span>
-            <span class="icon-sun" style="display:none;">☀️</span>
-        </button>
 
         @auth
+            <div class="monedero-nav">
+                <span class="monedas-text">{{ Auth::user()->monedas }}</span>
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="amulet-coin-icon pika-sprite-icon" alt="Monedas">
+            </div>
             <span class="user-badge">Entrenador: {{ Auth::user()->name }}</span>
-            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+            <form method="POST" action="{{ route('logout') }}" style="display:flex; align-items:center; margin:0;">
                 @csrf
-                <button type="submit" class="btn-logout">Salir</button>
+                <button type="submit" class="btn-logout">
+                    Salir <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/escape-rope.png" class="pika-sprite-icon" alt="Escape" style="width:30px; margin-left:6px;">
+                </button>
             </form>
         @else
             <a href="{{ route('login') }}" class="btn-auth btn-login">Iniciar Sesión</a>
@@ -31,25 +34,23 @@
     </div>
 </nav>
 
-<div class="coins-bar">
-    @auth
-        💰 MONEDAS: {{ Auth::user()->monedas }} | 🏷️ COSTE SOBRE BÁSICO: 100
-    @else
-        💡 Inicia sesión para ver tu monedero y abrir sobres.
-    @endauth
-</div>
+
 
 <style>
     /* ... (MANTÉN TODO TU CSS EXACTAMENTE IGUAL AQUÍ, ESTÁ PERFECTO) ... */
     .nav-pokemon {
-        background-color: #e53935; /* Rojo Pokédex */
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         padding: 15px 30px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        border-bottom: 4px solid #c62828;
-        color: white;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
         font-family: 'Montserrat', sans-serif;
         flex-wrap: wrap;
         gap: 12px;
@@ -63,20 +64,47 @@
     }
 
     .nav-logo a {
-        color: white;
+        color: #334155;
         text-decoration: none;
         font-weight: bold;
         font-size: 1.1rem;
         text-transform: uppercase;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+    .nav-logo a:not(.nav-album):hover {
+        color: #020617;
+    }
+    .nav-logo a:not(.nav-album)::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 50%;
+        background-color: #020617;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    .nav-logo a:not(.nav-album):hover::after {
+        width: 100%;
     }
 
     .nav-album {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         background: #ffcb05;
-        color: #2d3436 !important;
-        padding: 4px 12px;
+        color: #0f172a !important;
+        padding: 2px 16px;
         border-radius: 999px;
-        font-weight: 800 !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        font-weight: 900 !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-album:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
     .nav-auth {
@@ -93,11 +121,13 @@
         text-transform: uppercase;
         font-size: 0.85rem;
         transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
     .btn-login {
-        background-color: white;
-        color: #e53935;
+        background-color: #f1f5f9;
+        color: #334155;
+        border: 1px solid #e2e8f0;
     }
 
     .btn-register {
@@ -114,67 +144,62 @@
 
     .btn-auth:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     }
 
     .user-badge {
-        background: rgba(0,0,0,0.2);
+        background: #f1f5f9;
+        color: #334155;
+        border: 1px solid #e2e8f0;
         padding: 5px 15px;
         border-radius: 15px;
         font-weight: bold;
     }
 
-    .coins-bar {
-        background: #f1c40f;
-        padding: 10px;
-        text-align: center;
-        font-weight: bold;
-        color: #2d3436;
-        box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-        margin-top: 0;
-    }
-
-    .btn-theme-toggle:hover {
-        background: rgba(255,255,255,0.1) !important;
-        transform: scale(1.1);
-    }
-
-    /* Logout button — always on red nav bg, so always white */
+    /* Logout button — adapt for light glass navbar */
     .btn-logout {
+        display: flex;
+        align-items: center;
         background: transparent;
-        border: 1px solid rgba(255,255,255,0.7);
-        color: #ffffff;
-        padding: 5px 15px;
+        border: 1px solid #cbd5e1;
+        color: #334155;
+        padding: 4px 14px;
         border-radius: 20px;
         cursor: pointer;
-        margin-left: 10px;
+        margin-left: 5px;
         font-family: inherit;
         font-weight: 600;
-        transition: background 0.2s;
+        transition: all 0.2s;
     }
     .btn-logout:hover {
-        background: rgba(255,255,255,0.15);
+        background: #f1f5f9;
+        color: #0f172a;
+        border-color: #94a3b8;
+    }
+
+    .monedero-nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        padding: 4px 12px;
+        border-radius: 20px;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .monedas-text {
+        color: #0f172a; /* slate-900 */
+        font-weight: 900;
+        font-size: 0.95rem;
+    }
+    .amulet-coin-icon {
+        width: 30px;
+        animation: shine-coin 5s infinite;
+        filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+    }
+    @keyframes shine-coin {
+        0%, 90% { filter: brightness(1) drop-shadow(0 2px 2px rgba(0,0,0,0.1)); transform: scale(1); }
+        95% { filter: brightness(1.4) drop-shadow(0 0 6px rgba(255,203,5,0.8)); transform: scale(1.15); }
+        100% { filter: brightness(1) drop-shadow(0 2px 2px rgba(0,0,0,0.1)); transform: scale(1); }
     }
 </style>
-
-<script>
-    // Sincronizar UI del botón al cargar el navbar
-    document.addEventListener('DOMContentLoaded', () => {
-        const isLight = document.documentElement.classList.contains('light-theme');
-        document.querySelector('.icon-moon').style.display = isLight ? 'none' : 'inline';
-        document.querySelector('.icon-sun').style.display = isLight ? 'inline' : 'none';
-    });
-
-    function togglePokemonTheme() {
-        // Intercambiar clase
-        document.documentElement.classList.toggle('light-theme');
-        const isLight = document.documentElement.classList.contains('light-theme');
-        
-        // Memoria persistente
-        localStorage.setItem('pokemon-theme', isLight ? 'light' : 'dark');
-        
-        // Feedback visual del botón (Girar íconos)
-        document.querySelector('.icon-moon').style.display = isLight ? 'none' : 'inline';
-        document.querySelector('.icon-sun').style.display = isLight ? 'inline' : 'none';
-    }
-</script>
