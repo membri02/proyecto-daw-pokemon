@@ -6,11 +6,14 @@
     <title>Pokémon TCG Project</title>
     <x-pokemon-styles />
 </head>
-<body>
+<body style="background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0;">
 
     <x-header title="Pokémon Project DAW 2026" />
     
     <x-navbar />
+
+    {{-- Pika-Guide must be before @yield so window.pikaGuide is defined before page scripts --}}
+    <x-pika-guide />
 
     <main class="container">
         @yield('content')

@@ -12,9 +12,15 @@ class TiendaController extends Controller
     {
         return view('tienda.sobres');
     }
+    
 
     public function abrirSobre($tipo)
     {
+        // Capa de seguridad de backend — aunque el middleware ya lo cubre
+        if (!Auth::check()) {
+            return redirect('/sobres')->with('error', 'Debes iniciar sesión para abrir sobres.');
+        }
+
         /** @var \App\Models\User $user */
         $user = Auth::user();
 

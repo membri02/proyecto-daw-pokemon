@@ -4,7 +4,7 @@
 <div class="album-wrapper">
     <header class="album-header">
         <h1 class="titulo-pokemon">Mi Colección</h1>
-        <p class="subtitulo">Cartas obtenidas: <span class="badge-count">{{ $cartas->count() }}</span> / 151</p>
+        <p class="subtitulo">Cartas obtenidas: <span class="badge-count">{{ $cartas->count() }}</span> <strong style="color: #1e293b; font-weight: 900;">/ 151</strong></p>
     </header>
 
     @if($cartas->isEmpty())
@@ -17,7 +17,7 @@
     @else
         <div class="binder-grid">
             @foreach($cartas as $carta)
-                <div class="card-slot {{ Str::slug($carta->rareza) }}">
+                <div class="card-slot {{ Str::slug($carta->rareza) }}" style="cursor: pointer;" onclick="abrirPokemonModal({{ $carta->pokemon_id ?? $carta->id }}, { owned: true })">
                     <div class="card-inner">
                         <div class="card-type-badge type-{{ $carta->tipo }}">
                             {{ strtoupper($carta->tipo) }}
@@ -32,6 +32,8 @@
             @endforeach
         </div>
     @endif
+    
+    <x-pokemon-modal />
 </div>
 
 <style>
@@ -40,9 +42,9 @@
         max-width: 1400px; 
         margin: 0 auto;
         font-family: 'Montserrat', sans-serif;
-        background: #1a1a2e; /* Fondo oscuro elegante */
+        background: #f8fafc;
         min-height: calc(100vh - 70px);
-        color: white;
+        color: #1e293b;
         border-radius: 12px;
     }
 
@@ -51,16 +53,24 @@
         margin-bottom: 3rem;
         border-bottom: 2px solid #3c5aa6;
         padding-bottom: 2rem;
+        color: var(--text-main);
+    }
+
+    .subtitulo {
+        color: #1e293b;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
     }
 
     .titulo-pokemon {
         font-size: 3rem;
-        color: #ffcb05;
+        color: var(--text-main);
         text-transform: uppercase;
         letter-spacing: 3px;
         margin-bottom: 0.5rem;
         font-weight: 900;
-        text-shadow: 2px 2px 0 #3c5aa6;
+        text-shadow: 2px 2px 0 var(--shadow-color);
     }
 
     .badge-count {
@@ -75,9 +85,10 @@
     .empty-state {
         text-align: center;
         margin-top: 5rem;
-        background: rgba(255,255,255,0.05);
+        background: var(--bg-card);
         padding: 4rem;
         border-radius: 12px;
+        border: 1px solid var(--border-color);
     }
 
     .empty-state img {
@@ -103,18 +114,18 @@
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
         padding: 20px;
-        background: rgba(0,0,0,0.3);
+        background: var(--bg-color);
         border-radius: 12px;
-        border: 1px solid #333;
+        border: 1px solid var(--border-color);
     }
 
     /* 1. BASE DE LA CARTA: Borde amarillo clásico TCG */
     .card-slot {
-        background: #2a2a35;
+        background: var(--bg-card);
         border-radius: 12px;
         padding: 10px;
         position: relative;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        box-shadow: 0 4px 10px var(--shadow-color);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         border: 8px solid #fbdc15; /* EL AMARILLO MÍTICO */
         display: flex;
@@ -193,11 +204,11 @@
         position: relative;
         z-index: 2;
     }
-
+    
     .card-info {
         text-align: center;
         width: 100%;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        border-top: 1px solid var(--border-color);
         padding-top: 10px;
         position: relative;
         z-index: 2;
@@ -208,11 +219,12 @@
         font-weight: 800;
         font-size: 1.1rem;
         letter-spacing: 1px;
+        color: var(--text-main);
     }
 
     .pokemon-rarity {
         font-size: 0.8rem;
-        color: #aaa;
+        color: var(--text-muted);
         font-style: italic;
     }
 

@@ -6,20 +6,24 @@
         --primary-red: #ef5350;
         --secondary-blue: #3b4cca;
         --pokemon-yellow: #ffcb05;
-        --bg-light: #f8f9fa;
-        --text-dark: #2d3436;
-        --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+        /* TCG — Modo Claro Permanente */
+        --bg-color: #f8fafc;
+        --bg-card: #ffffff;
+        --text-main: #1e293b;
+        --text-muted: #475569;
+        --text-inverse: #f8fafc;
+        --border-color: #e2e8f0;
+        --accent-color: #2563eb;
+        --shadow-color: rgba(0, 0, 0, 0.10);
+
+        --card-shadow: 0 10px 20px var(--shadow-color);
         --transition-epic: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
         /* Colores de Sobres */
         --pack-fire: linear-gradient(135deg, #ff416c, #ff4b2b);
         --pack-water: linear-gradient(135deg, #1e3c72, #2a5298);
         --pack-grass: linear-gradient(135deg, #11998e, #38ef7d);
-    }
-
-    [data-theme="dark"] {
-        --bg-light: #121212;
-        --text-dark: #ecf0f1;
     }
 
     * {
@@ -29,10 +33,9 @@
     }
 
     body {
-        background-color: var(--bg-light);
-        color: var(--text-dark);
+        background-color: var(--bg-color);
+        color: var(--text-main);
         font-family: 'Segoe UI', Roboto, sans-serif;
-        transition: background 0.4s;
         min-height: 100vh;
     }
 
@@ -172,23 +175,22 @@
         display: flex;
         gap: 15px;
         margin-bottom: 30px;
-        background: white;
+        background: var(--bg-card);
         padding: 20px;
         border-radius: 15px;
         box-shadow: var(--card-shadow);
-    }
-
-    [data-theme="dark"] .search-box {
-        background: #2d2d2d;
+        border: 1px solid var(--border-color);
     }
 
     input,
     select {
         padding: 12px;
-        border: 2px solid #ddd;
+        border: 2px solid var(--border-color);
         border-radius: 8px;
         font-size: 1rem;
         flex: 1;
+        background: var(--bg-card);
+        color: var(--text-main);
     }
 
     .pokedex-grid {
@@ -198,18 +200,14 @@
     }
 
     .pk-card {
-        background: white;
+        background: var(--bg-card);
         padding: 20px;
         border-radius: 20px;
         text-align: center;
         box-shadow: var(--card-shadow);
         transition: var(--transition-epic);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    [data-theme="dark"] .pk-card {
-        background: #2d2d2d;
-        border-color: #444;
+        border: 1px solid var(--border-color);
+        color: var(--text-main);
     }
 
     .pk-card:hover {
@@ -481,10 +479,12 @@
         5. ADMIN PANEL (MIGUEL)
         ========================================= */
     .admin-card {
-        background: white;
+        background: var(--bg-card);
+        color: var(--text-main);
         padding: 30px;
         border-radius: 15px;
         box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
     }
 
     .stat-grid {
@@ -705,4 +705,11 @@
 .wrong {
   color: red;
 }
+    /* Clases Globales para Sprites Pixel-Perfect */
+    .pika-sprite-icon {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -ms-interpolation-mode: nearest-neighbor;
+    }
 </style>
