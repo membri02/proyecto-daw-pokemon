@@ -95,12 +95,12 @@
 <style>
     /* Estilos base de la mesa de apertura */
     .apertura-wrapper {
-        padding: 3rem 1rem;
+        padding: 3rem 5rem; /* Padding horizontal más generoso */
         max-width: 1400px;
         margin: 0 auto;
         text-align: center;
         min-height: 80vh;
-        overflow: hidden;
+        /* Se eliminó overflow: hidden para evitar que las cartas extremas se corten */
         background-color: #f8fafc;
     }
 
@@ -111,12 +111,13 @@
     /* --- EL MAZO Y LA MESA CENTRAL --- */
     .mesa-apertura {
         position: relative;
-        height: 600px; /* Suficiente espacio para el abanico */
+        height: 700px; /* Suficiente espacio extendido para el despliegue vertical */
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 2rem auto 4rem;
         max-width: 1200px;
+        padding: 0 4rem; /* Espacio para respirar a los costados */
     }
 
     .deck-trigger {
@@ -147,10 +148,10 @@
     }
 
     .carta-container.posicion-final {
-        /* Abanico en fila recortado a 260px */
-        transform: translate(calc((var(--i) - 2) * 260px), 160px) rotate(0deg);
-        z-index: var(--i) !important;
-    }
+    /* Ese 190px las empujará un poco más hacia abajo alejándolas del mazo */
+    transform: translate(calc((var(--i) - 2) * 260px), 190px) rotate(0deg);
+    z-index: var(--i) !important;
+}
 
     .carta-inner {
         width: 100%;
