@@ -17,17 +17,8 @@
     @else
         <div class="binder-grid">
             @foreach($cartas as $carta)
-                <div class="card-slot {{ Str::slug($carta->rareza) }}" style="cursor: pointer;" onclick="abrirPokemonModal({{ $carta->pokemon_id ?? $carta->id }}, { owned: true })">
-                    <div class="card-inner">
-                        <div class="card-type-badge type-{{ $carta->tipo }}">
-                            {{ strtoupper($carta->tipo) }}
-                        </div>
-                        <img src="{{ $carta->imagen_url }}" alt="{{ $carta->nombre }}" class="pokemon-art">
-                        <div class="card-info">
-                            <span class="pokemon-name">{{ $carta->nombre }}</span>
-                            <span class="pokemon-rarity">{{ $carta->rareza }}</span>
-                        </div>
-                    </div>
+                <div style="cursor: pointer; display: flex; justify-content: center;" onclick="abrirPokemonModal({{ $carta->pokemon_id ?? $carta->id }}, { owned: true })">
+                    <x-pokemon-card :carta="$carta" />
                 </div>
             @endforeach
         </div>
@@ -119,16 +110,6 @@
         border: 1px solid var(--border-color);
     }
 
-    /* 1. BASE DE LA CARTA: Borde amarillo clásico TCG */
-    .card-slot {
-        background: var(--bg-card);
-        border-radius: 12px;
-        padding: 10px;
-        position: relative;
-        box-shadow: 0 4px 10px var(--shadow-color);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 8px solid #fbdc15; /* EL AMARILLO MÍTICO */
-        display: flex;
         flex-direction: column;
         align-items: center;
         overflow: hidden; /* Fundamental para que el brillo no se salga por los bordes */
