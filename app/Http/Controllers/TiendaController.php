@@ -49,13 +49,20 @@ class TiendaController extends Controller
             $random = Carta::whereNotIn('id', $garantizadas->pluck('id'))->inRandomOrder()->limit(3)->get();
             $cartas = $garantizadas->concat($random);
         } elseif ($tipo === 'holo') {
-            $garantizada = Carta::where('rareza', 'Rara Holo')->inRandomOrder()->limit(1)->get();
+            $garantizada = Carta::where('es_holo', true)->inRandomOrder()->limit(1)->get();
             $random = Carta::whereNotIn('id', $garantizada->pluck('id'))->inRandomOrder()->limit(4)->get();
             $cartas = $garantizada->concat($random);
         } elseif ($tipo === 'legendario') {
-            $garantizada = Carta::where('rareza', 'Legendaria ✨')->inRandomOrder()->limit(1)->get();
+            $garantizada = Carta::where('es_legendario', true)->inRandomOrder()->limit(1)->get();
             $random = Carta::whereNotIn('id', $garantizada->pluck('id'))->inRandomOrder()->limit(4)->get();
             $cartas = $garantizada->concat($random);
+        }
+
+        // PLAN B: Si la base de datos está corrupta o el query estricto falla, rellenamos forzosamente a 5
+        if ($cartas->count() < 5) {
+            $faltantes = 5 - $cartas->count();
+            $fallback = Carta::whereNotIn('id', $cartas->pluck('id'))->inRandomOrder()->limit($faltantes)->get();
+            $cartas = $cartas->concat($fallback);
         }
 
         $cartas = $cartas->shuffle();

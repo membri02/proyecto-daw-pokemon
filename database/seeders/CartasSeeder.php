@@ -8,6 +8,23 @@ use Illuminate\Support\Facades\Http;
 
 class CartasSeeder extends Seeder
 {
+    private function obtenerNombreAtaqueEs($url, $defaultNombre)
+    {
+        try {
+            $data = Http::withoutVerifying()->get($url)->json();
+            if (isset($data['names'])) {
+                foreach ($data['names'] as $nameData) {
+                    if ($nameData['language']['name'] === 'es') {
+                        return $nameData['name'];
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // Falla silenciosa, usamos el fallback
+        }
+        return ucfirst(str_replace('-', ' ', $defaultNombre));
+    }
+
     public function run(): void
     {
         $this->command->info('Obteniendo listado de los 151 Pokémon originales desde PokéAPI...');
@@ -48,11 +65,17 @@ class CartasSeeder extends Seeder
             $peso = ($detalles['weight'] ?? 100) / 10;  // PokeAPI devuelve hectogramos, pasamos a kg
             $base_exp = $detalles['base_experience'] ?? 0;
 
-            // Extraemos 2 ataques limpios si existen, sustituyendo guiones por espacios
-            $ataque1_name = isset($detalles['moves'][0]) ? ucfirst(str_replace('-', ' ', $detalles['moves'][0]['move']['name'])) : 'Placaje';
+            // Extraemos 2 ataques limpios buscando su versión en Español
+            $ataque1_name = 'Placaje';
+            if (isset($detalles['moves'][0])) {
+                $ataque1_name = $this->obtenerNombreAtaqueEs($detalles['moves'][0]['move']['url'], $detalles['moves'][0]['move']['name']);
+            }
             $ataque1_damage = rand(20, 80);
 
-            $ataque2_name = isset($detalles['moves'][1]) ? ucfirst(str_replace('-', ' ', $detalles['moves'][1]['move']['name'])) : null;
+            $ataque2_name = null;
+            if (isset($detalles['moves'][1])) {
+                $ataque2_name = $this->obtenerNombreAtaqueEs($detalles['moves'][1]['move']['url'], $detalles['moves'][1]['move']['name']);
+            }
             $ataque2_damage = $ataque2_name ? rand(20, 80) : null;
 
             // Algoritmo de Rareza Dinámica 
@@ -88,8 +111,7 @@ class CartasSeeder extends Seeder
                 ]
             );
 
-            // Retardo ético para evitar baneos de IP de PokéAPI
-            usleep(200000); // 200ms
+            // Eliminado usleep para evitar Timeouts de XAMPP. La PokeAPI aguanta 151 requests sin despeinarse.
         }
 
         $this->command->info('¡Sincronización TCG completada y cartas inyectadas!');
