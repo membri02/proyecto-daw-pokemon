@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon TCG Project</title>
+    <title>Proyecto TCG DAW</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <x-pokemon-styles />
 </head>
 <body style="background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0;">
