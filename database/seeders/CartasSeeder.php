@@ -10,11 +10,10 @@ class CartasSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Traemos la lista de los 151
+        $this->command->info('Obteniendo listado de los 151 Pokémon originales desde PokéAPI...');
         $response = Http::withoutVerifying()->get('https://pokeapi.co/api/v2/pokemon?limit=151');
         $pokemons = $response->json()['results'];
 
-        // Diccionario traductor de tipos (Inglés -> Español)
         $traductorTipos = [
             'fire' => 'fuego', 'water' => 'agua', 'grass' => 'planta',
             'electric' => 'electrico', 'normal' => 'normal', 'psychic' => 'psiquico',
@@ -23,43 +22,76 @@ class CartasSeeder extends Seeder
             'dragon' => 'dragon', 'ice' => 'hielo', 'fairy' => 'hada', 'steel' => 'acero'
         ];
 
-        $cartas = [];
+        $legendarios_ids = [144, 145, 146, 150, 151];
 
-        // Esto puede tardar unos 10-15 segundos en la terminal porque hace 151 peticiones pequeñas
+        $this->command->info('Extrayendo atributos TCG (HP, Dimensiones, Ataques). Esto tomará aprox 30 segundos...');
+
         foreach ($pokemons as $index => $pokemon) {
             $id = $index + 1;
             $nombre = ucfirst($pokemon['name']);
             $imagen_url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{$id}.png";
 
-            // ¡Magia aquí! Entramos a la URL de cada Pokémon para ver su tipo real
+            // ¡Magia aquí! Entramos a la URL de cada Pokémon para diseccionarlo y llenar la carta
             $detalles = Http::withoutVerifying()->get($pokemon['url'])->json();
-            $tipoIngles = $detalles['types'][0]['type']['name']; // Cogemos su tipo principal
             
-            // Lo traducimos a nuestro sistema, o le ponemos 'normal' si falla
-            $tipo = $traductorTipos[$tipoIngles] ?? 'normal';
+            // Extracción nativa Multi-Tipo para Cartas Duales
+            $tiposExtraidos = [];
+            foreach ($detalles['types'] as $t) {
+                $nombreIngles = $t['type']['name'];
+                $tiposExtraidos[] = $traductorTipos[$nombreIngles] ?? 'normal';
+            }
+            $tipo = implode('/', $tiposExtraidos);
 
-            // Lógica de Rarezas (Mantenemos la que teníamos)
-            $legendarios_ids = [144, 145, 146, 150, 151];
-            $raros_ids = [3, 6, 9, 25, 65, 94, 130, 143, 149];
+            // Mapeo exhaustivo TCG
+            $hp = collect($detalles['stats'])->firstWhere('stat.name', 'hp')['base_stat'] ?? 60;
+            $altura = ($detalles['height'] ?? 10) / 10; // PokeAPI devuelve decímetros, lo pasamos a metros
+            $peso = ($detalles['weight'] ?? 100) / 10;  // PokeAPI devuelve hectogramos, pasamos a kg
+            $base_exp = $detalles['base_experience'] ?? 0;
 
-            if (in_array($id, $legendarios_ids)) {
-                $rareza = 'Legendaria ✨';
-            } elseif (in_array($id, $raros_ids)) {
+            // Extraemos 2 ataques limpios si existen, sustituyendo guiones por espacios
+            $ataque1_name = isset($detalles['moves'][0]) ? ucfirst(str_replace('-', ' ', $detalles['moves'][0]['move']['name'])) : 'Placaje';
+            $ataque1_damage = rand(20, 80);
+
+            $ataque2_name = isset($detalles['moves'][1]) ? ucfirst(str_replace('-', ' ', $detalles['moves'][1]['move']['name'])) : null;
+            $ataque2_damage = $ataque2_name ? rand(20, 80) : null;
+
+            // Algoritmo de Rareza Dinámica 
+            $es_legendario = in_array($id, $legendarios_ids);
+            $es_holo = false;
+
+            if ($es_legendario) {
+                $rareza = 'Legendaria';
+            } elseif ($base_exp > 200) {
                 $rareza = 'Rara Holo';
+                $es_holo = true;
             } else {
                 $rareza = rand(1, 100) <= 70 ? 'Común' : 'Infrecuente';
             }
 
-            $cartas[] = [
-                'nombre' => $nombre,
-                'tipo' => $tipo,
-                'rareza' => $rareza,
-                'imagen_url' => $imagen_url,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+            // Inserción segura para evitar duplicados en ejecuciones sin Refresh
+            Carta::updateOrCreate(
+                ['nombre' => $nombre],
+                [
+                    'tipo' => $tipo,
+                    'rareza' => $rareza,
+                    'imagen_url' => $imagen_url,
+                    'hp' => $hp,
+                    'peso' => $peso,
+                    'altura' => $altura,
+                    'pokedex_no' => $id,
+                    'ataque1_name' => $ataque1_name,
+                    'ataque1_damage' => $ataque1_damage,
+                    'ataque2_name' => $ataque2_name,
+                    'ataque2_damage' => $ataque2_damage,
+                    'es_holo' => $es_holo,
+                    'es_legendario' => $es_legendario
+                ]
+            );
+
+            // Retardo ético para evitar baneos de IP de PokéAPI
+            usleep(200000); // 200ms
         }
 
-        Carta::insert($cartas);
+        $this->command->info('¡Sincronización TCG completada y cartas inyectadas!');
     }
 }
