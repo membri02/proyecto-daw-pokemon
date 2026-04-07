@@ -12,6 +12,7 @@
             <input type="text" id="answer" placeholder="¿Cuál es este pokemon?">
             <span id="response"></span>
             <button id="guess">Adivina</button>
+            <div id="feedback"></div>
         </div>
         <div id="tips" class="tips">
             <button id="tip-type1">Tipo principal</button>
@@ -22,16 +23,17 @@
     </section>
 
     <script>
-        window.addEventListener("load", showPokemon());
+        window.addEventListener("load", showPokemon);
 
         let pokemon;
         const tip1 = document.getElementById("tip-type1");
         const tip2 = document.getElementById("tip-type2");
         const guess = document.getElementById("guess");
 
-        guess.addEventListener("click", () => {
+        guess.addEventListener("click", async () => {
             const answer = document.getElementById("answer").value.toLowerCase();
             const response = document.getElementById("response");
+            const feedback = document.getElementById("feedback");
 
             // limpiar clases anteriores
             response.classList.remove("correct", "wrong");
@@ -42,6 +44,23 @@
 
                 // opcional: revelar el pokemon
                 document.getElementById("pokemon").classList.remove("silhouette");
+
+                try{
+                    const res = await fetch('/minijuego/win',{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        }
+                    });
+
+                    const data = await res.json();
+
+                    feedback.textContent = data.message;
+                    feedback.classList.add("correct");
+                } catch(error){
+                    console.error("Error:", error);
+                }
 
             } else {
                 response.textContent = "Has fallado";

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController; 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MinijuegoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,7 @@ Route::get('/pokedex', function () {
 Route::get('/minijuego', function(){
     return view('minijuego.minijuego');
 });
+Route::post('/minijuego/win', [MinijuegoController::class, 'win']);
 
 // RUTAS PROTEGIDAS POR SESIÓN (Tienda y Álbum)
 Route::get('/sobres', [TiendaController::class, 'index'])->middleware('auth');
