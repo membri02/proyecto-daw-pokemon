@@ -17,7 +17,7 @@
 
         @auth
             <div class="monedero-nav">
-                <span class="monedas-text">{{ Auth::user()->monedas }}</span>
+                <span class="monedas-text" id="wallet">{{ Auth::user()->monedas }}</span>
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="amulet-coin-icon pika-sprite-icon" alt="Monedas">
             </div>
             <span class="user-badge">Entrenador: {{ Auth::user()->name }}</span>

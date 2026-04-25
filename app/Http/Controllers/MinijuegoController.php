@@ -11,10 +11,12 @@ class MinijuegoController extends Controller
         if(Auth::check()){
             $monedas = 50;
 
-            Auth::user()->increment('monedas', $monedas);
+            $user = Auth::user();
+            $user->increment('monedas', $monedas);
 
             return response()->json([
-                'message' => "¡Ganaste {$monedas} monedas!"
+                'message' => "¡Ganaste {$monedas} monedas!",
+                'monedas' => $user->monedas
             ]);
         }
 

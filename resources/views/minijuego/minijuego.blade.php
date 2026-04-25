@@ -31,6 +31,7 @@
         const guess = document.getElementById("guess");
 
         guess.addEventListener("click", async () => {
+            guess.disabled = true;
             const answer = document.getElementById("answer").value.toLowerCase();
             const response = document.getElementById("response");
             const feedback = document.getElementById("feedback");
@@ -58,6 +59,11 @@
 
                     feedback.textContent = data.message;
                     feedback.classList.add("correct");
+
+                    if(data.monedas !== undefined){
+                        document.getElementById("wallet").textContent = data.monedas;
+                    }
+
                 } catch(error){
                     console.error("Error:", error);
                 }
