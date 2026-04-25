@@ -12,6 +12,7 @@
             <input type="text" id="answer" placeholder="¿Cuál es este pokemon?">
             <span id="response"></span>
             <button id="guess">Adivina</button>
+            <button id="play-again" style="display: none;">Jugar otra vez</button>
             <div id="feedback"></div>
         </div>
         <div id="tips" class="tips">
@@ -29,9 +30,10 @@
         const tip1 = document.getElementById("tip-type1");
         const tip2 = document.getElementById("tip-type2");
         const guess = document.getElementById("guess");
+        const playAgain = document.getElementById("play-again");
 
         guess.addEventListener("click", async () => {
-            guess.disabled = true;
+            
             const answer = document.getElementById("answer").value.toLowerCase();
             const response = document.getElementById("response");
             const feedback = document.getElementById("feedback");
@@ -42,6 +44,7 @@
             if (answer === pokemon.name) {
                 response.textContent = "¡Has acertado!";
                 response.classList.add("correct");
+                guess.disabled = true;
 
                 // opcional: revelar el pokemon
                 document.getElementById("pokemon").classList.remove("silhouette");
@@ -64,6 +67,8 @@
                         document.getElementById("wallet").textContent = data.monedas;
                     }
 
+                    playAgain.style.display = "inline-block";
+
                 } catch(error){
                     console.error("Error:", error);
                 }
@@ -73,6 +78,22 @@
                 response.classList.add("wrong");
             }
         });
+
+        playAgain.addEventListener("click", () => {
+            document.getElementById("answer").value = "";
+
+            document.getElementById("response").textContent = "";
+            document.getElementById("feedback").textContent = "";
+
+            document.getElementById("tip1").setAttribute("hidden", true);
+            document.getElementById("tip2").setAttribute("hidden", true);
+
+            playAgain.style.display = "none";
+
+            guess.disabled = false;
+
+            showPokemon();
+        })
 
         tip1.addEventListener("click", () => {
             document.getElementById("tip1").removeAttribute("hidden");

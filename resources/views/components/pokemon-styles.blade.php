@@ -612,7 +612,7 @@
   border-color: #666;
 }
 
-/* Botón */
+/* Button guess */
 #guess {
   width: 100%;
   padding: 8px;
@@ -627,6 +627,22 @@
 
 #guess:hover {
   background: #f5b800;
+}
+/*Button play-again*/
+#play-again {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 30px;
+  background: #ff3705;
+  color: #2a2a2a;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#play-again:hover {
+  background: #dd3106;
 }
 .tips {
   display: flex;
