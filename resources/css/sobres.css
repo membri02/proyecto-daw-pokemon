@@ -110,7 +110,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Centra los sobres si la fila no está llena */
-    gap: 3rem; /* Más espacio entre sobres para que respiren */
+    gap: 2rem; /* Reducido para que quepan los 3 juntos sin saltar a otra fila */
     margin: 4rem 0;
     max-width: 1400px;
     margin-left: auto;
@@ -130,9 +130,9 @@
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     /* Animación flotante combinada con revelación */
     /* Proporciones de sobre físico */
-    flex: 0 0 340px; 
-    width: 340px;
-    height: 480px; 
+    flex: 0 0 310px; /* Reducido de 340px para que entren en una fila */
+    width: 310px;
+    height: 440px; /* Reducido proporcionalmente */
 }
 @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(40px); }

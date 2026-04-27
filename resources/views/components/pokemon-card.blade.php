@@ -85,6 +85,7 @@
     <div class="tcg-legendary-sparkle"></div>
 </div>
 
+@once
 <style>
     /* Tipografía Profesional */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;0,900;1,600&display=swap');
@@ -450,3 +451,4 @@
         100% { background-position: 200% 200%; }
     }
 </style>
+@endonce
