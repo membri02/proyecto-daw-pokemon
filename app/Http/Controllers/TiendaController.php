@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Carta;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class TiendaController extends Controller
 {
@@ -105,6 +106,9 @@ class TiendaController extends Controller
         $user->monedas += $monedasReembolso;
         $user->save(); 
 
+        // 6. Invalidamos la caché de la colección del usuario para que muestre las cartas nuevas
+        Cache::forget('coleccion_usuario_' . $user->id);
+
         return view('tienda.apertura', compact('cartas', 'tipo', 'monedasReembolso'));
     }
 
@@ -114,8 +118,13 @@ class TiendaController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
         
-        // Traemos todas las cartas del usuario ordenadas por el ID de la carta
-        $cartas = $user->cartas()->orderBy('carta_id')->get();
+        // Obtenemos la colección cacheada por 1 hora. Eager loading resuelve problemas de N+1
+        $cartas = Cache::remember('coleccion_usuario_' . $user->id, 3600, function() use ($user) {
+            $user->load(['cartas' => function ($query) {
+                $query->orderBy('carta_id');
+            }]);
+            return $user->cartas;
+        });
 
         return view('tienda.album', compact('cartas'));
     }
