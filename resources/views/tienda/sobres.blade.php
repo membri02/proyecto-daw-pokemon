@@ -12,9 +12,13 @@
 
         <div style="text-align: center; margin-bottom: 2rem;">
             @auth
-                <div style="display: inline-block; background: #FFCB05; color: #000000; padding: 10px 25px; border-radius: 50px; border: 1px solid #111827; font-weight: 800; font-size: 1.2rem;">
-                    Saldo actual: {{ Auth::user()->monedas }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;">
+                <div style="display: inline-block; background: #FFCB05; color: #000000; padding: 10px 25px; border-radius: 50px; border: 1px solid #111827; font-weight: 800; font-size: 1.2rem; margin-bottom: 10px;">
+                    Saldo actual: <span id="saldoSobres">{{ Auth::user()->monedas }}</span> <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 24px; vertical-align: middle; margin-top: -4px;">
                 </div>
+                <br>
+                <a href="{{ route('tienda.recargar') }}" style="display: inline-block; background: linear-gradient(135deg, #34d399, #10b981); color: white; padding: 8px 20px; border-radius: 50px; border: 2px solid #065f46; font-weight: 800; font-size: 0.95rem; text-decoration: none; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+                    ➕ ¿Necesitas más monedas? Recarga aquí con Google Pay
+                </a>
             @else
                 <a href="{{ route('register') }}" style="display: inline-block; background: linear-gradient(135deg, #FFCB05, #f39c12); color: #000; padding: 10px 28px; border-radius: 50px; border: 2px solid #111827; font-weight: 800; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 15px rgba(255,203,5,0.4); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
                     ⚡ ¡Regístrate para obtener 1.000 🪙 gratis!

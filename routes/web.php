@@ -33,6 +33,10 @@ Route::post('/tienda/abrir/{tipo}', [TiendaController::class, 'abrirSobre'])
 
 Route::get('/album', [TiendaController::class, 'miAlbum'])->middleware('auth')->name('album');
 
+// RUTAS DE RECARGA CON GOOGLE PAY
+Route::get('/tienda/recargar', [TiendaController::class, 'recargar'])->middleware('auth')->name('tienda.recargar');
+Route::post('/tienda/procesar-pago', [TiendaController::class, 'procesarPago'])->middleware('auth')->name('tienda.procesar_pago');
+
 // RUTAS DE AUTENTICACIÓN
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::get('/registro', [AuthController::class, 'showRegister'])->name('register');
