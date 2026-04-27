@@ -15,7 +15,7 @@
         </div>
 
         <div class="tcg-image-frame">
-            <img src="{{ $carta->imagen_url }}" alt="{{ $carta->nombre }}" loading="lazy" class="tcg-pokemon-art">
+            <img src="{{ $carta->imagen_url }}" alt="{{ $carta->nombre }}" class="tcg-pokemon-art">
         </div>
 
         <div class="tcg-dex-strip">
