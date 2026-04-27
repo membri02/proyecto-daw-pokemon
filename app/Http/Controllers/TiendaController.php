@@ -128,4 +128,42 @@ class TiendaController extends Controller
 
         return view('tienda.album', compact('cartas'));
     }
+
+    public function recargar()
+    {
+        return view('tienda.recarga');
+    }
+
+    public function procesarPago(Request $request)
+    {
+        $request->validate([
+            'monedas' => 'required|integer'
+        ]);
+
+        $monedas = (int) $request->monedas;
+
+        // Validación estricta en servidor
+        $packsPermitidos = [500, 1200, 2500];
+        
+        if (!in_array($monedas, $packsPermitidos)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cantidad de monedas inválida o manipulación detectada.'
+            ], 400);
+        }
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $user->monedas += $monedas;
+        $user->save();
+
+        // Refrescar caché para asegurar que no haya datos stale
+        Cache::forget('coleccion_usuario_' . $user->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => '¡Pago procesado con éxito! Se han añadido ' . $monedas . ' monedas a tu cuenta.',
+            'monedas_actuales' => $user->monedas
+        ]);
+    }
 }
