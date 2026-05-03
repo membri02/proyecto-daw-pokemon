@@ -13,10 +13,17 @@ Route::get('/pokedex', function () {
     return view('pokedex.pokedex');
 });
 
-Route::get('/minijuego', function(){
-    return view('minijuego.minijuego');
+Route::prefix('minijuego')->group(function () {
+    Route::get('/', [MinijuegoController::class, 'index'])->name('minijuego.index');
+    Route::get('/silueta', [MinijuegoController::class, 'silueta'])->name('minijuego.silueta');
+    Route::get('/triler', [MinijuegoController::class, 'triler'])->name('minijuego.triler');
+    Route::get('/duelo', [MinijuegoController::class, 'duelo'])->name('minijuego.duelo');
+    Route::get('/memoria', [MinijuegoController::class, 'memoria'])->name('minijuego.memoria');
+    
+    // Rutas de procesamiento
+    Route::post('/reward', [MinijuegoController::class, 'processReward'])->name('minijuego.reward');
+    Route::post('/duelo/validate', [MinijuegoController::class, 'validateDuel'])->name('minijuego.duelo.validate');
 });
-Route::post('/minijuego/win', [MinijuegoController::class, 'win']);
 
 // RUTAS PROTEGIDAS POR SESIÓN (Tienda y Álbum)
 Route::get('/sobres', [TiendaController::class, 'index'])->middleware('auth');

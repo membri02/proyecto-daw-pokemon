@@ -1,0 +1,509 @@
+/* 
+===============================================
+    CENTRO DE ENTRETENIMIENTO POKÉMON
+===============================================
+*/
+
+:root {
+    --poke-yellow: #FFCB05;
+    --poke-blue: #2A75BB;
+    --poke-dark: #1E293B;
+    --poke-red: #EE1515;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --neon-glow: 0 0 15px rgba(255, 203, 5, 0.5), 0 0 30px rgba(255, 203, 5, 0.3);
+}
+
+body {
+    background-color: var(--poke-dark);
+    color: white;
+}
+
+/* ==============================================
+   HUB PRINCIPAL (Carrusel)
+============================================== */
+.hub-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #1a237e 0%, #000000 100%);
+    /* Opcional: background-image: url('/images/casino_bg.jpg'); */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.hub-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--poke-yellow);
+    text-shadow: 2px 2px 0 var(--poke-blue), -2px -2px 0 var(--poke-blue), 2px -2px 0 var(--poke-blue), -2px 2px 0 var(--poke-blue), 0px 4px 15px rgba(255, 203, 5, 0.6);
+    letter-spacing: 2px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    align-items: stretch;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.game-card {
+    height: 480px;
+    background: var(--glass-bg);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.game-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: var(--neon-glow);
+    border-color: var(--poke-yellow);
+}
+
+.card-image-wrapper {
+    height: 50%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: rgba(0,0,0,0.4);
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Or cover depending on the image */
+    transition: transform 0.5s ease;
+}
+
+.game-card:hover .card-image-wrapper img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.card-stats {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    background: rgba(0,0,0,0.3);
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.cost { color: #f87171; }
+.reward { color: #4ade80; }
+
+.btn-play {
+    background: linear-gradient(135deg, var(--poke-yellow) 0%, #f59e0b 100%);
+    color: var(--poke-dark);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0.8rem;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-play:hover {
+    background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 203, 5, 0.4);
+}
+
+/* ==============================================
+   ANIMACIÓN MONEDAS (Coin Feedback)
+============================================== */
+.coin-animation {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pokémon_Coin.svg/512px-Pokémon_Coin.svg.png'); /* Placeholder, we can draw a CSS coin */
+    background-color: gold;
+    border-radius: 50%;
+    border: 2px solid #b8860b;
+    box-shadow: inset 0 0 10px #ffeb3b, 0 0 10px gold;
+    pointer-events: none;
+    z-index: 9999;
+    animation: flyToWallet 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes flyToWallet {
+    0% { transform: scale(0) translateY(0); opacity: 0; }
+    20% { transform: scale(1.5) translateY(-50px); opacity: 1; }
+    80% { transform: scale(1) translateY(-100px) translateX(100px); opacity: 1; }
+    100% { transform: scale(0.5) translateY(-300px) translateX(300px); opacity: 0; }
+}
+
+/* ==============================================
+   COMPONENTES DE JUEGO GENÉRICOS
+============================================== */
+.game-area {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--glass-shadow);
+    text-align: center;
+}
+
+.game-header {
+    margin-bottom: 2rem;
+}
+
+.game-header h2 {
+    color: var(--poke-yellow);
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 0 var(--poke-blue);
+}
+
+.btn-back {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.btn-back:hover { background: rgba(255,255,255,0.2); }
+
+/* ==============================================
+   1. SILUETA POKÉMON (Adivinar)
+============================================== */
+.pokemon-sprite-container {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.pokemon-sprite-img {
+    max-height: 200px;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+    transition: all 0.5s ease;
+}
+
+.silhouette {
+    filter: brightness(0) invert(0) !important; 
+}
+
+.input-guess {
+    padding: 1rem;
+    border-radius: 30px;
+    border: 2px solid var(--poke-blue);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 60%;
+    margin-bottom: 1rem;
+    outline: none;
+}
+
+.input-guess:focus {
+    border-color: var(--poke-yellow);
+    box-shadow: 0 0 10px rgba(255,203,5,0.5);
+}
+
+.types-hint span {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 15px;
+    margin: 0 0.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+/* ==============================================
+   2. TRILER (Pokéballs)
+============================================== */
+.triler-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 3rem 0;
+    perspective: 1000px;
+}
+
+.pokeball-wrapper {
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.3);
+}
+
+.pokeball {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 35px 35px, #fff 10%, #d4d4d4 20%, transparent 21%),
+                linear-gradient(to bottom, #EE1515 48%, #222 48%, #222 52%, #FFF 52%);
+    border-radius: 50%;
+    border: 5px solid #222;
+    box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.4);
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.pokeball::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px; height: 30px;
+    background: #FFF;
+    border: 3px solid #222;
+    border-radius: 50%;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+.pokeball-wrapper.shake .pokeball {
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+.pokeball-wrapper.open .pokeball {
+    transform: translateY(-30px);
+}
+
+.hidden-reward {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -10px) scale(0);
+    width: 60px; height: 60px;
+    background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'); /* Pikachu */
+    background-size: cover;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.pokeball-wrapper.open .hidden-reward {
+    transform: translate(-50%, -60px) scale(1);
+    opacity: 1;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* ==============================================
+   3. DUELO DE TIPOS
+============================================== */
+.duel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.enemy-type-box {
+    background: rgba(0,0,0,0.5);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid white;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.type-badge {
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    width: 100%;
+}
+
+.type-btn {
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-transform: uppercase;
+}
+
+.type-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+.timer-bar {
+    width: 100%;
+    height: 15px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.timer-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #4ade80, #facc15, #f87171);
+    transform-origin: left;
+    transition: width 0.1s linear;
+}
+
+/* ==============================================
+   4. MEMORIA
+============================================== */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.memory-card {
+    width: 100px;
+    height: 140px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.memory-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.memory-card .front, .memory-card .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    border: 2px solid var(--glass-border);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memory-card .back {
+    background: linear-gradient(135deg, #2A75BB, #1a237e);
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+}
+
+.memory-card .back::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #fff 10%, #EE1515 11%, transparent 12%);
+    /* TCG back representation simplified */
+}
+
+.memory-card .front {
+    background: #fff;
+    transform: rotateY(180deg);
+}
+
+.memory-card .front img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .games-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+}
+
+/* ==============================================
+   COLORS (PokeAPI standard approximations)
+============================================== */
+.type-normal { background-color: #A8A77A; }
+.type-fire { background-color: #EE8130; }
+.type-water { background-color: #6390F0; }
+.type-electric { background-color: #F7D02C; }
+.type-grass { background-color: #7AC74C; }
+.type-ice { background-color: #96D9D6; }
+.type-fighting { background-color: #C22E28; }
+.type-poison { background-color: #A33EA1; }
+.type-ground { background-color: #E2BF65; }
+.type-flying { background-color: #A98FF3; }
+.type-psychic { background-color: #F95587; }
+.type-bug { background-color: #A6B91A; }
+.type-rock { background-color: #B6A136; }
+.type-ghost { background-color: #735797; }
+.type-dragon { background-color: #6F35FC; }
+.type-dark { background-color: #705746; }
+.type-steel { background-color: #B7B7CE; }
+.type-fairy { background-color: #D685AD; }

@@ -12,7 +12,7 @@ export default defineConfig({
                 'resources/css/welcome.css',
                 'resources/css/album.css',
                 'resources/css/pokedex.css',
-                'resources/css/minijuego.css',
+                'resources/css/minijuegos.css',
                 'resources/css/apertura.css',
                 'resources/css/auth.css',
                 'resources/css/recarga.css',
