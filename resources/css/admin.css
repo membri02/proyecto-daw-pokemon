@@ -1,0 +1,230 @@
+/* admin.css - Estilos minimalistas para el Panel de Administración */
+.admin-wrapper {
+    padding: 3rem 1.5rem;
+    max-width: 1200px; 
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    background: #f8fafc;
+    min-height: calc(100vh - 70px);
+    color: #1e293b;
+}
+
+.admin-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-title {
+    font-size: 2.2rem;
+    color: #1e293b;
+    margin: 0;
+    font-weight: 800;
+}
+
+/* Flash Messages */
+.admin-alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.admin-alert.success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+.admin-alert.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
+
+/* Dashboard Cards */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.2s;
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.stat-icon img {
+    width: 35px;
+}
+
+.stat-info h3 {
+    margin: 0;
+    color: #64748b;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.stat-info .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 0.2rem;
+}
+
+/* Botones Administrativos */
+.btn-admin {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+.btn-admin-primary {
+    background: #2a75bb; /* Azul Pokémon */
+    color: #ffffff;
+}
+.btn-admin-primary:hover {
+    background: #1c4b7a;
+}
+.btn-admin-success {
+    background: #10b981;
+    color: white;
+}
+.btn-admin-success:hover {
+    background: #059669;
+}
+.btn-admin-danger {
+    background: #ef4444;
+    color: white;
+}
+.btn-admin-danger:hover {
+    background: #dc2626;
+}
+.btn-admin-secondary {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+.btn-admin-secondary:hover {
+    background: #cbd5e1;
+}
+
+/* Tabla de Administración */
+.admin-table-container {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    text-align: left;
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.admin-table td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #1e293b;
+    vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+    background: #f1f5f9;
+}
+
+.admin-table .actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Formularios Administrativos */
+.admin-form-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.admin-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.admin-form-group label {
+    display: block;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 0.5rem;
+}
+
+.admin-form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #1e293b;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-form-control:focus {
+    outline: none;
+    border-color: #2a75bb;
+    box-shadow: 0 0 0 3px rgba(42, 117, 187, 0.15);
+}
+
+.admin-form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}

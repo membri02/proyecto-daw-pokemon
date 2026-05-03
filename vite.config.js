@@ -15,7 +15,8 @@ export default defineConfig({
                 'resources/css/minijuego.css',
                 'resources/css/apertura.css',
                 'resources/css/auth.css',
-                'resources/css/recarga.css'
+                'resources/css/recarga.css',
+                'resources/css/admin.css'
             ],
             refresh: true,
         }),

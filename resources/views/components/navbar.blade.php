@@ -4,7 +4,9 @@
         <a href="/pokedex">Pokédex</a>
         <a href="/sobres">Tienda TCG</a>
         <a href="/minijuego">Minijuego</a>
-        <a href="/admin">Panel Admin</a>
+        @if(Auth::check() && Auth::user()->email === 'admin@pokemon.com')
+            <a href="/admin">Panel Admin</a>
+        @endif
         
         @auth
             <a href="/album" class="nav-album">

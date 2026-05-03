@@ -45,3 +45,14 @@ Route::get('/registro', [AuthController::class, 'showRegister'])->name('register
 Route::post('/registro', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// RUTAS DE ADMINISTRACIÓN
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+    Route::get('/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users.index');
+    Route::get('/users/create', [\App\Http\Controllers\AdminController::class, 'create'])->name('users.create');
+    Route::post('/users', [\App\Http\Controllers\AdminController::class, 'store'])->name('users.store');
+    Route::get('/users/{id}/edit', [\App\Http\Controllers\AdminController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [\App\Http\Controllers\AdminController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [\App\Http\Controllers\AdminController::class, 'destroy'])->name('users.destroy');
+});
