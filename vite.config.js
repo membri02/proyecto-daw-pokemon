@@ -17,7 +17,8 @@ export default defineConfig({
                 'resources/css/auth.css',
                 'resources/css/recarga.css',
                 'resources/css/admin.css',
-                'resources/css/perfil.css'
+                'resources/css/perfil.css',
+                'resources/css/comunidad.css'
             ],
             refresh: true,
         }),

@@ -3,7 +3,8 @@
         <a href="/">Inicio</a>
         <a href="/pokedex">Pokédex</a>
         <a href="/sobres">Tienda TCG</a>
-        <a href="/minijuego">Minijuego</a>
+        <a href="/minijuego">Minijuegos</a>
+        <a href="{{ route('comunidad.index') }}"><i class="fas fa-users" style="margin-right: 5px;"></i> Comunidad</a>
         @if(Auth::check() && Auth::user()->email === 'admin@pokemon.com')
             <a href="/admin">Panel Admin</a>
         @endif

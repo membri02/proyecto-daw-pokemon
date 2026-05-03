@@ -48,6 +48,21 @@
             <div class="pack-price">0.00 €</div>
             <div class="gpay-container" data-amount="2500"></div>
         </div>
+
+        <!-- Pack Monedas Gratis (Ads) -->
+        <div class="pack-card" style="border-color: #4ade80;">
+            <div class="badge-popular" style="background: #4ade80; color: #000;">NUEVO</div>
+            <div class="pack-icon">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/exp-share.png" alt="Monedas Gratis">
+            </div>
+            <h2>Monedas Gratis</h2>
+            <div class="pack-amount">50 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" alt="Moneda"></div>
+            <div class="pack-price">Ver Video</div>
+            <button id="btnWatchAd" class="btn-secondary-tcg" style="background: white; color: black; border: 2px solid #ea4335; margin-top: 10px; width: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fab fa-google" style="color: #ea4335; font-size: 1.2rem;"></i>
+                <span id="btnWatchAdText">Google Ads</span>
+            </button>
+        </div>
     </div>
 
     <div class="tienda-action-bar" style="text-align: center; margin-top: 3rem;">
@@ -66,6 +81,17 @@
     <div class="toast-content">
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" alt="Éxito">
         <span id="toast-message">¡Pago exitoso!</span>
+    </div>
+</div>
+
+<!-- Modal Ad -->
+<div id="adModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); z-index:9999; flex-direction:column; justify-content:center; align-items:center;">
+    <div style="width:80%; max-width:800px; text-align:right; margin-bottom:10px;">
+        <span id="adTimer" style="color:white; font-size:1.2rem; font-weight:bold; margin-right:20px;">15s</span>
+        <button id="btnCloseAd" disabled style="padding:10px 20px; background:#444; color:#888; border:none; cursor:not-allowed; border-radius:5px; font-weight:bold;">Cerrar y Reclamar</button>
+    </div>
+    <div style="width:80%; max-width:800px; aspect-ratio:16/9; background:#000;">
+        <iframe id="adVideo" width="100%" height="100%" src="https://www.youtube.com/embed/1roy4o4tqQM?autoplay=0&controls=0&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 </div>
 
@@ -224,5 +250,121 @@
             alert('Ha ocurrido un error al conectar con el servidor.');
         });
     }
+
+    // Lógica del Anuncio Premiado
+    const MAX_ADS_PER_DAY = 4;
+    const AD_COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours
+    
+    function checkAdLimits() {
+        let adsData = JSON.parse(localStorage.getItem('pokemon_ads_data') || '{"count": 0, "last_date": 0}');
+        const now = Date.now();
+        
+        // Reset si pasaron 24h
+        if (now - adsData.last_date > AD_COOLDOWN_MS) {
+            adsData.count = 0;
+            adsData.last_date = now;
+            localStorage.setItem('pokemon_ads_data', JSON.stringify(adsData));
+        }
+
+        const btn = document.getElementById('btnWatchAd');
+        const btnText = document.getElementById('btnWatchAdText');
+
+        if (adsData.count >= MAX_ADS_PER_DAY) {
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+            btnText.innerText = 'Vuelve en 24h';
+            return false;
+        } else {
+            btnText.innerText = `Google Ads (${adsData.count}/${MAX_ADS_PER_DAY})`;
+        }
+        return true;
+    }
+
+    // Inicializar comprobación
+    checkAdLimits();
+
+    document.getElementById('btnWatchAd').addEventListener('click', function() {
+        if (!checkAdLimits()) return;
+
+        const modal = document.getElementById('adModal');
+        const timerEl = document.getElementById('adTimer');
+        const btnClose = document.getElementById('btnCloseAd');
+        const iframe = document.getElementById('adVideo');
+        
+        // Seleccionar un vídeo de Pokémon al azar
+        const adVideos = [
+            "1roy4o4tqQM", // Detective Pikachu
+            "bILE5BEyhdo", // Scarlet & Violet
+            "D0zYJ1RQ-fs", // Sword & Shield
+            "uBYORdx_AQE", // Legends Arceus
+            "2-zJ1_P1Gxk"  // Pokemon GO
+        ];
+        const randomVideoId = adVideos[Math.floor(Math.random() * adVideos.length)];
+        
+        modal.style.display = 'flex';
+        iframe.src = `https://www.youtube.com/embed/${randomVideoId}?autoplay=1&controls=0&mute=0`;
+        
+        let timeLeft = 15;
+        timerEl.textContent = timeLeft + "s";
+        btnClose.disabled = true;
+        btnClose.style.background = "#444";
+        btnClose.style.color = "#888";
+        btnClose.style.cursor = "not-allowed";
+
+        const interval = setInterval(() => {
+            timeLeft--;
+            if(timeLeft > 0) {
+                timerEl.textContent = timeLeft + "s";
+            } else {
+                clearInterval(interval);
+                timerEl.textContent = "¡Completado!";
+                btnClose.disabled = false;
+                btnClose.style.background = "#4ade80";
+                btnClose.style.color = "#000";
+                btnClose.style.cursor = "pointer";
+            }
+        }, 1000);
+
+        btnClose.onclick = function() {
+            if(!btnClose.disabled) {
+                modal.style.display = 'none';
+                iframe.src = ""; // Stop video
+                
+                // Fetch Reward
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch('{{ route("minijuego.reward") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ amount: 50, game: 'anuncio' })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success && data.monedas !== undefined) {
+                        // Actualizar contadores locales
+                        let adsData = JSON.parse(localStorage.getItem('pokemon_ads_data'));
+                        adsData.count++;
+                        adsData.last_date = Date.now();
+                        localStorage.setItem('pokemon_ads_data', JSON.stringify(adsData));
+                        checkAdLimits(); // Actualizar botón
+
+                        document.getElementById('saldoUsuario').innerText = data.monedas;
+                        const walletEl = document.getElementById("wallet");
+                        if(walletEl) walletEl.textContent = data.monedas;
+                        
+                        const toast = document.getElementById('toast-success');
+                        document.getElementById('toast-message').innerText = "¡Has recibido 50 monedas gratis!";
+                        toast.classList.add('show');
+                        setTimeout(() => toast.classList.remove('show'), 4000);
+                    }
+                })
+                .catch(err => console.error(err));
+            }
+        };
+    });
 </script>
 @endsection

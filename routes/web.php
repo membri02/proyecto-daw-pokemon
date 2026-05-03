@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController; 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MinijuegoController;
+use App\Http\Controllers\ComunidadController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,4 +69,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::middleware('auth')->group(function () {
     Route::get('/perfil', [\App\Http\Controllers\ProfileController::class, 'index'])->name('perfil.index');
     Route::put('/perfil/update', [\App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('perfil.update');
+});
+
+// RUTAS DE COMUNIDAD
+Route::middleware('auth')->group(function () {
+    Route::resource('comunidad', ComunidadController::class)->except(['edit', 'update', 'destroy']);
+    Route::post('comunidad/{post}/comments', [ComunidadController::class, 'storeComment'])->name('comunidad.comments.store');
 });
