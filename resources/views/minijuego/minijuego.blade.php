@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .silhouette {
-            filter: brightness(0);
-        }
-    </style>
+    @vite(['resources/css/minijuego.css'])
     <section id="inicio" class="section active">
         <div id="sprite" class="pokemon-sprite">
             <img id="pokemon" src="" alt="pokemon-sprite">
