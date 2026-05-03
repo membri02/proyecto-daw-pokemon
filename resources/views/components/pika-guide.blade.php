@@ -189,22 +189,23 @@
     /* ========== HELP BUTTON IN NAVBAR ========== */
     #pikaHelpBtn {
         background: transparent;
-        border: 2px solid rgba(255,255,255,0.5);
-        border-radius: 50%;
-        width: 38px;
-        height: 38px;
+        border: 2px solid #FFCB05;
+        border-radius: 20px;
+        padding: 4px 12px;
+        color: #334155;
+        font-weight: 800;
         cursor: pointer;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 6px;
+        font-family: inherit;
         transition: all 0.3s;
         margin-right: 6px;
     }
     #pikaHelpBtn:hover {
         background: rgba(255,203,5,0.2);
-        transform: scale(1.1);
-        border-color: #FFCB05;
+        transform: scale(1.05);
     }
 </style>
 
@@ -262,7 +263,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { selector: '.nav-logo a[href="/"]',        text: 'Paso 1 — INICIO: Aquí verás las últimas novedades del proyecto.' },
         { selector: '.nav-logo a[href="/pokedex"]', text: 'Paso 2 — POKÉDEX: Consulta los datos de los 151 Pokémon originales.' },
         { selector: '.nav-logo a[href="/sobres"]',  text: 'Paso 3 — TIENDA: ¡Mi parte favorita! Aquí gastas tus Pokémonedas.' },
-        { selector: '.nav-logo a[href="/album"]',   text: 'Paso 4 — MI ÁLBUM: Mira tu colección y gestiona tus cartas repetidas.', final: true },
+        { selector: '.nav-logo a[href="/minijuego"]',text: 'Paso 4 — MINIJUEGO: ¡Juega aquí y consigue Pokémonedas gratis!' },
+        { selector: '.nav-logo a[href="/album"]',   text: 'Paso 5 — MI ÁLBUM: Mira tu colección y gestiona tus repetidas.', final: true },
     ];
 
     // ── Bounce ───────────────────────────────────────────────────────────────────
@@ -438,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var helpBtn = document.createElement('button');
         helpBtn.id = 'pikaHelpBtn';
         helpBtn.title = 'Ayuda Pikachu';
-        helpBtn.innerHTML = '<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="pika-sprite-icon" alt="Ayuda" style="width:30px; margin-top:2px;">';
+        helpBtn.innerHTML = '<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/oaks-letter.png" alt="Ayuda" style="width:20px;"> Tutorial';
         helpBtn.addEventListener('click', startTutorial);
         navAuth.prepend(helpBtn);
     }

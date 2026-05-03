@@ -18,10 +18,10 @@
     <div class="nav-auth">
 
         @auth
-            <div class="monedero-nav">
+            <a href="{{ route('tienda.recargar') }}" class="monedero-nav" style="text-decoration:none;">
                 <span class="monedas-text" id="wallet">{{ Auth::user()->monedas }}</span>
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="amulet-coin-icon pika-sprite-icon" alt="Monedas">
-            </div>
+            </a>
             
             <a href="{{ route('perfil.index') }}" class="user-badge" style="text-decoration:none; display:flex; align-items:center; gap:8px;">
                 Entrenador: {{ Auth::user()->name }}
@@ -193,6 +193,12 @@
         padding: 4px 12px;
         border-radius: 20px;
         box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s;
+    }
+    .monedero-nav:hover {
+        background: #f8fafc;
+        transform: translateY(-2px);
     }
     .monedas-text {
         color: #0f172a; /* slate-900 */
