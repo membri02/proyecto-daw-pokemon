@@ -22,7 +22,12 @@
                 <span class="monedas-text" id="wallet">{{ Auth::user()->monedas }}</span>
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="amulet-coin-icon pika-sprite-icon" alt="Monedas">
             </div>
-            <span class="user-badge">Entrenador: {{ Auth::user()->name }}</span>
+            
+            <a href="{{ route('perfil.index') }}" class="user-badge" style="text-decoration:none; display:flex; align-items:center; gap:8px;">
+                Entrenador: {{ Auth::user()->name }}
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Perfil" style="width:20px;">
+            </a>
+            
             <form method="POST" action="{{ route('logout') }}" style="display:flex; align-items:center; margin:0;">
                 @csrf
                 <button type="submit" class="btn-logout">

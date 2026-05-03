@@ -56,3 +56,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/users/{id}', [\App\Http\Controllers\AdminController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [\App\Http\Controllers\AdminController::class, 'destroy'])->name('users.destroy');
 });
+
+// RUTAS DE PERFIL DE ENTRENADOR
+Route::middleware('auth')->group(function () {
+    Route::get('/perfil', [\App\Http\Controllers\ProfileController::class, 'index'])->name('perfil.index');
+    Route::put('/perfil/update', [\App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('perfil.update');
+});

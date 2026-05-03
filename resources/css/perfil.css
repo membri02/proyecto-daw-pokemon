@@ -1,0 +1,155 @@
+/* perfil.css - Diseño Legendario (Glassmorphism & Gold) */
+.perfil-wrapper {
+    padding: 3rem 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Fondo que haga contraste con el glassmorphism */
+    background: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') no-repeat center center;
+    background-size: 800px;
+    background-blend-mode: overlay;
+    background-color: #f1f5f9;
+}
+
+.legendary-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 3px solid #D5A100;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15), inset 0 0 0 2px rgba(213, 161, 0, 0.5);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.legendary-header {
+    background: linear-gradient(135deg, #D5A100 0%, #B8860B 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 3px solid #8B6508;
+    position: relative;
+}
+
+.legendary-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.legendary-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem;
+}
+
+@media (max-width: 768px) {
+    .legendary-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Formularios */
+.perfil-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.perfil-form-group label {
+    display: block;
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.perfil-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.9);
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.perfil-input:focus {
+    outline: none;
+    border-color: #D5A100;
+    box-shadow: 0 0 0 3px rgba(213, 161, 0, 0.2);
+}
+
+.perfil-input:disabled {
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.btn-legendary {
+    background: linear-gradient(to bottom, #D5A100, #B8860B);
+    color: white;
+    border: 2px solid #8B6508;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s, filter 0.2s;
+    width: 100%;
+}
+
+.btn-legendary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Gráficas */
+.chart-container {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-title {
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* Alertas */
+.perfil-alert {
+    padding: 15px;
+    margin: 2rem 3rem 0;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.perfil-alert.success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+.perfil-alert.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
