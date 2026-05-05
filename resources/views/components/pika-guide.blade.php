@@ -374,18 +374,56 @@ document.addEventListener('DOMContentLoaded', function() {
         var v = q.toLowerCase().trim();
         clearHighlight();
         clearActions();
-        if (v.includes('hola') || v.includes('saludos')) {
-            typeText('¡Pika-pika, hola Entrenador! ¿En qué puedo ayudarte?');
-        } else if (v.includes('tienda') || v.includes('sobre')) {
-            typeText('En la Tienda TCG puedes comprar sobres de cartas. ¡Los premium garantizan rarezas!');
-        } else if (v.includes('álbum') || v.includes('album') || v.includes('carta')) {
-            typeText('¡En Mi Álbum verás todas tus cartas! Las repetidas se pueden intercambiar. Pika.');
-        } else if (v.includes('tutorial') || v.includes('ayuda')) {
+        
+        // Saludos y despedidas
+        if (v.includes('hola') || v.includes('saludos') || v.includes('buenas')) {
+            typeText('¡Pika-pika! ¡Hola Entrenador! ¿Listo para tu aventura Pokémon?');
+        } else if (v.includes('adios') || v.includes('adiós') || v.includes('hasta luego') || v.includes('chao')) {
+            typeText('¡Pika-adiós! ¡Vuelve pronto a seguir completando tu colección!');
+        } else if (v.includes('gracias') || v.includes('te quiero') || v.includes('eres el mejor')) {
+            typeText('¡Pikaa! (Se sonroja) ¡Es un placer ayudarte en tu aventura!');
+            
+        // Navegación principal
+        } else if (v.includes('tienda') || v.includes('sobre') || v.includes('comprar')) {
+            typeText('En la Tienda TCG puedes gastar tus Pokémonedas para comprar sobres. ¡A veces tocan holográficas o legendarios! ¡Pika!');
+        } else if (v.includes('álbum') || v.includes('album') || v.includes('colección') || v.includes('carta')) {
+            typeText('¡En Mi Álbum están todas tus cartas! Si tienes repetidas, ¡podrás intercambiarlas en el futuro!');
+        } else if (v.includes('pokedex') || v.includes('pokédex')) {
+            typeText('La Pokédex tiene información de los 151 Pokémon originales. ¡Úsala para estudiar a tus favoritos!');
+        } else if (v.includes('comunidad') || v.includes('foro') || v.includes('ranking') || v.includes('entrenadores')) {
+            typeText('¡En la Comunidad puedes ver los mensajes de otros entrenadores, y consultar el Ranking Global de los mejores coleccionistas!');
+            
+        // Minijuegos
+        } else if (v.includes('minijuego') || v.includes('juego') || v.includes('jugar')) {
+            typeText('¡En el Game Center tenemos 4 minijuegos! Silueta, Triler, Duelo de Tipos y Memoria. ¡Juega para ganar más monedas!');
+        } else if (v.includes('silueta') || v.includes('adivina')) {
+            typeText('¿Quién es ese Pokémon? Tienes que escribir el nombre correcto viendo solo la silueta oscura. ¡Da muchas monedas!');
+        } else if (v.includes('triler') || v.includes('voltorb')) {
+            typeText('¡Sigue con la vista la Pokéball donde me escondo! Pero ten cuidado con Voltorb, ¡perderás monedas si te equivocas!');
+        } else if (v.includes('duelo') || v.includes('tipo') || v.includes('efectivo')) {
+            typeText('En el Duelo tienes que elegir un tipo que sea "Súper Efectivo" contra el Pokémon rival antes de que acabe el tiempo.');
+        } else if (v.includes('memoria') || v.includes('pareja')) {
+            typeText('En Memoria debes encontrar las 6 parejas de cartas iguales usando el menor número de intentos posible. ¡Pika!');
+            
+        // Economía y Monedas
+        } else if (v.includes('moneda') || v.includes('dinero') || v.includes('saldo') || v.includes('pobre')) {
+            typeText('Recibes 1,000 Pokémonedas al registrarte. Si te quedas a cero, ¡juega a los minijuegos o entra a la tienda para recargar!');
+            
+        // Utilidades y otros
+        } else if (v.includes('tutorial') || v.includes('ayuda') || v.includes('no se que hacer')) {
             startTutorial();
-        } else if (v.includes('moneda') || v.includes('dinero') || v.includes('saldo')) {
-            typeText('Al registrarte recibes 1,000 Pokémonedas gratis. Un sobre básico cuesta 100.');
+        } else if (v.includes('admin') || v.includes('panel')) {
+            typeText('¡Pika-shh! Ese lugar es secreto y solo para la cuenta de admin@pokemon.com. ¡No te acerques por ahí!');
+        } else if (v.includes('pikachu') || v.includes('quien eres') || v.includes('qué eres')) {
+            typeText('¡Soy Pikachu, tu asistente personal en el Pokémon TCG Project! Estoy aquí para guiarte.');
         } else {
-            typeText('¿Pika? No entiendo ese ataque... ¡prueba "Tutorial", "Tienda" o "Álbum"!');
+            // Respuestas variadas para cuando no entiende
+            const randomResponses = [
+                '¿Pika? No conozco ese ataque... ¡prueba a preguntarme por "Tutorial", "Tienda" o "Minijuegos"!',
+                '¡Pika-pika! Aún estoy aprendiendo el idioma humano... ¿Puedes probar con "Álbum" o "Monedas"?',
+                '(Ladea la cabeza) ¿Pika...? Prueba preguntarme por la "Comunidad" o la "Pokédex".'
+            ];
+            typeText(randomResponses[Math.floor(Math.random() * randomResponses.length)]);
         }
     }
 
