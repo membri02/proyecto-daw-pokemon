@@ -15,7 +15,7 @@
             </div>
 
             <div class="my-4">
-                <button id="btn-start" class="btn-play" style="width: auto; padding: 0.8rem 2rem;">Repartir Cartas (Costo: 15 <i class="fas fa-coins"></i>)</button>
+                <button id="btn-start" class="btn-play" style="width: auto; padding: 0.8rem 2rem;">Repartir Cartas (Coste: 15 <i class="fas fa-coins"></i>)</button>
             </div>
 
             <div id="memory-board" class="memory-grid" style="display: none;">
@@ -190,7 +190,7 @@
 
             setTimeout(() => {
                 btnStart.style.display = 'inline-block';
-                btnStart.textContent = "Jugar de nuevo (Costo: 15)";
+                btnStart.textContent = "Jugar de nuevo (Coste: 15)";
                 board.style.display = 'none';
             }, 3000);
         }

@@ -23,7 +23,7 @@
                     </div>
                     <div>
                         <div class="card-stats">
-                            <span class="cost">Costo: 0 <i class="fas fa-coins"></i></span>
+                            <span class="cost">Coste: 0 <i class="fas fa-coins"></i></span>
                             <span class="reward">Premio: 50 <i class="fas fa-coins"></i></span>
                         </div>
                         <a href="{{ route('minijuego.silueta') }}" class="btn-play">¡Jugar ahora!</a>
@@ -43,7 +43,7 @@
                     </div>
                     <div>
                         <div class="card-stats">
-                            <span class="cost">Costo: 10 <i class="fas fa-coins"></i></span>
+                            <span class="cost">Coste: 10 <i class="fas fa-coins"></i></span>
                             <span class="reward">Premio: 30 <i class="fas fa-coins"></i></span>
                         </div>
                         <a href="{{ route('minijuego.triler') }}" class="btn-play">¡Jugar ahora!</a>
@@ -63,7 +63,7 @@
                     </div>
                     <div>
                         <div class="card-stats">
-                            <span class="cost">Costo: 20 <i class="fas fa-coins"></i></span>
+                            <span class="cost">Coste: 20 <i class="fas fa-coins"></i></span>
                             <span class="reward">Premio: 100 <i class="fas fa-coins"></i></span>
                         </div>
                         <a href="{{ route('minijuego.duelo') }}" class="btn-play">¡Jugar ahora!</a>
@@ -83,7 +83,7 @@
                     </div>
                     <div>
                         <div class="card-stats">
-                            <span class="cost">Costo: 15 <i class="fas fa-coins"></i></span>
+                            <span class="cost">Coste: 15 <i class="fas fa-coins"></i></span>
                             <span class="reward">Premio: 80 <i class="fas fa-coins"></i></span>
                         </div>
                         <a href="{{ route('minijuego.memoria') }}" class="btn-play">¡Jugar ahora!</a>

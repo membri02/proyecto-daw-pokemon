@@ -19,7 +19,7 @@
             </div>
             
             <div class="my-4">
-                <button id="btn-start" class="btn-play" style="width: auto; padding: 0.8rem 2rem;">Mezclar Pokéballs (Costo: 10 <i class="fas fa-coins"></i>)</button>
+                <button id="btn-start" class="btn-play" style="width: auto; padding: 0.8rem 2rem;">Mezclar Pokéballs (Coste: 10 <i class="fas fa-coins"></i>)</button>
             </div>
 
             <h3 id="response" class="text-2xl font-bold my-2" style="height: 32px;"></h3>
@@ -54,7 +54,7 @@
                 wrapper.appendChild(ball);
                 wrapper.appendChild(reward);
                 
-                wrapper.addEventListener("click", () => selectBall(i));
+                wrapper.addEventListener("click", function() { selectBall(this); });
                 
                 board.appendChild(wrapper);
                 balls.push(wrapper);
@@ -72,6 +72,7 @@
             
             balls.forEach((wrapper, index) => {
                 wrapper.classList.remove("open");
+                wrapper.dataset.isWinner = (index === winningIndex) ? "true" : "false";
                 const reward = wrapper.querySelector(".hidden-reward");
                 if (index === winningIndex) {
                     reward.style.backgroundImage = "url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png')"; // Pikachu
@@ -126,15 +127,13 @@
             });
         }
 
-        async function selectBall(index) {
+        async function selectBall(clickedWrapper) {
             if (!isPlaying) return;
             
-            // Find which wrapper was actually clicked based on current DOM order
-            const clickedWrapper = balls[index];
             clickedWrapper.classList.add("open");
             
             // Did we win?
-            const isWinner = parseInt(clickedWrapper.dataset.index) === winningIndex;
+            const isWinner = clickedWrapper.dataset.isWinner === "true";
             
             isPlaying = false;
             

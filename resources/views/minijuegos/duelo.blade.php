@@ -15,7 +15,7 @@
             </div>
 
             <div class="my-4">
-                <button id="btn-start" class="btn-play" style="width: auto; padding: 0.8rem 2rem;">Iniciar Duelo (Costo: 20 <i class="fas fa-coins"></i>)</button>
+                <button id="btn-start" class="btn-play" style="width: auto; padding: 0.8rem 2rem;">Iniciar Duelo (Coste: 20 <i class="fas fa-coins"></i>)</button>
             </div>
 
             <div id="duel-arena" style="display: none;" class="duel-container">
@@ -100,16 +100,38 @@
             }, 5000);
         }
 
+        const typeWeaknesses = {
+            'normal': ['fighting'],
+            'fire': ['water', 'ground', 'rock'],
+            'water': ['electric', 'grass'],
+            'electric': ['ground'],
+            'grass': ['fire', 'ice', 'poison', 'flying', 'bug'],
+            'ice': ['fire', 'fighting', 'rock', 'steel'],
+            'fighting': ['flying', 'psychic', 'fairy'],
+            'poison': ['ground', 'psychic'],
+            'ground': ['water', 'grass', 'ice'],
+            'flying': ['electric', 'ice', 'rock'],
+            'psychic': ['bug', 'ghost', 'dark'],
+            'bug': ['fire', 'flying', 'rock'],
+            'rock': ['water', 'grass', 'fighting', 'ground', 'steel'],
+            'ghost': ['ghost', 'dark'],
+            'dragon': ['ice', 'dragon', 'fairy'],
+            'dark': ['fighting', 'bug', 'fairy'],
+            'steel': ['fire', 'fighting', 'ground'],
+            'fairy': ['poison', 'steel']
+        };
+
         function generateOptions() {
             playerTypesContainer.innerHTML = '';
             
-            // Generate 6 random types including at least 1 correct answer 
-            // For simplicity, we just generate 6 random types, hoping there's a winner, 
-            // but to be fair, we should ensure at least one is effective. We will trust the random spread for now,
-            // or we could fetch the effectiveness list to guarantee it. Let's just pick 6 random distinct types.
+            let weaknesses = typeWeaknesses[currentEnemyType] || [];
+            let guaranteedType = weaknesses[Math.floor(Math.random() * weaknesses.length)];
             
-            let shuffled = [...types].sort(() => 0.5 - Math.random());
-            let options = shuffled.slice(0, 6);
+            let remainingTypes = types.filter(t => t !== guaranteedType);
+            let shuffled = [...remainingTypes].sort(() => 0.5 - Math.random());
+            
+            let options = [guaranteedType, ...shuffled.slice(0, 5)];
+            options.sort(() => 0.5 - Math.random());
 
             options.forEach(type => {
                 const btn = document.createElement("button");
@@ -203,7 +225,7 @@
 
             setTimeout(() => {
                 btnStart.style.display = 'inline-block';
-                btnStart.textContent = "Jugar de nuevo (Costo: 20)";
+                btnStart.textContent = "Jugar de nuevo (Coste: 20)";
                 duelArena.style.display = 'none';
             }, 3000);
         }
