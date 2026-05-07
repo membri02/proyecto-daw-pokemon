@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
         // Economía y Monedas
         } else if (v.includes('moneda') || v.includes('dinero') || v.includes('saldo') || v.includes('pobre')) {
-            typeText('Recibes 1,000 Pokémonedas al registrarte. Si te quedas a cero, ¡juega a los minijuegos o entra a la tienda para recargar!');
+            typeText('Recibes 200 Pokémonedas al registrarte. Si te quedas a cero, ¡juega a los minijuegos o entra a la tienda para recargar!');
             
         // Utilidades y otros
         } else if (v.includes('tutorial') || v.includes('ayuda') || v.includes('no se que hacer')) {
@@ -443,14 +443,17 @@ document.addEventListener('DOMContentLoaded', function() {
         typeText('¡Pika-pika! ¿Necesitas ayuda? Dime "Tutorial" para empezar.');
     }
 
-    function guestCheck() {
+    function guestCheck(msg) {
         container.classList.remove('minimized');
         sessionStorage.setItem('pikaGuideClosed', 'false');
         clearHighlight();
         sprite.classList.add('pika-bounce');
         sprite.style.transform = 'scale(1.2)';
         setTimeout(function() { sprite.style.transform = ''; }, 400);
-        typeText('¡Pika-pika! ⚡ No puedes comprar sobres sin una cuenta. ¡Regístrate ahora y llévate 1,000 monedas de regalo!', function() {
+        
+        var textToSay = (typeof msg === 'string') ? msg : '¡Pika-pika! ⚡ No puedes comprar sobres sin una cuenta. ¡Regístrate ahora y llévate 200 monedas de regalo!';
+        
+        typeText(textToSay, function() {
             setActions([
                 { label: '🎓 ¡Registrarme ahora!', cb: function() { window.location.href = '{{ route("register") }}'; } },
                 { label: 'Iniciar Sesión',          cb: function() { window.location.href = '{{ route("login") }}'; } }

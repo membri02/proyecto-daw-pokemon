@@ -83,7 +83,7 @@
 .card-slot {
     flex-direction: column;
     align-items: center;
-    overflow: hidden; /* Fundamental para que el brillo no se salga por los bordes */
+    overflow: visible; /* Permitir que los pokemon legendarios sobresalgan */
 }
 
 .card-slot:hover {
@@ -91,60 +91,9 @@
     z-index: 10;
 }
 
-/* 2. EFECTO RARA HOLO (Brillo diagonal continuo) */
-.rara-holo {
-    box-shadow: 0 0 15px rgba(72, 219, 251, 0.6);
-}
 
-.rara-holo::before {
-    content: '';
-    position: absolute;
-    top: -100%;
-    left: -100%;
-    width: 50%;
-    height: 300%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
-    transform: rotate(45deg);
-    animation: brillo-holo 2.5s infinite linear;
-    pointer-events: none;
-    z-index: 5;
-}
 
-@keyframes brillo-holo {
-    0% { top: -100%; left: -100%; }
-    100% { top: 100%; left: 100%; }
-}
 
-/* 3. EFECTO LEGENDARIA (Flotación mística y aura dorada animada) */
-.legendaria {
-    border-color: #ffd700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 0, 128, 0.4);
-    animation: flotar-legendaria 3s ease-in-out infinite;
-}
-
-.legendaria::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,215,0,0.5) 0%, rgba(255,255,255,0) 50%, rgba(255,215,0,0.5) 100%);
-    z-index: 1;
-    pointer-events: none;
-    mix-blend-mode: overlay;
-    animation: pulso-dorado 2s infinite alternate;
-}
-
-@keyframes flotar-legendaria {
-    0%, 100% { transform: translateY(0); }
-    50% { 
-        transform: translateY(-12px); 
-        box-shadow: 0 10px 25px rgba(255, 215, 0, 1), 0 15px 35px rgba(255, 0, 128, 0.6); 
-    }
-}
-
-@keyframes pulso-dorado {
-    0% { opacity: 0.4; }
-    100% { opacity: 1; }
-}
 
 /* Imagen e Info de la carta */
 .pokemon-art {

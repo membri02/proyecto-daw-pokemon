@@ -21,7 +21,7 @@
                 </a>
             @else
                 <a href="{{ route('register') }}" style="display: inline-block; background: linear-gradient(135deg, #FFCB05, #f39c12); color: #000; padding: 10px 28px; border-radius: 50px; border: 2px solid #111827; font-weight: 800; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 15px rgba(255,203,5,0.4); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
-                    ⚡ ¡Regístrate para obtener 1.000 🪙 gratis!
+                    ⚡ ¡Regístrate para obtener 200 🪙 gratis!
                 </a>
             @endauth
         </div>
@@ -116,8 +116,9 @@
         </div>
 
         <div class="tienda-action-bar">
-            <button id="btn-abrir" class="btn-primary-tcg" disabled>
-                SELECCIONA UN SOBRE
+            <!-- El botón se inyecta dinámicamente dentro de la tarjeta seleccionada -->
+            <button id="btn-abrir" class="btn-primary-tcg" style="display: none; padding: 0.8rem; font-size: 1.1rem; width: 95%; margin: 10px auto; border-radius: 8px;">
+                ABRIR SOBRE
             </button>
             <br>
             <a class="link-back-tcg" href="/">← Regresar a la pantalla principal</a>
@@ -169,8 +170,12 @@
                 precioSeleccionado = this.dataset.precio; 
                 nombreSobreSeleccionado = this.querySelector('.pack-set-name').innerText;
 
-                btnAbrir.innerHTML = `ABRIR SOBRE ${sobreSeleccionado.toUpperCase()} (${precioSeleccionado} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" class="icono-moneda-btn" alt="Moneda">)`;
+                btnAbrir.innerHTML = `ABRIR (${precioSeleccionado} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 20px; vertical-align: middle; margin-top: -2px;" alt="Moneda">)`;
                 btnAbrir.disabled = false;
+                btnAbrir.style.display = 'block';
+                
+                // Mover el botón al sobre seleccionado para mejor UX
+                this.querySelector('.pack-footer-info').appendChild(btnAbrir);
             });
         });
 

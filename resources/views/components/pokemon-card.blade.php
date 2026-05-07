@@ -124,7 +124,7 @@
         background: radial-gradient(circle at 30% 30%, #ffeb3b 0%, #f5b041 100%);
         box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.3);
         font-family: 'Montserrat', sans-serif;
-        overflow: hidden;
+        overflow: visible !important; /* Forzamos para que los legendarios sobresalgan */
         user-select: none;
     }
 
@@ -159,6 +159,7 @@
         border: 2px solid rgba(0,0,0,0.15);
         background-color: #e2e8f0;
         box-shadow: inset 0 0 10px rgba(255,255,255,0.4);
+        overflow: visible !important;
     }
     
     /* Z-INDEX CRÍTICO: Aseguramos que el contenido esté por encima del fondo texturizado */
@@ -396,6 +397,11 @@
         opacity: 0;
         z-index: 10;
         border-radius: 12px;
+        overflow: hidden; /* Mantiene el brillo dentro de la carta */
+        /* Webkit Fix para que la animación no se salga por las esquinas redondas */
+        -webkit-mask-image: -webkit-radial-gradient(white, black);
+        isolation: isolate;
+        transform: translateZ(0);
     }
 
     .rara-holo .tcg-image-frame {
@@ -426,7 +432,8 @@
         background: radial-gradient(circle, #fffdf0 0%, #ffebb3 100%);
         border-color: #ffd700;
         box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.4);
-        overflow: visible;
+        overflow: visible !important;
+        z-index: 10 !important; /* Evita que la barra gris pise las patas del Pokémon */
     }
     .legendaria .tcg-pokemon-art {
         width: 155%;
@@ -436,11 +443,16 @@
     }
     .legendaria .tcg-legendary-sparkle {
         opacity: 0.85;
-        background: radial-gradient(circle at 50% 50%, rgba(255, 235, 100, 0.3), transparent 60%),
-                    linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.5) 50%, transparent 60%);
-        background-size: 150% 150%;
-        animation: legend-pulse 3s ease-in-out infinite alternate, legend-sweep 5s linear infinite;
-        mix-blend-mode: screen;
+        background: linear-gradient(105deg, 
+            transparent 20%, 
+            rgba(255, 215, 0, 0.4) 35%, 
+            rgba(255, 255, 255, 0.8) 45%, 
+            rgba(255, 215, 0, 0.5) 50%, 
+            transparent 65%);
+        background-size: 250% 250%;
+        animation: holo-pass 4s ease-in-out infinite;
+        mix-blend-mode: overlay;
+        filter: brightness(1.2);
     }
     @keyframes legend-pulse {
         from { opacity: 0.6; filter: brightness(1); }

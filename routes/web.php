@@ -16,14 +16,17 @@ Route::get('/pokedex', function () {
 
 Route::prefix('minijuego')->group(function () {
     Route::get('/', [MinijuegoController::class, 'index'])->name('minijuego.index');
-    Route::get('/silueta', [MinijuegoController::class, 'silueta'])->name('minijuego.silueta');
-    Route::get('/triler', [MinijuegoController::class, 'triler'])->name('minijuego.triler');
-    Route::get('/duelo', [MinijuegoController::class, 'duelo'])->name('minijuego.duelo');
-    Route::get('/memoria', [MinijuegoController::class, 'memoria'])->name('minijuego.memoria');
-    
-    // Rutas de procesamiento
-    Route::post('/reward', [MinijuegoController::class, 'processReward'])->name('minijuego.reward');
-    Route::post('/duelo/validate', [MinijuegoController::class, 'validateDuel'])->name('minijuego.duelo.validate');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/silueta', [MinijuegoController::class, 'silueta'])->name('minijuego.silueta');
+        Route::get('/triler', [MinijuegoController::class, 'triler'])->name('minijuego.triler');
+        Route::get('/duelo', [MinijuegoController::class, 'duelo'])->name('minijuego.duelo');
+        Route::get('/memoria', [MinijuegoController::class, 'memoria'])->name('minijuego.memoria');
+        
+        // Rutas de procesamiento
+        Route::post('/reward', [MinijuegoController::class, 'processReward'])->name('minijuego.reward');
+        Route::post('/duelo/validate', [MinijuegoController::class, 'validateDuel'])->name('minijuego.duelo.validate');
+    });
 });
 
 // RUTAS PROTEGIDAS POR SESIÓN (Tienda y Álbum)

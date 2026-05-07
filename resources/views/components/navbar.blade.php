@@ -1,16 +1,16 @@
 <nav class="nav-pokemon">
     <div class="nav-logo">
-        <a href="/">Inicio</a>
-        <a href="/pokedex">Pokédex</a>
-        <a href="/sobres">Tienda TCG</a>
-        <a href="/minijuego">Minijuegos</a>
+        <a href="/" class="mi-enlace-nav {{ request()->is('/') ? 'active' : '' }}">Inicio</a>
+        <a href="/pokedex" class="mi-enlace-nav {{ request()->is('pokedex*') ? 'active' : '' }}">Pokédex</a>
+        <a href="/sobres" class="mi-enlace-nav {{ request()->is('sobres*') ? 'active' : '' }}">Tienda TCG</a>
+        <a href="/minijuego" class="mi-enlace-nav {{ request()->is('minijuego*') ? 'active' : '' }}">Minijuegos</a>
         <a href="{{ route('comunidad.index') }}"><i class="fas fa-users" style="margin-right: 5px;"></i> Comunidad</a>
         @if(Auth::check() && Auth::user()->email === 'admin@pokemon.com')
             <a href="/admin">Panel Admin</a>
         @endif
         
         @auth
-            <a href="/album" class="nav-album">
+            <a href="/album" class="nav-album {{ request()->is('album*') ? 'brightness-90 shadow-inner scale-95' : 'hover:scale-105 transition-transform' }}">
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tm-case.png" class="pika-sprite-icon" alt="Álbum" style="width:30px;"> Mi Álbum
             </a>        
         @endauth
@@ -55,13 +55,13 @@
         -webkit-backdrop-filter: blur(10px);
         padding: 15px 30px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         border-bottom: 1px solid #e2e8f0;
         color: #334155;
         font-family: 'Montserrat', sans-serif;
-        flex-wrap: wrap;
-        gap: 12px;
+        flex-direction: column;
+        gap: 15px;
     }
 
     .nav-logo {
@@ -215,5 +215,33 @@
         0%, 90% { filter: brightness(1) drop-shadow(0 2px 2px rgba(0,0,0,0.1)); transform: scale(1); }
         95% { filter: brightness(1.4) drop-shadow(0 0 6px rgba(255,203,5,0.8)); transform: scale(1.15); }
         100% { filter: brightness(1) drop-shadow(0 2px 2px rgba(0,0,0,0.1)); transform: scale(1); }
+    }
+
+    /* El estado normal de los enlaces (Anti-saltos incluido) */
+    .mi-enlace-nav {
+        color: #4b5563; /* Un gris oscuro, cámbialo a tu gusto */
+        text-decoration: none;
+        border-bottom: 4px solid transparent; /* El truco para que no salte la pantalla */
+        padding-bottom: 4px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* El estado cuando pasas el ratón por encima (Hover) */
+    .mi-enlace-nav:hover {
+        color: #111827; /* Más oscuro */
+    }
+
+    /* EL ESTADO ACTIVO (Cuando estás en esa página) */
+    .mi-enlace-nav.active {
+        color: #000000;
+        font-weight: bold;
+        border-bottom: 4px solid #FFCB05; /* El amarillo clásico de Pokémon */
+    }
+
+    /* Bloquear decoraciones extra y sombras cuando el enlace está activo o en hover */
+    .mi-enlace-nav:hover::after,
+    .mi-enlace-nav.active::after,
+    .mi-enlace-nav.active::before {
+        display: none !important;
     }
 </style>

@@ -41,7 +41,7 @@
             <div class="admin-form-group">
                 <label for="monedas">Saldo Inicial (Pokémonedas)</label>
                 <div style="position: relative;">
-                    <input type="number" id="monedas" name="monedas" class="admin-form-control" value="{{ old('monedas', 1000) }}" min="0" required>
+                    <input type="number" id="monedas" name="monedas" class="admin-form-control" value="{{ old('monedas', 200) }}" min="0" required>
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="position: absolute; right: 15px; top: 12px; width: 20px;">
                 </div>
             </div>

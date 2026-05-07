@@ -49,8 +49,8 @@ class MinijuegoController extends Controller
     }
 
     public function processReward(Request $request) {
-        if (!Auth::check()) {
-            return response()->json(['success' => false, 'message' => '¡Inicia sesión o regístrate para ganar monedas!'], 401);
+        if (!Auth::check() || !$request->user()) {
+            return response()->json(['success' => false, 'message' => '¡Inicia sesión o regístrate para jugar y ganar monedas!'], 401);
         }
 
         $request->validate([
@@ -59,7 +59,7 @@ class MinijuegoController extends Controller
         ]);
 
         $monedas = $request->amount;
-        $user = Auth::user();
+        $user = $request->user();
 
         // Actualizar base de datos
         if ($monedas > 0) {

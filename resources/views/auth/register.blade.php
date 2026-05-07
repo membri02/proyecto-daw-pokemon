@@ -3,9 +3,10 @@
 @section('content')
 <div class="auth-container">
     <div class="trainer-card" style="max-width: 550px;">
-        <div class="card-header" style="background: #2a75bb; text-shadow: 2px 2px 0 #1c4b7a;">
-            <h2>Nueva Licencia</h2>
-            <p>Regístrate y recibe 1000 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 16px; vertical-align: middle;"> de bienvenida</p>
+        <div class="auth-header">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokeball" class="auth-logo">
+            <h2>Crear Cuenta</h2>
+            <p>Regístrate y recibe 200 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" style="width: 16px; vertical-align: middle;"> de bienvenida</p>
         </div>
 
         <form method="POST" action="/registro" class="auth-form">

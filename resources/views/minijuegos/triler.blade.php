@@ -34,6 +34,7 @@
         const feedbackEl = document.getElementById("feedback");
         
         let isPlaying = false;
+        let isShuffling = false;
         let winningIndex = 0;
         let balls = [];
 
@@ -62,16 +63,24 @@
         }
 
         async function startGame() {
-            if (isPlaying) return;
+            if (isPlaying || isShuffling) return;
             
             responseEl.textContent = "";
             feedbackEl.textContent = "";
+
+            isPlaying = true;
+            isShuffling = true;
+            board.style.pointerEvents = "none";
+            btnStart.disabled = true;
+
+            // Aseguramos que estén cerradas de rondas anteriores
+            balls.forEach(wrapper => wrapper.classList.remove("open"));
+            await new Promise(r => setTimeout(r, 400));
             
             // Generate Pikachu (win)
             winningIndex = Math.floor(Math.random() * 3);
             
             balls.forEach((wrapper, index) => {
-                wrapper.classList.remove("open");
                 wrapper.dataset.isWinner = (index === winningIndex) ? "true" : "false";
                 const reward = wrapper.querySelector(".hidden-reward");
                 if (index === winningIndex) {
@@ -81,8 +90,16 @@
                 }
             });
 
-            isPlaying = true;
-            btnStart.disabled = true;
+            btnStart.textContent = "¡Atento a Pikachu!";
+            
+            // Mostramos el contenido para memorizar
+            balls.forEach(wrapper => wrapper.classList.add("open"));
+            await new Promise(r => setTimeout(r, 1500));
+            
+            // Volvemos a ocultar
+            balls.forEach(wrapper => wrapper.classList.remove("open"));
+            await new Promise(r => setTimeout(r, 500));
+
             btnStart.textContent = "Mezclando...";
             
             // Animation sequence
@@ -90,6 +107,8 @@
                 await swapBalls();
             }
             
+            isShuffling = false;
+            board.style.pointerEvents = "auto";
             btnStart.textContent = "¡Elige una Pokéball!";
         }
 
@@ -104,15 +123,36 @@
                 const b1 = balls[idx1];
                 const b2 = balls[idx2];
                 
+                // FLIP Animation: Get initial positions
+                const rect1 = b1.getBoundingClientRect();
+                const rect2 = b2.getBoundingClientRect();
+
+                // Calculate delta
+                const deltaX = rect2.left - rect1.left;
+                const deltaY = rect2.top - rect1.top;
+
+                // Apply transition
+                b1.style.transition = 'transform 0.4s ease-in-out';
+                b2.style.transition = 'transform 0.4s ease-in-out';
+                
                 b1.classList.add("shake");
                 b2.classList.add("shake");
+                
+                // Translate visually
+                b1.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                b2.style.transform = `translate(${-deltaX}px, ${-deltaY}px)`;
                 
                 setTimeout(() => {
                     b1.classList.remove("shake");
                     b2.classList.remove("shake");
                     
-                    // Visual swap using CSS transform logic or DOM reordering
-                    // For simplicity, we just DOM reorder them
+                    // Remove transforms and transitions
+                    b1.style.transition = '';
+                    b2.style.transition = '';
+                    b1.style.transform = '';
+                    b2.style.transform = '';
+                    
+                    // DOM swap
                     const sibling1 = b1.nextSibling === b2 ? b1 : b1.nextSibling;
                     b2.parentNode.insertBefore(b1, b2);
                     b1.parentNode.insertBefore(b2, sibling1);
@@ -128,7 +168,7 @@
         }
 
         async function selectBall(clickedWrapper) {
-            if (!isPlaying) return;
+            if (!isPlaying || isShuffling) return;
             
             clickedWrapper.classList.add("open");
             
