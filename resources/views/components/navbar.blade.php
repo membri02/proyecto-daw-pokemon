@@ -4,9 +4,9 @@
         <a href="/pokedex" class="mi-enlace-nav {{ request()->is('pokedex*') ? 'active' : '' }}">Pokédex</a>
         <a href="/sobres" class="mi-enlace-nav {{ request()->is('sobres*') ? 'active' : '' }}">Tienda TCG</a>
         <a href="/minijuego" class="mi-enlace-nav {{ request()->is('minijuego*') ? 'active' : '' }}">Minijuegos</a>
-        <a href="{{ route('comunidad.index') }}"><i class="fas fa-users" style="margin-right: 5px;"></i> Comunidad</a>
+        <a href="{{ route('comunidad.index') }}" class="mi-enlace-nav {{ request()->is('comunidad*') ? 'active' : '' }}"><i class="fas fa-users" style="margin-right: 5px;"></i> Comunidad</a>
         @if(Auth::check() && Auth::user()->email === 'admin@pokemon.com')
-            <a href="/admin">Panel Admin</a>
+            <a href="/admin" class="mi-enlace-nav {{ request()->is('admin*') ? 'active' : '' }}">Panel Admin</a>
         @endif
         
         @auth

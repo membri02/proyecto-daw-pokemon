@@ -10,7 +10,7 @@
 </head>
 <body style="background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0;">
 
-    <x-header title="Pokémon Project DAW 2026" />
+    <x-header title="Pokémon TFG Proyecto DAW 2026" />
     
     <x-navbar />
 

@@ -264,7 +264,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { selector: '.nav-logo a[href="/pokedex"]', text: 'Paso 2 — POKÉDEX: Consulta los datos de los 151 Pokémon originales.' },
         { selector: '.nav-logo a[href="/sobres"]',  text: 'Paso 3 — TIENDA: ¡Mi parte favorita! Aquí gastas tus Pokémonedas.' },
         { selector: '.nav-logo a[href="/minijuego"]',text: 'Paso 4 — MINIJUEGO: ¡Juega aquí y consigue Pokémonedas gratis!' },
-        { selector: '.nav-logo a[href="/album"]',   text: 'Paso 5 — MI ÁLBUM: Mira tu colección y gestiona tus repetidas.', final: true },
+        { selector: '.nav-logo a[href*="comunidad"]',text: 'Paso 5 — COMUNIDAD: En la pantalla de comunidad se pueden escribir hilos y hablar con la gente.' },
+        { selector: '.nav-logo a[href="/album"]',   text: 'Paso 6 — MI ÁLBUM: Mira tu colección y gestiona tus repetidas.', final: true },
     ];
 
     // ── Bounce ───────────────────────────────────────────────────────────────────
