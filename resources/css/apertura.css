@@ -1,30 +1,25 @@
-/* Estilos base de la mesa de apertura */
+
 .apertura-wrapper {
-    padding: 3rem 5rem; /* Padding horizontal más generoso */
+    padding: 3rem 5rem; 
     max-width: 1400px;
     margin: 0 auto;
     text-align: center;
     min-height: 80vh;
-    /* Se eliminó overflow: hidden para evitar que las cartas extremas se corten */
     background-color: #f8fafc;
 }
-
 .apertura-header { margin-bottom: 3rem; }
 .titulo-pokemon { color: #1e293b; font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; display: flex; justify-content: center; align-items: center; gap: 15px; }
 .subtitulo { color: #475569; font-size: 1.2rem; }
-
-/* --- EL MAZO Y LA MESA CENTRAL --- */
 .mesa-apertura {
     position: relative;
-    height: 700px; /* Suficiente espacio extendido para el despliegue vertical */
+    height: 700px; 
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 2rem auto 4rem;
     max-width: 1200px;
-    padding: 0 4rem; /* Espacio para respirar a los costados */
+    padding: 0 4rem; 
 }
-
 .deck-trigger {
     position: absolute;
     width: 250px;
@@ -35,8 +30,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* Contenedor dinámico de la carta */
 .carta-container {
     position: absolute;
     width: 250px;
@@ -45,19 +38,14 @@
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     transform-origin: center center;
 }
-
 .carta-container.en-mazo {
-    /* Desalineamos para sensación física */
     transform: translate(calc(var(--i) * -2px + 5px), calc(var(--i) * -2px - 150px)) rotate(calc(var(--i) * 1.5deg - 3deg));
     box-shadow: -2px 2px 5px rgba(0,0,0,0.3);
 }
-
 .carta-container.posicion-final {
-/* Ese 190px las empujará un poco más hacia abajo alejándolas del mazo */
 transform: translate(calc((var(--i) - 2) * 260px), 190px) rotate(0deg);
 z-index: var(--i) !important;
 }
-
 .carta-inner {
     width: 100%;
     height: 100%;
@@ -67,13 +55,10 @@ z-index: var(--i) !important;
     border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
-
 .carta-container.revelada .carta-inner {
     transform: rotateY(180deg) scale(1.05);
     box-shadow: 0 15px 35px rgba(0,0,0,0.7);
 }
-
-/* Caras de la carta */
 .carta-cara {
     position: absolute;
     width: 100%;
@@ -85,22 +70,16 @@ z-index: var(--i) !important;
     align-items: center;
     justify-content: center;
 }
-
-/* Diseño del Reverso */
 .trasera {
     background: radial-gradient(circle, #2a75bb 0%, #1a4b77 100%);
     border: 10px solid #ffcb05;
 }
 .trasera img { width: 80px; opacity: 0.8; }
-
-/* Diseño del Frontal abstracto (Lo gestiona el componente x-pokemon-card interno) */
 .frontal {
     transform: rotateY(180deg);
     background: transparent;
     z-index: 2;
 }
-
-/* --- ESTILO DE LA PEGATINA DE REPETIDA --- */
 .badge-repetida {
     position: absolute;
     top: -15px;
@@ -118,7 +97,6 @@ z-index: var(--i) !important;
     text-align: center;
     line-height: 1.2;
 }
-
 .mensaje-reembolso {
     background: #f8fafc;
     border: 2px solid #10b981;
@@ -132,12 +110,9 @@ z-index: var(--i) !important;
     font-size: 1.1rem;
 }
 .mensaje-reembolso strong { color: #10b981; font-weight: 900; font-size: 1.3rem; }
-
-/* Botón de volver */
 .acciones-post-apertura {
     margin-top: 1rem;
 }
-
 .btn-primary-tcg {
     background: #e74c3c;
     color: #ffffff;

@@ -1,4 +1,4 @@
-/* VARIABLES Y ESTILOS BASE */
+
 .recarga-wrapper {
     padding: 3rem 1.5rem;
     max-width: 1200px; 
@@ -8,12 +8,10 @@
     min-height: calc(100vh - 70px);
     color: #1e293b;
 }
-
 .recarga-header {
     text-align: center;
     margin-bottom: 4rem;
 }
-
 .titulo-pokemon {
     font-size: 3rem;
     color: #1e293b;
@@ -23,14 +21,12 @@
     font-weight: 900;
     text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
-
 .subtitulo {
     font-size: 1.2rem;
     color: #475569;
     font-weight: 600;
     margin-bottom: 1.5rem;
 }
-
 .saldo-actual-badge {
     display: inline-flex;
     align-items: center;
@@ -44,19 +40,15 @@
     box-shadow: 0 4px 15px rgba(255,203,5,0.4);
     gap: 8px;
 }
-
 .saldo-actual-badge img {
     width: 24px;
 }
-
-/* GRID DE PACKS */
 .packs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding: 1rem;
 }
-
 .pack-card {
     background: white;
     border-radius: 20px;
@@ -70,24 +62,20 @@
     flex-direction: column;
     align-items: center;
 }
-
 .pack-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     border-color: #3b82f6;
 }
-
 .pack-card.destacado {
     border-color: #FFCB05;
     border-width: 3px;
     transform: scale(1.05);
     box-shadow: 0 15px 35px rgba(255, 203, 5, 0.2);
 }
-
 .pack-card.destacado:hover {
     transform: scale(1.05) translateY(-10px);
 }
-
 .badge-popular {
     position: absolute;
     top: -15px;
@@ -100,7 +88,6 @@
     border: 2px solid #111827;
     letter-spacing: 1px;
 }
-
 .pack-icon {
     width: 100px;
     height: 100px;
@@ -111,19 +98,16 @@
     justify-content: center;
     margin-bottom: 1.5rem;
 }
-
 .pack-icon img {
     width: 60px;
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
 }
-
 .pack-card h2 {
     font-size: 1.5rem;
     font-weight: 800;
     color: #1e293b;
     margin-bottom: 0.5rem;
 }
-
 .pack-amount {
     font-size: 2.5rem;
     font-weight: 900;
@@ -134,25 +118,21 @@
     gap: 5px;
     margin-bottom: 0.5rem;
 }
-
 .pack-amount img {
     width: 35px;
 }
-
 .pack-price {
     font-size: 1.2rem;
     font-weight: 700;
     color: #64748b;
     margin-bottom: 2rem;
 }
-
 .gpay-container {
     width: 100%;
     min-height: 40px;
     display: flex;
     justify-content: center;
 }
-
 .btn-secondary-tcg {
     display: inline-block;
     padding: 12px 25px;
@@ -163,12 +143,9 @@
     border-radius: 8px;
     transition: background 0.3s;
 }
-
 .btn-secondary-tcg:hover {
     background: #cbd5e1;
 }
-
-/* SPINNER */
 .spinner-overlay {
     position: fixed;
     inset: 0;
@@ -182,18 +159,15 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
-
 .spinner-overlay.active {
     opacity: 1;
     pointer-events: all;
 }
-
 .pokeball-spinner {
     width: 80px;
     animation: spin 1s linear infinite;
     margin-bottom: 1rem;
 }
-
 .spinner-text {
     color: white;
     font-size: 1.5rem;
@@ -201,12 +175,9 @@
     letter-spacing: 2px;
     text-transform: uppercase;
 }
-
 @keyframes spin {
     100% { transform: rotate(360deg); }
 }
-
-/* TOAST */
 .toast {
     position: fixed;
     bottom: 30px;
@@ -221,12 +192,10 @@
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     z-index: 10000;
 }
-
 .toast.show {
     transform: translateY(0);
     opacity: 1;
 }
-
 .toast-content {
     display: flex;
     align-items: center;
@@ -234,7 +203,6 @@
     font-weight: 700;
     font-size: 1.1rem;
 }
-
 .toast-content img {
     width: 30px;
 }

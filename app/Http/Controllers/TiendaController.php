@@ -17,7 +17,6 @@ class TiendaController extends Controller
 
     public function abrirSobre($tipo)
     {
-        // Capa de seguridad de backend — aunque el middleware ya lo cubre
         if (!Auth::check()) {
             return redirect('/sobres')->with('error', 'Debes iniciar sesión para abrir sobres.');
         }
@@ -40,10 +39,8 @@ class TiendaController extends Controller
             return redirect('/sobres')->with('error', '¡No tienes suficientes Pokémonedas!');
         }
 
-        // 1. Cobramos el sobre por adelantado
         $user->monedas -= $precioDelSobre;
 
-        // 2. Generamos las cartas 
         $cartas = collect();
         if (in_array($tipo, ['fuego', 'agua', 'planta'])) {
             $garantizadas = Carta::where('tipo', $tipo)->inRandomOrder()->limit(2)->get();
@@ -59,7 +56,6 @@ class TiendaController extends Controller
             $cartas = $garantizada->concat($random);
         }
 
-        // PLAN B: Si la base de datos está corrupta o el query estricto falla, rellenamos forzosamente a 5
         if ($cartas->count() < 5) {
             $faltantes = 5 - $cartas->count();
             $fallback = Carta::whereNotIn('id', $cartas->pluck('id'))->inRandomOrder()->limit($faltantes)->get();
@@ -68,17 +64,14 @@ class TiendaController extends Controller
 
         $cartas = $cartas->shuffle();
 
-        // 3. SISTEMA DE REPETIDAS (El "Desencantar")
-        $misCartasIds = $user->cartas()->pluck('cartas.id')->toArray(); // IDs que ya tiene el usuario
+        $misCartasIds = $user->cartas()->pluck('cartas.id')->toArray();
         $idsParaGuardar = [];
         $monedasReembolso = 0;
 
         foreach ($cartas as $carta) {
-            // Comprobamos si ya la tiene (o si ha salido repetida en este mismo sobre)
             if (in_array($carta->id, $misCartasIds)) {
-                $carta->es_repetida = true; // Etiqueta dinámica para la vista
+                $carta->es_repetida = true;
                 
-                // Calculamos cuánto vale desencantarla
                 if (str_contains($carta->rareza, 'Legendaria')) {
                     $reembolso = 100;
                 } elseif (str_contains($carta->rareza, 'Rara')) {
@@ -90,23 +83,19 @@ class TiendaController extends Controller
                 $monedasReembolso += $reembolso;
                 $carta->reembolso = $reembolso;
             } else {
-                // Es nueva, preparamos para guardarla
                 $carta->es_repetida = false;
                 $idsParaGuardar[] = $carta->id;
-                $misCartasIds[] = $carta->id; // Al array por si el sobre trae 2 iguales
+                $misCartasIds[] = $carta->id;
             }
         }
 
-        // 4. Guardamos SOLAMENTE las cartas nuevas en el álbum
         if (!empty($idsParaGuardar)) {
             $user->cartas()->attach($idsParaGuardar);
         }
 
-        // 5. Ingresamos el dinero de las repetidas y guardamos el usuario
         $user->monedas += $monedasReembolso;
         $user->save(); 
 
-        // 6. Invalidamos la caché de la colección del usuario para que muestre las cartas nuevas
         Cache::forget('coleccion_usuario_' . $user->id);
 
         return view('tienda.apertura', compact('cartas', 'tipo', 'monedasReembolso'));
@@ -118,7 +107,6 @@ class TiendaController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
         
-        // Obtenemos la colección cacheada por 1 hora. Eager loading resuelve problemas de N+1
         $cartas = Cache::remember('coleccion_usuario_' . $user->id, 3600, function() use ($user) {
             $user->load(['cartas' => function ($query) {
                 $query->orderBy('carta_id');
@@ -142,7 +130,6 @@ class TiendaController extends Controller
 
         $monedas = (int) $request->monedas;
 
-        // Validación estricta en servidor
         $packsPermitidos = [500, 1200, 2500];
         
         if (!in_array($monedas, $packsPermitidos)) {
@@ -157,7 +144,6 @@ class TiendaController extends Controller
         $user->monedas += $monedas;
         $user->save();
 
-        // Refrescar caché para asegurar que no haya datos stale
         Cache::forget('coleccion_usuario_' . $user->id);
 
         return response()->json([

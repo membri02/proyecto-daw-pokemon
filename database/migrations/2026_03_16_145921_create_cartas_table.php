@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('cartas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('tipo'); // Fuego, Agua, Planta...
-            $table->string('rareza'); // Común, Rara, Legendaria...
-            $table->string('imagen_url')->nullable(); // Foto de la carta (opcional)
-            $table->timestamps(); // Crea automáticamente 'created_at' y 'updated_at'
+            $table->string('tipo');
+            $table->string('rareza');
+            $table->string('imagen_url')->nullable();
+            $table->timestamps();
         });
     }
 

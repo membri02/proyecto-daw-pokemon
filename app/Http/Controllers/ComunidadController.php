@@ -14,7 +14,6 @@ class ComunidadController extends Controller
     {
         $posts = Post::with('user')->withCount('comments')->latest()->get();
         
-        // Ranking Data
         $topMonedas = User::orderByDesc('monedas')->take(5)->get();
         $topColeccion = User::withCount('cartas')->orderByDesc('cartas_count')->take(5)->get();
 

@@ -1,7 +1,7 @@
-/* Configuración General y Reset */
+
 .tienda-wrapper {
     padding: 3rem 1.5rem;
-    max-width: 1200px; /* Mandatario: Ancho confinado central */
+    max-width: 1200px; 
     margin: 0 auto;
     font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
     background: transparent;
@@ -21,11 +21,10 @@
     font-weight: 900;
 }
 .subtitulo {
-    color: var(--text-muted); /* Color gris/slate adaptativo */
+    color: var(--text-muted); 
     font-size: 1.25rem;
     font-weight: 500;
 }
-/* Iconos de Moneda Estables */
 .icono-moneda-inline {
     width: 24px;
     vertical-align: middle;
@@ -45,17 +44,16 @@
     margin-right: 8px;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
 }
-/* Introducción Section */
 .introduccion-section {
     margin-bottom: 4rem;
     display: flex;
     justify-content: center;
 }
 .intro-card {
-    background: var(--bg-card); /* Fondo dinámico navy o blanco */
+    background: var(--bg-card); 
     border-radius: 8px; 
     padding: 2.5rem;
-    border: 1px solid var(--border-color); /* Borde dinámico firme */
+    border: 1px solid var(--border-color); 
     max-width: 1000px;
     width: 100%;
 }
@@ -81,7 +79,7 @@
     font-size: 1.2rem;
     font-weight: 900;
     color: #FFFFFF;
-    background: #2563EB; /* Azul vibrante */
+    background: #2563EB; 
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -104,22 +102,17 @@
     line-height: 1.6;
     font-size: 0.95rem;
 }
-
-/* --- CONTENEDOR PRINCIPAL (Grid de sobres) --- */
 .sobres-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Centra los sobres si la fila no está llena */
-    gap: 2rem; /* Reducido para que quepan los 3 juntos sin saltar a otra fila */
+    justify-content: center; 
+    gap: 2rem; 
     margin: 4rem 0;
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 20px;
 }
-
-
-/* --- LA CARTA/SOBRE INDIVIDUAL (El Arreglo está aquí) --- */
 .sobre-card {
     position: relative;
     display: flex;
@@ -128,17 +121,14 @@
     cursor: pointer;
     will-change: transform, filter;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    /* Animación flotante combinada con revelación */
-    /* Proporciones de sobre físico */
-    flex: 0 0 310px; /* Reducido de 340px para que entren en una fila */
+    flex: 0 0 310px; 
     width: 310px;
-    height: 440px; /* Reducido proporcionalmente */
+    height: 440px; 
 }
 @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(40px); }
     to { opacity: 1; transform: translateY(0); }
 }
-/* Animaciones concatenadas y escalonadas para dar sensación orgánica */
 .sobre-card:nth-child(1) { animation: fadeSlideUp 0.6s ease-out 0.1s backwards, flotar-suave 5s ease-in-out infinite 0.7s; }
 .sobre-card:nth-child(2) { animation: fadeSlideUp 0.6s ease-out 0.2s backwards, flotar-suave 5s ease-in-out infinite 1.8s; }
 .sobre-card:nth-child(3) { animation: fadeSlideUp 0.6s ease-out 0.3s backwards, flotar-suave 5s ease-in-out infinite 2.9s; }
@@ -147,8 +137,6 @@
 .sobre-card:nth-child(6) { animation: fadeSlideUp 0.6s ease-out 0.6s backwards, flotar-suave 5s ease-in-out infinite 3.2s; }
 .sobre-card:nth-child(7) { animation: fadeSlideUp 0.6s ease-out 0.7s backwards, flotar-suave 5s ease-in-out infinite 1.3s; }
 .sobre-card:nth-child(8) { animation: fadeSlideUp 0.6s ease-out 0.8s backwards, flotar-suave 5s ease-in-out infinite 2.4s; }
-
-/* Efecto hover elegante */
 .sobre-card:hover {
     transform: scale(1.1) translateY(-15px) !important;
     z-index: 40;
@@ -160,7 +148,6 @@
 .sobre-card:hover .pack-art-image {
     transform: scale(1.08) translateY(-5px); 
 }
-/* --- SELLADO (CRIMPING) FÍSICO --- */
 .pack-crimp {
     width: 96%;
     height: 16px;
@@ -182,11 +169,9 @@
     border-radius: 0 0 4px 4px;
     border-top: 2px solid rgba(0,0,0,0.3);
 }
-/* --- CUERPO DEL SOBRE --- */
 .pack-inner {
     position: relative;
     width: 100%;
-    /* Altura restante descontando los sellados superior e inferior (16px cada uno) */
     height: calc(100% - 32px);
     border-radius: 2px; 
     display: flex;
@@ -197,7 +182,6 @@
     background: #fff; 
     z-index: 2;
 }
-/* Textura Foil Automática */
 .pack-foil-texture {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -214,7 +198,6 @@
     z-index: 4;
     pointer-events: none;
 }
-/* Arte del Pkmn */
 .pack-art-image {
     width: 85%;
     height: auto;
@@ -232,7 +215,6 @@
     color: white;
     z-index: 3;
     width: 100%;
-    /* Gradient darkened to ensure 4.5:1 contrast */
     background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 25%, rgba(0,0,0,1) 100%);
     padding: 25px 10px 15px;
     margin-top: auto;
@@ -266,7 +248,6 @@
     letter-spacing: 1px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-/* Colores Base y de Sellado Dinámicos */
 .fuego .pack-inner, .fuego .pack-crimp { background-color: #e74c3c; } .fuego .pack-inner { background: linear-gradient(180deg, #e74c3c, #b03a2e); } .fuego:hover { filter: drop-shadow(0 20px 20px rgba(231, 76, 60, 0.4)); }
 .agua .pack-inner, .agua .pack-crimp { background-color: #3498db; } .agua .pack-inner { background: linear-gradient(180deg, #3498db, #21618c); } .agua:hover { filter: drop-shadow(0 20px 20px rgba(52, 152, 219, 0.4)); }
 .planta .pack-inner, .planta .pack-crimp { background-color: #2ecc71; } .planta .pack-inner { background: linear-gradient(180deg, #2ecc71, #1e8449); } .planta:hover { filter: drop-shadow(0 20px 20px rgba(46, 204, 113, 0.4)); }
@@ -285,7 +266,6 @@
 .acero .pack-inner, .acero .pack-crimp { background-color: #dfe6e9; } .acero .pack-inner { background: linear-gradient(180deg, #dfe6e9, #b2bec3); } .acero:hover { filter: drop-shadow(0 20px 20px rgba(223, 230, 233, 0.4)); }
 .hada .pack-inner, .hada .pack-crimp { background-color: #ff9ff3; } .hada .pack-inner { background: linear-gradient(180deg, #ff9ff3, #f368e0); } .hada:hover { filter: drop-shadow(0 20px 20px rgba(255, 159, 243, 0.4)); }
 .normal .pack-inner, .normal .pack-crimp { background-color: #f1f2f6; } .normal .pack-inner { background: linear-gradient(180deg, #f1f2f6, #ced6e0); } .normal:hover { filter: drop-shadow(0 20px 20px rgba(241, 242, 246, 0.4)); }
-/* --- AURA Y ESTILOS MÍTICOS/PREMIUM --- */
 .premium-pack {
     animation: flotar-epico 4s ease-in-out infinite;
 }
@@ -307,25 +287,20 @@
     0% { opacity: 0.4; transform: scale(0.95); }
     100% { opacity: 0.8; transform: scale(1.05); }
 }
-/* Sobre Holográfico */
 .holo .pack-inner, .holo .pack-crimp { background-color: #bdc3c7; }
 .holo .pack-inner { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
 .holo .aura-epica { background: linear-gradient(45deg, #ff9ff3, #feca57, #48dbfb, #ff9ff3); background-size: 200% 200%; animation: gradient-arcoiris 3s linear infinite, pulso-aura 3s infinite alternate; }
 .holo:hover { filter: drop-shadow(0 24px 20px rgba(72, 219, 251, 0.5)); }
-
 @keyframes gradient-arcoiris {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
-/* Sobre Legendario */
 .legendario .pack-inner, .legendario .pack-crimp { background-color: #1a1a1a; }
 .legendario .pack-inner { background: linear-gradient(180deg, #2c3e50, #000000); border: 2px solid #f1c40f; }
 .legendario .aura-epica { background: radial-gradient(circle, rgba(241,196,15,1) 0%, rgba(211,84,0,0) 70%); filter: blur(25px); opacity: 0.8; }
 .legendario:hover { filter: drop-shadow(0 24px 20px rgba(241, 196, 15, 0.6)); }
 .legendario .pack-set-name { color: #f1c40f; }
-/* ACTION BAR Y SELECCIÓN */
 .tienda-action-bar {
     text-align: center;
     margin-top: 4rem;
@@ -335,7 +310,7 @@
 .btn-primary-tcg {
     background: #e74c3c;
     color: #ffffff;
-    border: 1px solid #b91c1c; /* Borde duro */
+    border: 1px solid #b91c1c; 
     padding: 1.5rem 4rem;
     border-radius: 4px; 
     font-weight: 900;
@@ -369,15 +344,11 @@
     z-index: 30;
     filter: drop-shadow(0 24px 20px rgba(0,0,0,0.25));
 }
-
 .sobre-card.selected:hover {
     transform: scale(1.18) translateY(-18px) !important; 
     z-index: 45;
     filter: drop-shadow(0 26px 20px rgba(0,0,0,0.4));
 }
-
-/* Pseudo-elemento Before eliminado para arreglar el overlay rectangular gris/negro */
-
 .sobre-card.selected::after {
     content: '✓ SELECCIONADO';
     position: absolute;
@@ -420,7 +391,6 @@ button:disabled {
     animation: abrir-sobre-anim 1.5s ease-in-out forwards !important;
     pointer-events: none; 
 }
-/* Títulos de las Secciones */
 .titulo-seccion-tienda {
     text-align: center;
     font-size: 2.2rem;
@@ -437,7 +407,6 @@ button:disabled {
     color: #8e44ad;
     border-bottom-color: #8e44ad;
 }
-/* Responsive */
 @media (max-width: 360px) {
     .sobre-card {
         flex: 0 0 280px;
@@ -445,8 +414,6 @@ button:disabled {
         height: 400px;
     }
 }
-
-/* --- MODAL DE CONFIRMACIÓN DE COMPRA --- */
 .modal-tienda-backdrop {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -459,11 +426,9 @@ button:disabled {
     opacity: 0; pointer-events: none;
     transition: opacity 0.3s ease;
 }
-
 .modal-tienda-backdrop.active {
     opacity: 1; pointer-events: auto;
 }
-
 .modal-tienda-content {
     background: var(--bg-card);
     border-radius: 8px;
@@ -477,11 +442,9 @@ button:disabled {
     position: relative;
     overflow: hidden;
 }
-
 .modal-tienda-backdrop.active .modal-tienda-content {
     transform: scale(1);
 }
-
 .modal-tienda-content h3 {
     color: var(--text-main);
     font-size: 1.6rem;
@@ -491,25 +454,20 @@ button:disabled {
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 1rem;
 }
-
 .modal-text-detail {
     color: var(--text-muted);
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 2rem;
 }
-
-/* Amber-700: readable on white bg (7:1 contrast ratio) */
 .modal-text-detail strong.resaltado {
     color: #b45309;
 }
-
 .modal-actions {
     display: flex;
     justify-content: stretch;
     gap: 1rem;
 }
-
 .btn-modal {
     flex: 1;
     padding: 12px 20px;
@@ -521,7 +479,6 @@ button:disabled {
     transition: all 0.2s;
     border: none;
 }
-
 .btn-cancelar {
     background: var(--border-color);
     color: var(--text-main);
@@ -530,7 +487,6 @@ button:disabled {
 .btn-cancelar:hover {
     filter: brightness(0.9);
 }
-
 .btn-confirmar {
     background: #27ae60;
     color: #fff;
@@ -540,12 +496,10 @@ button:disabled {
     background: #2ecc71;
     transform: translateY(-2px);
 }
-
-/* Spinner Overlay — always dark so white text is readable in both themes */
 .spinner-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: #0f172a; /* Forced near-black: white text always 21:1 */
+    background: #0f172a; 
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -554,25 +508,21 @@ button:disabled {
     opacity: 0; pointer-events: none;
     transition: opacity 0.3s ease;
 }
-
 .spinner-overlay.active {
     opacity: 1; pointer-events: auto;
 }
-
 .pokeball-spinner {
     width: 60px;
     animation: spin-anim 1s infinite linear;
     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
     margin-bottom: 1.5rem;
 }
-
 .spinner-text {
-    color: #ffffff; /* Always white — bg is always dark */
+    color: #ffffff; 
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: 2px;
 }
-
 @keyframes spin-anim {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

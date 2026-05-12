@@ -12,7 +12,6 @@ class AdminController extends Controller
     public function index()
     {
         $totalUsers = User::count();
-        // Contamos el total de cartas en álbumes (tabla pivote carta_user)
         $totalCartas = DB::table('carta_user')->count();
         $totalMonedas = User::sum('monedas');
 
@@ -84,7 +83,6 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
         
-        // Evitar borrar al admin actual si acaso
         if ($user->email === 'admin@pokemon.com') {
             session()->flash('error', 'No puedes eliminar al administrador principal.');
             return redirect()->route('admin.users.index');

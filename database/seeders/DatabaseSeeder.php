@@ -10,17 +10,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Creamos la cuenta Maestra con 999.999 monedas
-        User::create([
+        User::updateOrCreate([
             'name' => 'Admin',
             'email' => 'admin@pokemon.com',
-            'password' => Hash::make('12345678'), // Contraseña fácil para pruebas
+            'password' => Hash::make('12345678'),
             'monedas' => 999999,
         ]);
 
-        // 2. Llamamos al Seeder de las cartas
-        $this->call([
-            CartasSeeder::class,
-        ]);
+        $this->call(CartasSeeder::class);
     }
 }

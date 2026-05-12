@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'monedas', // <-- ¡Añadimos el monedero!
+        'monedas',
     ];
 
     /**
@@ -49,7 +49,6 @@ class User extends Authenticatable
 
 
 
-    // Relación: Un usuario tiene muchas cartas (Tabla Pivote)
     public function cartas()
     {
         return $this->belongsToMany(Carta::class)->withTimestamps();

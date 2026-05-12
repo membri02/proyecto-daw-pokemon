@@ -16,7 +16,6 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Require auth and specific email
         if (!Auth::check() || Auth::user()->email !== 'admin@pokemon.com') {
             return redirect('/')->with('error', 'Acceso denegado. Se requieren permisos de administrador.');
         }

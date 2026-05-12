@@ -20,7 +20,7 @@ class CartasSeeder extends Seeder
                 }
             }
         } catch (\Exception $e) {
-            // Falla silenciosa, usamos el fallback
+
         }
         return ucfirst(str_replace('-', ' ', $defaultNombre));
     }
@@ -48,10 +48,8 @@ class CartasSeeder extends Seeder
             $nombre = ucfirst($pokemon['name']);
             $imagen_url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{$id}.png";
 
-            // ¡Magia aquí! Entramos a la URL de cada Pokémon para diseccionarlo y llenar la carta
             $detalles = Http::withoutVerifying()->get($pokemon['url'])->json();
             
-            // Extracción nativa Multi-Tipo para Cartas Duales
             $tiposExtraidos = [];
             foreach ($detalles['types'] as $t) {
                 $nombreIngles = $t['type']['name'];
@@ -59,13 +57,11 @@ class CartasSeeder extends Seeder
             }
             $tipo = implode('/', $tiposExtraidos);
 
-            // Mapeo exhaustivo TCG
             $hp = collect($detalles['stats'])->firstWhere('stat.name', 'hp')['base_stat'] ?? 60;
-            $altura = ($detalles['height'] ?? 10) / 10; // PokeAPI devuelve decímetros, lo pasamos a metros
-            $peso = ($detalles['weight'] ?? 100) / 10;  // PokeAPI devuelve hectogramos, pasamos a kg
+            $altura = ($detalles['height'] ?? 10) / 10;
+            $peso = ($detalles['weight'] ?? 100) / 10;
             $base_exp = $detalles['base_experience'] ?? 0;
 
-            // Extraemos 2 ataques limpios buscando su versión en Español
             $ataque1_name = 'Placaje';
             if (isset($detalles['moves'][0])) {
                 $ataque1_name = $this->obtenerNombreAtaqueEs($detalles['moves'][0]['move']['url'], $detalles['moves'][0]['move']['name']);
@@ -78,7 +74,6 @@ class CartasSeeder extends Seeder
             }
             $ataque2_damage = $ataque2_name ? rand(20, 80) : null;
 
-            // Algoritmo de Rareza Dinámica 
             $es_legendario = in_array($id, $legendarios_ids);
             $es_holo = false;
 
@@ -91,7 +86,6 @@ class CartasSeeder extends Seeder
                 $rareza = rand(1, 100) <= 70 ? 'Común' : 'Infrecuente';
             }
 
-            // Inserción segura para evitar duplicados en ejecuciones sin Refresh
             Carta::updateOrCreate(
                 ['nombre' => $nombre],
                 [
@@ -111,7 +105,7 @@ class CartasSeeder extends Seeder
                 ]
             );
 
-            // Eliminado usleep para evitar Timeouts de XAMPP. La PokeAPI aguanta 151 requests sin despeinarse.
+
         }
 
         $this->command->info('¡Sincronización TCG completada y cartas inyectadas!');

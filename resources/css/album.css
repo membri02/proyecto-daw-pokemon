@@ -8,7 +8,6 @@
     color: #1e293b;
     border-radius: 12px;
 }
-
 .album-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -16,14 +15,12 @@
     padding-bottom: 2rem;
     color: var(--text-main);
 }
-
 .subtitulo {
     color: #1e293b;
     font-size: 1.2rem;
     font-weight: 700;
     margin-top: 0.5rem;
 }
-
 .titulo-pokemon {
     font-size: 3rem;
     color: var(--text-main);
@@ -33,7 +30,6 @@
     font-weight: 900;
     text-shadow: 2px 2px 0 var(--shadow-color);
 }
-
 .badge-count {
     background: #e74c3c;
     padding: 5px 15px;
@@ -41,8 +37,6 @@
     font-weight: bold;
     color: white;
 }
-
-/* Estado Vacío */
 .empty-state {
     text-align: center;
     margin-top: 5rem;
@@ -51,13 +45,11 @@
     border-radius: 12px;
     border: 1px solid var(--border-color);
 }
-
 .empty-state img {
     width: 100px;
     opacity: 0.5;
     margin-bottom: 1rem;
 }
-
 .empty-state .btn-primary-tcg {
     display: inline-block;
     margin-top: 2rem;
@@ -68,8 +60,6 @@
     border-radius: 8px;
     font-weight: bold;
 }
-
-/* Grid del Archivador */
 .binder-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -79,23 +69,15 @@
     border-radius: 12px;
     border: 1px solid var(--border-color);
 }
-
 .card-slot {
     flex-direction: column;
     align-items: center;
-    overflow: visible; /* Permitir que los pokemon legendarios sobresalgan */
+    overflow: visible; 
 }
-
 .card-slot:hover {
     transform: translateY(-10px) scale(1.05);
     z-index: 10;
 }
-
-
-
-
-
-/* Imagen e Info de la carta */
 .pokemon-art {
     width: 120px;
     height: 120px;
@@ -105,7 +87,6 @@
     position: relative;
     z-index: 2;
 }
-
 .card-info {
     text-align: center;
     width: 100%;
@@ -114,7 +95,6 @@
     position: relative;
     z-index: 2;
 }
-
 .pokemon-name {
     display: block;
     font-weight: 800;
@@ -122,13 +102,11 @@
     letter-spacing: 1px;
     color: var(--text-main);
 }
-
 .pokemon-rarity {
     font-size: 0.8rem;
     color: var(--text-muted);
     font-style: italic;
 }
-
 .card-type-badge {
     position: absolute;
     top: 10px;
@@ -142,8 +120,6 @@
     text-transform: uppercase;
     z-index: 2;
 }
-
-/* Mini etiquetas de tipo */
 .type-fuego { background: #e74c3c; }
 .type-agua { background: #3498db; }
 .type-planta { background: #2ecc71; }

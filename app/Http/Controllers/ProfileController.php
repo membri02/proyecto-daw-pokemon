@@ -12,10 +12,8 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         
-        // Calcular cartas únicas basadas en el carta_id
         $cartas_unicas = $user->cartas()->distinct('carta_id')->count('carta_id');
         
-        // Base de la primera generación
         $total_cartas = 151;
         
         $progreso = 0;
@@ -32,7 +30,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|string|min:8|confirmed', // requiere un campo new_password_confirmation
+            'new_password' => 'required|string|min:8|confirmed',
         ]);
 
         if (!Hash::check($request->current_password, $user->password)) {

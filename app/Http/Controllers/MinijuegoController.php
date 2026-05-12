@@ -54,14 +54,13 @@ class MinijuegoController extends Controller
         }
 
         $request->validate([
-            'amount' => 'required|integer|min:-200|max:200', // Permitir sumas y restas
+            'amount' => 'required|integer|min:-200|max:200',
             'game' => 'required|string'
         ]);
 
         $monedas = $request->amount;
         $user = $request->user();
 
-        // Actualizar base de datos
         if ($monedas > 0) {
             $user->increment('monedas', $monedas);
         } else if ($monedas < 0) {
@@ -75,7 +74,6 @@ class MinijuegoController extends Controller
         
         $user->refresh();
 
-        // Limpiar caché
         \Illuminate\Support\Facades\Cache::forget('coleccion_usuario_' . $user->id);
 
         $mensaje = $monedas > 0 

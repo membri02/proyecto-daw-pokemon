@@ -14,7 +14,6 @@
     
     <x-navbar />
 
-    {{-- Pika-Guide must be before @yield so window.pikaGuide is defined before page scripts --}}
     <x-pika-guide />
 
     <main class="container">

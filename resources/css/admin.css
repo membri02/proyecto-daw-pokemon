@@ -1,4 +1,4 @@
-/* admin.css - Estilos minimalistas para el Panel de Administración */
+
 .admin-wrapper {
     padding: 3rem 1.5rem;
     max-width: 1200px; 
@@ -8,7 +8,6 @@
     min-height: calc(100vh - 70px);
     color: #1e293b;
 }
-
 .admin-header {
     margin-bottom: 2.5rem;
     padding-bottom: 1rem;
@@ -17,15 +16,12 @@
     justify-content: space-between;
     align-items: center;
 }
-
 .admin-title {
     font-size: 2.2rem;
     color: #1e293b;
     margin: 0;
     font-weight: 800;
 }
-
-/* Flash Messages */
 .admin-alert {
     padding: 15px 20px;
     border-radius: 8px;
@@ -45,15 +41,12 @@
     color: #991b1b;
     border: 1px solid #ef4444;
 }
-
-/* Dashboard Cards */
 .admin-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
 }
-
 .stat-card {
     background: #ffffff;
     border-radius: 12px;
@@ -68,7 +61,6 @@
 .stat-card:hover {
     transform: translateY(-5px);
 }
-
 .stat-icon {
     width: 60px;
     height: 60px;
@@ -81,7 +73,6 @@
 .stat-icon img {
     width: 35px;
 }
-
 .stat-info h3 {
     margin: 0;
     color: #64748b;
@@ -95,8 +86,6 @@
     color: #0f172a;
     margin-top: 0.2rem;
 }
-
-/* Botones Administrativos */
 .btn-admin {
     display: inline-block;
     padding: 10px 20px;
@@ -110,7 +99,7 @@
     font-size: 0.95rem;
 }
 .btn-admin-primary {
-    background: #2a75bb; /* Azul Pokémon */
+    background: #2a75bb; 
     color: #ffffff;
 }
 .btn-admin-primary:hover {
@@ -137,8 +126,6 @@
 .btn-admin-secondary:hover {
     background: #cbd5e1;
 }
-
-/* Tabla de Administración */
 .admin-table-container {
     background: #ffffff;
     border-radius: 12px;
@@ -147,12 +134,10 @@
     overflow: hidden;
     margin-bottom: 2rem;
 }
-
 .admin-table {
     width: 100%;
     border-collapse: collapse;
 }
-
 .admin-table th {
     background: #f8fafc;
     color: #475569;
@@ -164,24 +149,19 @@
     font-size: 0.85rem;
     letter-spacing: 0.5px;
 }
-
 .admin-table td {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #e2e8f0;
     color: #1e293b;
     vertical-align: middle;
 }
-
 .admin-table tr:hover td {
     background: #f1f5f9;
 }
-
 .admin-table .actions {
     display: flex;
     gap: 10px;
 }
-
-/* Formularios Administrativos */
 .admin-form-card {
     background: #ffffff;
     border-radius: 12px;
@@ -191,18 +171,15 @@
     max-width: 600px;
     margin: 0 auto;
 }
-
 .admin-form-group {
     margin-bottom: 1.5rem;
 }
-
 .admin-form-group label {
     display: block;
     font-weight: 700;
     color: #334155;
     margin-bottom: 0.5rem;
 }
-
 .admin-form-control {
     width: 100%;
     padding: 12px 15px;
@@ -214,13 +191,11 @@
     box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
-
 .admin-form-control:focus {
     outline: none;
     border-color: #2a75bb;
     box-shadow: 0 0 0 3px rgba(42, 117, 187, 0.15);
 }
-
 .admin-form-actions {
     display: flex;
     gap: 15px;

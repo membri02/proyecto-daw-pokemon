@@ -1,11 +1,8 @@
-/* Welcome page uses the global theme variables.
-   Local palette for colors NOT covered by globals: */
-:root {
-    --wp-primary: #3c5aa6;  /* Azul Pokémon */
-    --wp-accent:  #ffcb05;  /* Amarillo Pokémon */
-}
 
-/* Clases de Animación Scroll (Intersection Observer) */
+:root {
+    --wp-primary: #3c5aa6;  
+    --wp-accent:  #ffcb05;  
+}
 .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -15,8 +12,6 @@
     opacity: 1;
     transform: translateY(0);
 }
-
-/* Tipografía Global */
 .section-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -30,8 +25,6 @@
     color: var(--text-muted);
     font-size: 1.1rem;
 }
-
-/* --- HERO SECTION --- */
 .hero-section {
     min-height: 80vh;
     display: flex;
@@ -42,12 +35,10 @@
     margin: 0 auto;
     gap: 3rem;
 }
-
 .hero-content {
     flex: 1;
     max-width: 600px;
 }
-
 .badge-tech {
     background: rgba(255, 203, 5, 0.1);
     color: var(--accent);
@@ -59,20 +50,17 @@
     display: inline-block;
     margin-bottom: 1.5rem;
 }
-
 .hero-title {
     font-size: 4rem;
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: 1.5rem;
 }
-
 .text-gradient {
     background: linear-gradient(135deg, #ffcb05, #ff9900);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 .hero-subtitle {
     font-size: 1.2rem;
     color: #334155;
@@ -80,12 +68,10 @@
     margin-bottom: 2.5rem;
     font-weight: 500;
 }
-
 .hero-cta {
     display: flex;
     gap: 1.5rem;
 }
-
 .btn-primary-modern, .btn-secondary-modern {
     padding: 12px 28px;
     border-radius: 8px;
@@ -94,7 +80,6 @@
     transition: all 0.3s ease;
     font-size: 1.1rem;
 }
-
 .btn-primary-modern {
     background: #ffcb05; 
     color: #1e293b;
@@ -107,7 +92,6 @@
     background: #f5b000;
     border-color: #f5b000;
 }
-
 .btn-secondary-modern {
     background: transparent;
     color: #1e293b;
@@ -117,7 +101,6 @@
     border-color: #94a3b8;
     background: rgba(0,0,0,0.05);
 }
-
 .hero-visual {
     flex: 1;
     position: relative;
@@ -125,7 +108,6 @@
     justify-content: center;
     align-items: center;
 }
-
 .glow-circle {
     position: absolute;
     width: 400px;
@@ -134,7 +116,6 @@
     border-radius: 50%;
     z-index: 0;
 }
-
 .floating-pokemon {
     width: 100%;
     max-width: 450px;
@@ -143,18 +124,14 @@
     animation: float 6s ease-in-out infinite;
     filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
 }
-
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
 }
-
-/* --- FEATURES SECTION --- */
 .features-section {
     padding: 6rem 5%;
     background: #f1f5f9;
 }
-
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -162,7 +139,6 @@
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .feature-card {
     background: #ffffff;
     padding: 2.5rem;
@@ -175,7 +151,6 @@
     transform: translateY(-10px);
     border-color: rgba(255,203,5,0.3);
 }
-
 .feature-icon {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
@@ -188,8 +163,6 @@
     color: var(--text-muted);
     line-height: 1.5;
 }
-
-/* --- CONTEXT SECTION --- */
 .context-section {
     display: flex;
     align-items: center;
@@ -198,19 +171,16 @@
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .context-visual {
     flex: 1;
     position: relative;
 }
-
 .context-img {
     width: 100%;
     border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     border: 1px solid var(--border-color);
 }
-
 .location-badge {
     position: absolute;
     bottom: -15px;
@@ -226,7 +196,6 @@
     align-items: center;
     gap: 8px;
 }
-
 .context-content {
     flex: 1;
 }
@@ -240,20 +209,16 @@
     line-height: 1.7;
     margin-bottom: 1.5rem;
 }
-
-/* --- TEAM SECTION --- */
 .team-section {
     padding: 6rem 5%;
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
 }
-
 .team-card {
     background: var(--card-bg);
     padding: 3rem 2rem;
@@ -268,7 +233,6 @@
     top: 0; left: 0; width: 100%; height: 4px;
     background: linear-gradient(90deg, var(--primary), var(--accent));
 }
-
 .team-avatar {
     width: 80px;
     height: 80px;
@@ -283,7 +247,6 @@
     margin: 0 auto 1.5rem;
     border: 3px solid #cbd5e1;
 }
-
 .team-card h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
@@ -302,8 +265,6 @@
     font-size: 0.95rem;
     line-height: 1.6;
 }
-
-/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 992px) {
     .hero-section, .context-section {
         flex-direction: column;
@@ -313,14 +274,10 @@
     .hero-cta { justify-content: center; }
     .location-badge { bottom: 20px; right: 20px; }
 }
-
 @media (max-width: 480px) {
     .hero-cta { flex-direction: column; }
     .hero-title { font-size: 2.5rem; }
 }
-
-
-/* --- CONTRASTE HERO Y SECCIONES (modo claro permanente) --- */
 .hero-title {
     color: #1e293b;
 }

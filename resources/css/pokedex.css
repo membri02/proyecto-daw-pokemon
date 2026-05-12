@@ -1,4 +1,4 @@
-/* Pokédex — Modo Claro */
+
 .pk-card {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
@@ -8,7 +8,6 @@
 .pk-card small {
     color: #64748b;
 }
-/* Barra de búsqueda */
 .search-box {
     margin-bottom: 2.5rem;
     display: flex;
